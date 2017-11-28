@@ -6,6 +6,16 @@ services:
        dockerfile: Dockerfile
      volumes:
        - ./:/var/lib/eventkit/
+       - ./package.json:/var/lib/eventkit/package.json
+       - ./webpack.config.js:/var/lib/eventkit/webpack.config.js
+       - ./config.js:/var/lib/eventkit/app/config.js
+       - ./index.js:/var/lib/eventkit/app/index.js
+       - ./app:/var/lib/eventkit/app/
+       - ./static:/var/lib/eventkit/static/
+       - ./docker-compose:/var/lib/eventkit/docker-compose.yml
+       - ./Dockerfile:/var/lib/eventkit/Dockerfile
+       - ./index.html:/var/lib/eventkit/index.html
+
      ports:
         - "8080:8080"
 

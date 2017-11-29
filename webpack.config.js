@@ -85,7 +85,7 @@ var config = {
         watchContentBase: true,
         publicPath: BUILD_DIR,
         host: "0.0.0.0",
-        port: 8080,
+        port: 7080,
         historyApiFallback: true,
         disableHostCheck: true,
         watchOptions: {
@@ -103,7 +103,7 @@ if (PROD) {
         sourceMap: false,
     }));
 } else {
-    config.entry.app.push('webpack-dev-server/client?http://0.0.0.0:8080')
+    config.entry.app.push('webpack-dev-server/client?http://0.0.0.0:7080')
     config.plugins.push(new webpack.HotModuleReplacementPlugin());
     config.devtool = 'inline-source-map';
 }

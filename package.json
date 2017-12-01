@@ -49,7 +49,9 @@
     "style-loader": "0.19.0",
     "uglifyjs-webpack-plugin": "1.0.1",
     "webpack": "3.8.1",
+    "webpack-bundle-analyzer":"~2.9.0",
     "webpack-dev-server": "2.9.3",
+	"write-file-webpack-plugin": "~4.0.2",
     "xmldom": "^0.1.27"
   },
   "dependencies": {
@@ -122,16 +124,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/venicegeo/eventkit-cloud.git"
+    "url": "git+https://github.com/venicegeo/eventkit-viewer.git"
   },
   "keywords": [
     "eventkit",
-    "eventkit_cloud"
+    "eventkit_viewer"
   ],
   "author": "jsvrcek",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/venicegeo/eventkit-cloud/issues"
+    "url": "https://github.com/venicegeo/eventkit-viewer/issues"
   },
-  "homepage": "https://github.com/venicegeo/eventkit-cloud#readme"
+  "homepage": "https://github.com/venicegeo/eventkit-viewer#readme"
 }

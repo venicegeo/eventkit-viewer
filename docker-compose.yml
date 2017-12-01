@@ -1,11 +1,15 @@
 version: '3'
 services:
-  sdk:
+  viewer:
      build:
        context: .
        dockerfile: Dockerfile
      volumes:
-       - ./:/var/lib/eventkit/
+       - ./package.json:/var/lib/eventkit/package.json
+       - ./webpack.config.js:/var/lib/eventkit/webpack.config.js
+       - ./app:/var/lib/eventkit/app:ro
+       - ./static:/var/lib/eventkit/static:ro
+       - ./index.html:/var/lib/eventkit/index.html:ro
      ports:
         - "7080:7080"
 

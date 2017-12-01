@@ -7,3 +7,4 @@ apt-get purge lxc-docker
 apt-cache policy docker-engine
 apt-get update
 apt-get -y install linux-image-extra-$(uname -r) linux-image-extra-virtual
+echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p

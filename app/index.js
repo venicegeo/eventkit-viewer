@@ -1,10 +1,3 @@
-/** Version of the basic application example but using EPSG:4326.
- *
- *  Contains a Map and demonstrates some of the dynamics of
- *  using the store.
- *
- */
-
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 import thunkMiddleware from 'redux-thunk';
 
@@ -14,12 +7,10 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 
 import SdkMap from '@boundlessgeo/sdk/components/map';
-import SdkHashHistory from '@boundlessgeo/sdk/components/history';
 import SdkMapReducer from '@boundlessgeo/sdk/reducers/map';
-import SdkZoomControl from '@boundlessgeo/sdk/components/map/zoom-control';
 import * as mapActions from '@boundlessgeo/sdk/actions/map';
 
-// // This will have webpack include all of the SDK styles.
+// This will have webpack include all of the SDK styles.
 // import '@boundlessgeo/sdk/stylesheet/sdk.scss';
 
 /* eslint-disable no-underscore-dangle */
@@ -30,8 +21,6 @@ applyMiddleware(thunkMiddleware));
 
 
 function main() {
-  // Start with a reasonable global view of the map.
-  store.dispatch(mapActions.setView([-93, 45], 2));
 
   store.dispatch(mapActions.setMapName('Basic Map Example'));
 
@@ -73,103 +62,11 @@ function main() {
     },
   }));
 
-  // Show null island as a layer.
-  store.dispatch(mapActions.addLayer({
-    id: 'null-island',
-    source: 'points',
-    type: 'circle',
-    paint: {
-      'circle-radius': 3,
-      'circle-color': '#feb24c',
-      'circle-stroke-color': '#f03b20',
-    },
-    filter: ['!=', 'isRandom', true],
-  }));
-
-  // The points source has both null island
-  // and random points on it. This layer
-  // will style all random points as purple instead
-  // of orange.
-  store.dispatch(mapActions.addLayer({
-    id: 'random-points',
-    source: 'points',
-    type: 'circle',
-    paint: {
-      'circle-radius': 5,
-      'circle-color': '#756bb1',
-      'circle-stroke-color': '#756bb1',
-    },
-    filter: ['==', 'isRandom', true],
-  }));
-
-  // test the placement of an image on the map.
-  store.dispatch(mapActions.addSource('overlay', {
-    type: 'image',
-    url: 'https://www.mapbox.com/mapbox-gl-js/assets/radar.gif',
-    coordinates: [
-      [-80.425, 46.437],
-      [-71.516, 46.437],
-      [-71.516, 37.936],
-      [-80.425, 37.936],
-    ],
-  }));
-
-  store.dispatch(mapActions.addLayer({
-    id: 'overlay',
-    source: 'overlay',
-    type: 'raster',
-    paint: {'raster-opacity': 0.85},
-  }));
-
-  // This doesn't do anything particularly impressive
-  // other than recenter the map on null-island.
-  const zoomToNullIsland = () => {
-    store.dispatch(mapActions.setView([0, 0], 5));
-  };
-
-  // Add a random point to the map
-  const addRandomPoints = () => {
-    // loop over adding a point to the map.
-    for (let i = 0; i < 10; i++) {
-      // the feature is a normal GeoJSON feature definition,
-      // 'points' referes to the SOURCE which will get the feature.
-      store.dispatch(mapActions.addFeatures('points', [{
-        type: 'Feature',
-        properties: {
-          title: 'Random Point',
-          isRandom: true,
-        },
-        geometry: {
-          type: 'Point',
-          // this generates a point somewhere on the planet, unbounded.
-          coordinates: [(Math.random() * 360) - 180, (Math.random() * 180) - 90],
-        },
-      }]));
-    }
-  };
-
-  // Removing features uses Mapbox GL Spec filters.
-  const removeRandomPoints = () => {
-    store.dispatch(mapActions.removeFeatures('points', ['==', 'isRandom', true]));
-  };
   // place the map on the page.
   ReactDOM.render(<Provider store={store}>
     <SdkMap projection="EPSG:4326">
-      <SdkZoomControl />
     </SdkMap>
   </Provider>, document.getElementById('map'));
-
-  // add some buttons to demo some actions.
-  ReactDOM.render((
-    <div>
-      <h3>Try it out</h3>
-      <button className="sdk-btn" onClick={zoomToNullIsland}>Zoom to Null Island</button>
-      <button className="sdk-btn" onClick={addRandomPoints}>Add 10 random points</button>
-      <button className="sdk-btn blue" onClick={removeRandomPoints}>Remove random points</button>
-
-      <SdkHashHistory store={store} />
-    </div>
-  ), document.getElementById('root'));
 }
 
 main();

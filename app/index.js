@@ -6,6 +6,10 @@ import SdkMap from '@boundlessgeo/sdk/components/map';
 //import SdkMapReducer from '@boundlessgeo/sdk/reducers/map';
 import * as mapActions from '@boundlessgeo/sdk/actions/map';
 import configureStore from './store/configureStore';
+import logo from './images/eventkit-logo.1.png';
+import AppBar from 'material-ui/AppBar'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // This will have webpack include all of the SDK styles.
 // import '@boundlessgeo/sdk/stylesheet/sdk.scss';
 
@@ -14,6 +18,15 @@ import configureStore from './store/configureStore';
 //   map: SdkMapReducer,
 // }), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 // applyMiddleware(thunkMiddleware));
+const muiTheme = getMuiTheme({
+    datePicker: {
+        selectColor: '#253447',
+    },
+    flatButton: {
+        textColor: '#253447',
+        primaryTextColor: '#253447'
+    },
+});
 
 const store = configureStore();
 
@@ -58,11 +71,34 @@ function main() {
       },
     },
   }));
+    const styles = {
+        appBar: {
+            backgroundColor: 'black',
+            height: '70px',
+
+        },
+        img: {
+            position: 'absolute',
+            left: '50%',
+            marginLeft: '-127px',
+            marginTop: '10px',
+            height: '50px'
+        },
+    }
+    const img = <img style={styles.img} src={logo}/>
 
   // place the map on the page.
   ReactDOM.render(<Provider store={store}>
+      <MuiThemeProvider muiTheme={muiTheme}>
     <SdkMap projection="EPSG:4326">
+        <AppBar
+            className={'qa-Application-AppBar'}
+            style={styles.appBar}
+            title={img}
+            showMenuIconButton={false}
+        />
     </SdkMap>
+      </MuiThemeProvider>
   </Provider>, document.getElementById('map'));
 }
 

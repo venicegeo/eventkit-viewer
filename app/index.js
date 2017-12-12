@@ -10,12 +10,17 @@ import thunkMiddleware from 'redux-thunk';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import {Provider} from 'react-redux';
 
+import Zoom from 'ol/control/zoom';
+
+import logo from './images/eventkit-logo.1.png';
+import AppBar from 'material-ui/AppBar'
 import SdkMap from '@boundlessgeo/sdk/components/map';
 import SdkZoomControl from '@boundlessgeo/sdk/components/map/zoom-control';
 import SdkMapReducer from '@boundlessgeo/sdk/reducers/map';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import SdkTable from './table';
 
@@ -35,7 +40,30 @@ const store = createStore(combineReducers({
     }), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
     applyMiddleware(thunkMiddleware));
 
+const muiTheme = getMuiTheme({
+    datePicker: {
+        selectColor: '#253447',
+    },
+    flatButton: {
+        textColor: '#253447',
+        primaryTextColor: '#253447'
+    },
+});
+const img = <img style={{position: 'absolute', left: '50%', marginLeft: '-127px', marginTop: '10px', height: '50px'}} src={logo}/>
+
+    const styles = {
+    appBar: {
+    backgroundColor: 'black',
+    height: '70px',
+    top: '0px'
+},
+
+}
+
+
 function main() {
+
+
     // Start with a view of the sample data location
     store.dispatch(mapActions.setView([-93, 45], 2));
 
@@ -79,7 +107,7 @@ function main() {
                 'text-field': '\uf072',
             },
             paint: {
-                'text-color': '#CF5300',
+                'text-color': 'red',
             },
         }));
 
@@ -101,9 +129,17 @@ function main() {
 
     // place the map on the page.
     ReactDOM.render(<Provider store={store}>
+        <MuiThemeProvider muiTheme={muiTheme}>
         <SdkMap>
-            <SdkZoomControl />
+            <AppBar
+                className={'qa-Application-AppBar'}
+                style={styles.appBar}
+                title={img}
+                showMenuIconButton={false}
+            />
+            <SdkZoomControl/>
         </SdkMap>
+        </MuiThemeProvider>
     </Provider>, document.getElementById('map'));
 
     // place the table on the page.

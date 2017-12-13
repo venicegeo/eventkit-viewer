@@ -1,0 +1,21 @@
+div.map {
+    position: absolute;
+    margin-top: 0px;
+    margin-left: 0px;
+    bottom: 0px;
+    height: calc(100% - 180px);
+}
+.zoom {
+    z-index: 3;
+    top: 50px;
+    left: 10px;
+    color: #66a3ff;
+    background-color: white;
+}
+.zoom button {
+    color: #4498c0;
+    background-color: white;
+    outline: none;
+    height: 22px;
+    width: 22px;
+}

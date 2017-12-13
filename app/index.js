@@ -12,10 +12,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 
-import Zoom from 'ol/control/zoom';
-
 import logo from './images/eventkit-logo.1.png';
 import AppBar from 'material-ui/AppBar'
+import mapCss from './styles/map.css'
 import SdkMap from '@boundlessgeo/sdk/components/map';
 import SdkZoomControl from '@boundlessgeo/sdk/components/map/zoom-control';
 import SdkMapReducer from '@boundlessgeo/sdk/reducers/map';
@@ -49,16 +48,10 @@ const muiTheme = getMuiTheme({
         primaryTextColor: '#253447'
     },
 });
-const img = <img style={{position: 'absolute', left: '50%', marginLeft: '-127px', marginTop: '10px', height: '50px'}} src={logo}/>
+const img = <img style={{position: 'absolute', marginLeft: '0px', marginTop: '10px', height: '50px'}} src={logo}/>
 
-    const styles = {
-    appBar: {
-    backgroundColor: 'black',
-    height: '70px',
-    top: '0px'
-},
+const map = { center: [0, 0], zoom: 15, bearing: 0, metadata: {}, layers: [], sources: {}, sprite: undefined}
 
-}
 
 
 function main() {
@@ -130,15 +123,21 @@ function main() {
     // place the map on the page.
     ReactDOM.render(<Provider store={store}>
         <MuiThemeProvider muiTheme={muiTheme}>
-        <SdkMap>
-            <AppBar
-                className={'qa-Application-AppBar'}
-                style={styles.appBar}
-                title={img}
-                showMenuIconButton={false}
-            />
-            <SdkZoomControl/>
+
+        <SdkMap map={map} style={{width: '100%', height:'100%'}}>
+            {/*<AppBar*/}
+                {/*className={'qa-Application-AppBar'}*/}
+                {/*style={styles.appBar}*/}
+                {/*title={img}*/}
+                {/*showMenuIconButton={false}*/}
+            {/*/>*/}
+
+            <img style={{ marginLeft: '10px', height: '50px', marginTop:'10px'}} src={logo}/>
+
+            <SdkZoomControl style={{position: 'absolute', zIndex:'3', marginTop:'7px', marginLeft:'10px'}}
+               />
         </SdkMap>
+
         </MuiThemeProvider>
     </Provider>, document.getElementById('map'));
 
@@ -148,9 +147,9 @@ function main() {
     // add some buttons to demo some actions.
     ReactDOM.render((
         <div>
-            <h3>Try it out</h3>
+            <h3 style={{color:'white'}}>Try it out</h3>
             <button className="sdk-btn" onClick={runFetchGeoJSON}>Fetch Data</button>
-            <div>
+            <div style={{backgroundColor:'white'}}>
                 <SdkTable store={store} />
             </div>
         </div>

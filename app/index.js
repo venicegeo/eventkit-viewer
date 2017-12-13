@@ -13,15 +13,15 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 
 import logo from './images/eventkit-logo.1.png';
-import AppBar from 'material-ui/AppBar'
 import mapCss from './styles/map.css'
 import SdkMap from '@boundlessgeo/sdk/components/map';
 import SdkZoomControl from '@boundlessgeo/sdk/components/map/zoom-control';
 import SdkMapReducer from '@boundlessgeo/sdk/reducers/map';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import css from './styles/map.css';
 import SdkTable from './table';
+import DrawerComponent from './components/DrawerComponent';
+
 
 import * as mapActions from '@boundlessgeo/sdk/actions/map';
 
@@ -34,22 +34,16 @@ const store = createStore(combineReducers({
     }), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
     applyMiddleware(thunkMiddleware));
 
-const muiTheme = getMuiTheme({
-    datePicker: {
-        selectColor: '#253447',
-    },
-    flatButton: {
-        textColor: '#253447',
-        primaryTextColor: '#253447'
-    },
-});
-const img = <img style={{position: 'absolute', marginLeft: '0px', marginTop: '10px', height: '50px'}} src={logo}/>
+const muiTheme = getMuiTheme();
+
+const img = <img style={{position: 'absolute', marginLeft: '0px', marginTop: '25px', height: '50px'}} src={logo}/>
 
 const map = {center: [0, 0], zoom: 15, bearing: 0, metadata: {}, layers: [], sources: {}, sprite: undefined}
 
 
 function main() {
 
+    let drawer = false;
 
     // Start with a view of the sample data location
     store.dispatch(mapActions.setView([-93, 45], 2));
@@ -114,22 +108,19 @@ function main() {
         addLayerFromGeoJSON(url, 'dynamic-source');
     };
 
+
+
     // place the map on the page.
     ReactDOM.render(<Provider store={store}>
         <MuiThemeProvider muiTheme={muiTheme}>
 
-            <SdkMap map={map} style={{width: '100%', height: '100%'}}>
-                {/*<AppBar*/}
-                {/*className={'qa-Application-AppBar'}*/}
-                {/*style={styles.appBar}*/}
-                {/*title={img}*/}
-                {/*showMenuIconButton={false}*/}
-                {/*/>*/}
+            <SdkMap map={map} style={mapCss.sdkMap} >
 
-                <img style={{marginLeft: '10px', height: '50px', marginTop: '10px'}} src={logo}/>
+                <img style={{zIndex: '3', height: '50px',position: 'absolute', marginTop: '20px', marginLeft: '5px'}} src={logo}/>
 
-                <SdkZoomControl style={{position: 'absolute', zIndex: '3', marginTop: '7px', marginLeft: '10px'}}
-                />
+                <SdkZoomControl />
+
+                <DrawerComponent/>
             </SdkMap>
 
         </MuiThemeProvider>
@@ -142,17 +133,15 @@ function main() {
 
 // add some buttons to demo some actions.
     ReactDOM.render((
-        <div>
-            <h3>Try it out</h3>
-            <button className="sdk-btn" onClick={runFetchGeoJSON}>Fetch Data</button>
-            <div>
-                <h3 style={{color: 'white'}}>Try it out</h3>
+
+            <div style={{marginTop: '70px'}}>
+                <h3 style={{color: 'black'}}>Try it out</h3>
                 <button className="sdk-btn" onClick={runFetchGeoJSON}>Fetch Data</button>
                 <div style={{backgroundColor: 'white'}}>
                     <SdkTable store={store}/>
                 </div>
             </div>
-        </div>
+
     ), document.getElementById('controls'));
 }
 

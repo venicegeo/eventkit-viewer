@@ -20,18 +20,13 @@ import SdkZoomControl from '@boundlessgeo/sdk/components/map/zoom-control';
 import SdkMapReducer from '@boundlessgeo/sdk/reducers/map';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
+import css from './styles/map.css';
 import SdkTable from './table';
 
 import * as mapActions from '@boundlessgeo/sdk/actions/map';
 
 import fetch from 'isomorphic-fetch';
 
-
-// This will have webpack include all of the SDK styles.
-import '@boundlessgeo/sdk/stylesheet/sdk.scss';
-
-// Use app.css to style current app
 
 /* eslint-disable no-underscore-dangle */
 const store = createStore(combineReducers({
@@ -50,8 +45,7 @@ const muiTheme = getMuiTheme({
 });
 const img = <img style={{position: 'absolute', marginLeft: '0px', marginTop: '10px', height: '50px'}} src={logo}/>
 
-const map = { center: [0, 0], zoom: 15, bearing: 0, metadata: {}, layers: [], sources: {}, sprite: undefined}
-
+const map = {center: [0, 0], zoom: 15, bearing: 0, metadata: {}, layers: [], sources: {}, sprite: undefined}
 
 
 function main() {
@@ -124,33 +118,39 @@ function main() {
     ReactDOM.render(<Provider store={store}>
         <MuiThemeProvider muiTheme={muiTheme}>
 
-        <SdkMap map={map} style={{width: '100%', height:'100%'}}>
-            {/*<AppBar*/}
+            <SdkMap map={map} style={{width: '100%', height: '100%'}}>
+                {/*<AppBar*/}
                 {/*className={'qa-Application-AppBar'}*/}
                 {/*style={styles.appBar}*/}
                 {/*title={img}*/}
                 {/*showMenuIconButton={false}*/}
-            {/*/>*/}
+                {/*/>*/}
 
-            <img style={{ marginLeft: '10px', height: '50px', marginTop:'10px'}} src={logo}/>
+                <img style={{marginLeft: '10px', height: '50px', marginTop: '10px'}} src={logo}/>
 
-            <SdkZoomControl style={{position: 'absolute', zIndex:'3', marginTop:'7px', marginLeft:'10px'}}
-               />
-        </SdkMap>
+                <SdkZoomControl style={{position: 'absolute', zIndex: '3', marginTop: '7px', marginLeft: '10px'}}
+                />
+            </SdkMap>
 
         </MuiThemeProvider>
     </Provider>, document.getElementById('map'));
 
-    // place the table on the page.
-    // ReactDOM.render(<SdkTable store={store} />, document.getElementById('table'));
+// place the table on the page.
+// ReactDOM.render(
+    <SdkTable store={store}/>
+        , document.getElementById('table');
 
-    // add some buttons to demo some actions.
+// add some buttons to demo some actions.
     ReactDOM.render((
         <div>
-            <h3 style={{color:'white'}}>Try it out</h3>
+            <h3>Try it out</h3>
             <button className="sdk-btn" onClick={runFetchGeoJSON}>Fetch Data</button>
-            <div style={{backgroundColor:'white'}}>
-                <SdkTable store={store} />
+            <div>
+                <h3 style={{color: 'white'}}>Try it out</h3>
+                <button className="sdk-btn" onClick={runFetchGeoJSON}>Fetch Data</button>
+                <div style={{backgroundColor: 'white'}}>
+                    <SdkTable store={store}/>
+                </div>
             </div>
         </div>
     ), document.getElementById('controls'));

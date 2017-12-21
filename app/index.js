@@ -21,11 +21,12 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import SdkTable from './table';
 import DrawerComponent from './components/DrawerComponent';
-
-
+import TableComponent from './components/TableComponent';
 import * as mapActions from '@boundlessgeo/sdk/actions/map';
-
 import fetch from 'isomorphic-fetch';
+// Needed for onTouchTap
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
 
 /* eslint-disable no-underscore-dangle */
@@ -42,8 +43,6 @@ const map = {center: [0, 0], zoom: 15, bearing: 0, metadata: {}, layers: [], sou
 
 
 function main() {
-
-    let drawer = false;
 
     // Start with a view of the sample data location
     store.dispatch(mapActions.setView([-93, 45], 2));
@@ -120,7 +119,8 @@ function main() {
 
                 <SdkZoomControl />
 
-                <DrawerComponent/>
+                <DrawerComponent store={store}/>
+                <TableComponent store={store}/>
             </SdkMap>
 
         </MuiThemeProvider>
@@ -134,7 +134,7 @@ function main() {
 // add some buttons to demo some actions.
     ReactDOM.render((
 
-            <div style={{marginTop: '70px'}}>
+            <div style={{marginTop: '80px'}}>
                 <h3 style={{color: 'black'}}>Try it out</h3>
                 <button className="sdk-btn" onClick={runFetchGeoJSON}>Fetch Data</button>
                 <div style={{backgroundColor: 'white'}}>

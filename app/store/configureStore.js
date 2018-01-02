@@ -4,17 +4,15 @@ import createLogger from 'redux-logger'
 import rootReducer from '../reducers/rootReducer'
 
 let middleware = [thunkMiddleware];
+const logger = createLogger();
+middleware = [...middleware, logger];
 
-if (process.env.NODE_ENV !== 'production') {
-    const logger = createLogger();
-    middleware = [...middleware, logger];
-}
 
 export default () => {
     return createStore(
         rootReducer,
         applyMiddleware(...middleware)
-    );
+    , window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 }
 
 

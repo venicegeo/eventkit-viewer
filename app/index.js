@@ -14,17 +14,9 @@ import MainMap from './components/MainMap'
 // Needed for onTouchTap
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
+
 const store = configureStore();
-
-// /* eslint-disable no-underscore-dangle */
-// const store = createStore(combineReducers({
-//         map: SdkMapReducer,
-//     }), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-//     applyMiddleware(thunkMiddleware));
-
 const muiTheme = getMuiTheme();
-
-
 
     render(
             <Provider store={store}>
@@ -35,7 +27,3 @@ const muiTheme = getMuiTheme();
 
                 </MuiThemeProvider>
             </Provider>, document.getElementById('map'));
-
-
-
-

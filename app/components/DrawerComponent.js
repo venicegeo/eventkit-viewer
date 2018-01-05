@@ -6,6 +6,7 @@ import Drawer from 'material-ui/Drawer';
 import Checkbox from 'material-ui/Checkbox';
 import Layers from 'material-ui/svg-icons/maps/layers';
 import Close from 'material-ui/svg-icons/navigation/close';
+import ZoomIn from 'material-ui/svg-icons/action/zoom-in';
 import FlatButton from 'material-ui/FlatButton';
 import { ExpandableBottomSheet } from 'material-ui-bottom-sheet';
 import { List, ListItem, Subheader, Tabs, Tab, FloatingActionButton, RaisedButton } from 'material-ui'
@@ -36,7 +37,8 @@ export class DrawerComponent extends Component {
             value: 'a',
             selectedSource: '',
             editRow: -1,
-            editRecord: {}
+            editRecord: {},
+            layers: [],
         }
     }
 
@@ -45,9 +47,8 @@ export class DrawerComponent extends Component {
     }
 
     componentDidMount() {
-
-            const url = '../app/data/airports.json';
-            this.addLayerFromGeoJSON(url, 'dynamic-source');
+        const url = '../app/data/airports.json';
+        this.addLayerFromGeoJSON(url, 'dynamic-source');
     }
 
     componentWillUnmount() {
@@ -97,7 +98,7 @@ export class DrawerComponent extends Component {
     }
 
     handleSheetOpen() {
-        this.setState({drawer: false, isOpen: true});
+        this.setState({drawer: false, isOpen: true, selectedSource:'dynamic-source'});
     }
 
     handleSheetClose() {
@@ -124,6 +125,11 @@ export class DrawerComponent extends Component {
         this.setState({
             value: value
         });
+    }
+
+    zoomToFeature(feature){
+        let coords = feature.geometry.coordinates;
+        this.props.setView(coords, 10)
     }
 
     // Next few functions are all about building the feature Table
@@ -155,9 +161,9 @@ export class DrawerComponent extends Component {
             return;
         }
         for (let i = 0, ii = properties.length; i < ii; i++) {
-            th.push(<th key={properties[i]}>{properties[i]}</th>);
+            th.push(<th style={{textAlign:'left'}} key={properties[i]}>{properties[i]}</th>);
         }
-        return (<thead><tr>{th}</tr></thead>);
+        return (<thead><tr style={{height: '20px', width:'100%', paddingLeft:'10px', paddingRight:'10px'}}>{th}</tr></thead>);
     }
 
     updateRow(rowNumber) {
@@ -226,17 +232,43 @@ export class DrawerComponent extends Component {
                     </a>
                 </div>
             );
-            row.push(<td key={properties.length + 1}>
+
+            row.push(<td style={{width:'50px'}} key={properties.length + 1}>
                 {this.state.editRow !== -1 || <i className="fa fa-pencil" onClick={() => this.setState({editRow: i})}></i>}
                 {this.state.editRow !== i || editControls}
             </td>);
+
+            row.push(<td>
+                <a>
+                <ZoomIn onClick={() => this.zoomToFeature(features[i])}></ZoomIn>
+                </a>
+            </td>)
             // add the features properties to the list
-            body.push(<tr key={i}>{row}</tr>);
+            body.push(<tr style={{height: '20px', width:'100%', paddingLeft:'10px', paddingRight:'10px'}} key={i}>{row}</tr>);
             // Reset the row
             row = [];
         }
         // Return the body
         return (<tbody>{body}</tbody>);
+    }
+
+    onChangeCheck(e) {
+        // current array of providers
+        const layers = this.state.layers;
+
+        let index;
+        // check if the check box is checked or unchecked
+        if (e.target.checked) {
+            // add the provider to the array
+            layers.push(e.target.name);
+            this.setState({layers})
+
+        } else {
+            // or remove the value from the unchecked checkbox from the array
+            index = layers.map(x => x.name).indexOf(e.target.name);
+            layers.splice(index, 1);
+            this.setState({layers})
+        }
     }
 
 
@@ -314,17 +346,18 @@ export class DrawerComponent extends Component {
                             <Subheader style={{color:'white', fontSize:'20px'}}>Layers</Subheader>
                             <ListItem
                                 style={{color:'white'}}
-                                leftCheckbox={<Checkbox  iconStyle={{fill: 'white'}} />}
+                                leftCheckbox={<Checkbox name="Airports" onCheck={this.onChangeCheck.bind(this)} iconStyle={{fill: 'white'}} />}
                                 primaryText="Airports"
+
                             />
                             <ListItem
                                 style={{color:'white'}}
-                                leftCheckbox={<Checkbox iconStyle={{fill: 'white'}}/>}
+                                leftCheckbox={<Checkbox name='Police Stations' onCheck={this.onChangeCheck.bind(this)} iconStyle={{fill: 'white'}}/>}
                                 primaryText="Police Stations"
                             />
                             <ListItem
                                 style={{color:'white'}}
-                                leftCheckbox={<Checkbox iconStyle={{fill:'white'}}/>}
+                                leftCheckbox={<Checkbox name="Fire Stations" onCheck={this.onChangeCheck.bind(this)} iconStyle={{fill:'white'}}/>}
                                 primaryText="Fire Stations"
                             />
                         </List>
@@ -357,14 +390,14 @@ export class DrawerComponent extends Component {
             >
                 <Tab label="Airports" value="a">
                     <div className="feature-table">
-                        <div className='table-header'>
-                            <select className="input-control" name='key' value={this.state.selectedSource} onChange={(key) => this.setState({selectedSource: key.target.value})}>
-                                <option value="">Select Source</option>
-                                {layerIds}
-                            </select>
-                        </div>
+                        {/*<div className='table-header'>*/}
+                            {/*<select className="input-control" name='key' value={this.state.selectedSource} onChange={(key) => this.setState({selectedSource: key.target.value})}>*/}
+                                {/*<option value="">Select Source</option>*/}
+                                {/*{layerIds}*/}
+                            {/*</select>*/}
+                        {/*</div>*/}
                         <div className='table-content'>
-                            <table>
+                            <table style={{width:'90%'}}>
                                 {tableHeader}
                                 {tableBody}
                             </table>
@@ -424,6 +457,9 @@ function mapDispatchToProps(dispatch) {
         },
         addFeatures: (sourceName, json) => {
             dispatch(mapActions.addFeatures(sourceName, json));
+        },
+        setView: (center, zoom) => {
+            dispatch(mapActions.setView(center, zoom));
         }
     };
 }

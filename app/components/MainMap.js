@@ -6,6 +6,7 @@ import SdkMap from '@boundlessgeo/sdk/components/map';
 import SdkZoomControl from '@boundlessgeo/sdk/components/map/zoom-control';
 import DrawerComponent from './../components/DrawerComponent';
 import TableComponent from './../components/TableComponent';
+import SearchBar from './../components/SearchBar';
 import fetch from 'isomorphic-fetch';
 import mapCss from './../styles/map.css'
 
@@ -69,7 +70,7 @@ export class Map extends Component {
                 }} src={logo}/>
 
                 <SdkZoomControl />
-
+                <SearchBar store={this.props.store}/>
                 <DrawerComponent store={this.props.store}/>
                 <TableComponent store={this.props.store}/>
             </SdkMap>
@@ -90,8 +91,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        setView: (coords, info) => {
-            dispatch(mapActions.setView(coords, info))
+        setView: (center, zoom) => {
+            dispatch(mapActions.setView(center, zoom))
         },
         addSource:(type, data) => {
             dispatch(mapActions.addSource(type, data))

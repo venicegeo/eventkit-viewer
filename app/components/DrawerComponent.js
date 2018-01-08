@@ -7,6 +7,8 @@ import Checkbox from 'material-ui/Checkbox';
 import Layers from 'material-ui/svg-icons/maps/layers';
 import Close from 'material-ui/svg-icons/navigation/close';
 import ZoomIn from 'material-ui/svg-icons/action/zoom-in';
+import Done from 'material-ui/svg-icons/action/done';
+import EditMode from 'material-ui/svg-icons/editor/mode-edit';
 import FlatButton from 'material-ui/FlatButton';
 import { ExpandableBottomSheet } from 'material-ui-bottom-sheet';
 import { List, ListItem, Subheader, Tabs, Tab, FloatingActionButton, RaisedButton } from 'material-ui'
@@ -106,18 +108,12 @@ export class DrawerComponent extends Component {
     }
 
     handleDrawer() {
-        if(this.state.drawer){
+        if (this.state.drawer) {
             this.setState({drawer: false});
 
         }
         else {
             this.setState({drawer: true});
-        }
-    }
-
-    onMenuItemClick() {
-        if(window.innerWidth < 1200) {
-            this.handleToggle();
         }
     }
 
@@ -129,7 +125,7 @@ export class DrawerComponent extends Component {
 
     zoomToFeature(feature){
         let coords = feature.geometry.coordinates;
-        this.props.setView(coords, 10)
+        this.props.setView(coords, 12)
     }
 
     // Next few functions are all about building the feature Table
@@ -163,7 +159,7 @@ export class DrawerComponent extends Component {
         for (let i = 0, ii = properties.length; i < ii; i++) {
             th.push(<th style={{textAlign:'left'}} key={properties[i]}>{properties[i]}</th>);
         }
-        return (<thead><tr style={{height: '20px', width:'100%', paddingLeft:'10px', paddingRight:'10px'}}>{th}</tr></thead>);
+        return (<thead><tr style={{height: '20px', fontSize:'16px', width:'100%', paddingLeft:'10px', paddingRight:'10px'}}>{th}</tr></thead>);
     }
 
     updateRow(rowNumber) {
@@ -218,33 +214,35 @@ export class DrawerComponent extends Component {
                 // Build list of properties for each feature
                 const featureValue = features[i].properties[properties[j]];
                 row.push(
-                    <td key={j}>
+                    <td style={{width:'13%'}} key={j}>
                         <EditField editRow={this.state.editRow === i} value={featureValue} onBlur={(evt) => this.updateFeature(evt.target.value, properties[j])}/>
                     </td>);
             }
             const editControls = (
                 <div>
                     <a className='actionButton'>
-                        <i className="fa fa-check" onClick={() => this.updateRow(i)}></i>
+                        <Done style={{fill:'#55ba63'}} onClick={() => this.updateRow(i)} ></Done>
+
                     </a>
                     <a className='actionButton red'>
-                        <i className="fa fa-times" onClick={() => this.setState({editRow: -1})}></i>
+                        <Close style={{fill:'red'}} onClick={() => this.setState({editRow: -1})} > </Close>
+
                     </a>
                 </div>
             );
 
-            row.push(<td style={{width:'50px'}} key={properties.length + 1}>
-                {this.state.editRow !== -1 || <i className="fa fa-pencil" onClick={() => this.setState({editRow: i})}></i>}
+            row.push(<td style={{width:'50px', align:'right'}} key={properties.length + 1}>
+                {this.state.editRow !== -1 || <EditMode style={{fill:'#4598bf'}} onClick={() => this.setState({editRow: i})}></EditMode>}
                 {this.state.editRow !== i || editControls}
             </td>);
 
-            row.push(<td>
+            row.push(<td style={{width:'25px'}}>
                 <a>
-                <ZoomIn onClick={() => this.zoomToFeature(features[i])}></ZoomIn>
+                <ZoomIn style={{fill:'#4598bf'}} onClick={() => this.zoomToFeature(features[i])}></ZoomIn>
                 </a>
             </td>)
             // add the features properties to the list
-            body.push(<tr style={{height: '20px', width:'100%', paddingLeft:'10px', paddingRight:'10px'}} key={i}>{row}</tr>);
+            body.push(<tr style={{width:'100%', fontSize:'14px'}} key={i}>{row}</tr>);
             // Reset the row
             row = [];
         }
@@ -375,7 +373,7 @@ export class DrawerComponent extends Component {
             bodyStyle={{marginTop:'600px'}}
             action={
                 <FloatingActionButton
-                    backgroundColor='#ce4427'
+                    backgroundColor='red'
                     onClick={this.handleSheetClose.bind(this)}>
                     <Close/>
                 </FloatingActionButton>
@@ -397,7 +395,7 @@ export class DrawerComponent extends Component {
                             {/*</select>*/}
                         {/*</div>*/}
                         <div className='table-content'>
-                            <table style={{width:'90%'}}>
+                            <table style={{width:'95%', paddingLeft:'10px'}}>
                                 {tableHeader}
                                 {tableBody}
                             </table>

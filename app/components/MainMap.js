@@ -9,6 +9,7 @@ import TableComponent from './../components/TableComponent';
 import SearchBar from './../components/SearchBar';
 import fetch from 'isomorphic-fetch';
 import mapCss from './../styles/map.css'
+import SelectFeature from './../components/SelectFeature';
 
 
 export class Map extends Component {
@@ -71,6 +72,7 @@ export class Map extends Component {
 
                 <SdkZoomControl />
                 <SearchBar store={this.props.store}/>
+                <SelectFeature store={this.props.store}/>
                 <DrawerComponent store={this.props.store}/>
                 <TableComponent store={this.props.store}/>
             </SdkMap>

@@ -1,0 +1,92 @@
+import React, {Component} from 'react'
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux'
+import Place from 'material-ui/svg-icons/maps/place';
+
+export class SelectFeature extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+
+    }
+
+    componentDidMount() {
+
+    }
+
+    componentWillUnmount() {
+
+    };
+
+
+
+
+    render() {
+        const styles = {
+            buttonName: {
+                color: '#4498c0',
+                bottom: '0px',
+                fontSize: '.5em',
+                width: '50px',
+                height: '12px',
+            },
+            buttonGeneral: {
+                height: '50px',
+                width: '50px',
+                borderLeft: '1px solid #e6e6e6',
+                borderBottom: 'none',
+                borderTop: 'none',
+                borderRight: 'none',
+                margin: '0px',
+                padding: '0px',
+                backgroundColor: '#fff',
+                outline: 'none',
+            },
+            buttonContainer: {
+                position: 'absolute',
+                right: '45px',
+                width: '50px',
+                height: '50px',
+                top:'80px',
+                zIndex: 4
+            }
+
+        }
+
+        return (
+                <div style={styles.buttonContainer}>
+                    <button style={styles.buttonGeneral} onClick={this.handleOnClick}>
+                        <div >
+                            <Place  style={{fontSize: '1.3em', padding: '0px', fill: '#4498c0'}}/>
+                            <div style={styles.buttonName}>SELECT</div>
+                        </div>
+                    </button>
+                </div>
+
+
+        )
+    }
+}
+
+SelectFeature.propTypes = {
+
+};
+
+
+function mapStateToProps(state) {
+    return {
+        map: state.map,
+    }
+}
+function mapDispatchToProps(dispatch) {
+    return {
+
+    };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(SelectFeature);

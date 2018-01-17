@@ -13,8 +13,14 @@ import FlatButton from 'material-ui/FlatButton';
 import { ExpandableBottomSheet } from 'material-ui-bottom-sheet';
 import { List, ListItem, Subheader, Tabs, Tab, FloatingActionButton, RaisedButton } from 'material-ui'
 import fetch from 'isomorphic-fetch';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+
 
 import * as mapActions from '@boundlessgeo/sdk/actions/map';
+import * as drawingActions from '@boundlessgeo/sdk/actions/drawing';
+
+import {INTERACTIONS} from '@boundlessgeo/sdk/constants';
 
 export class EditField extends React.Component {
     render() {
@@ -41,8 +47,11 @@ export class DrawerComponent extends Component {
             editRow: -1,
             editRecord: {},
             layers: [],
+            selectValue: 1,
         }
     }
+
+    handleChange = (event, index, value) => this.setState({value});
 
     componentWillReceiveProps(nextProps) {
 
@@ -218,23 +227,23 @@ export class DrawerComponent extends Component {
                         <EditField editRow={this.state.editRow === i} value={featureValue} onBlur={(evt) => this.updateFeature(evt.target.value, properties[j])}/>
                     </td>);
             }
-            const editControls = (
-                <div>
-                    <a className='actionButton'>
-                        <Done style={{fill:'#55ba63'}} onClick={() => this.updateRow(i)} ></Done>
+            // const editControls = (
+            //     <div>
+            //         <a className='actionButton'>
+            //             <Done style={{fill:'#55ba63'}} onClick={() => this.updateRow(i)} ></Done>
+            //
+            //         </a>
+            //         <a className='actionButton red'>
+            //             <Close style={{fill:'red'}} onClick={() => this.setState({editRow: -1})} > </Close>
+            //
+            //         </a>
+            //     </div>
+            // );
 
-                    </a>
-                    <a className='actionButton red'>
-                        <Close style={{fill:'red'}} onClick={() => this.setState({editRow: -1})} > </Close>
-
-                    </a>
-                </div>
-            );
-
-            row.push(<td style={{width:'50px', align:'right'}} key={properties.length + 1}>
-                {this.state.editRow !== -1 || <EditMode style={{fill:'#4598bf'}} onClick={() => this.setState({editRow: i})}></EditMode>}
-                {this.state.editRow !== i || editControls}
-            </td>);
+            // row.push(<td style={{width:'50px', align:'right'}} key={properties.length + 1}>
+            //     {this.state.editRow !== -1 || <EditMode style={{fill:'#4598bf'}} onClick={() => this.setState({editRow: i})}></EditMode>}
+            //     {this.state.editRow !== i || editControls}
+            // </td>);
 
             row.push(<td style={{width:'25px'}}>
                 <a>
@@ -381,12 +390,14 @@ export class DrawerComponent extends Component {
             onRequestClose={() => console.log('close')}
             open={this.state.isOpen}
         >
-
-            <Tabs value={this.state.value}
-                  tabItemContainerStyle={{backgroundColor:'#4598bf'}}
-                  onChange={this.handleTabChange}
-            >
-                <Tab label="Airports" value="a">
+        <div style={{height:'25px', padding:'10px', backgroundColor:'#e2e2e2', fontSize:'18px' }}>
+            Airports
+        </div>
+            {/*<Tabs value={this.state.value}*/}
+                  {/*tabItemContainerStyle={{backgroundColor:'#4598bf'}}*/}
+                  {/*onChange={this.handleTabChange}*/}
+            {/*>*/}
+                {/*<Tab label="Airports" value="a">*/}
                     <div className="feature-table">
                         {/*<div className='table-header'>*/}
                             {/*<select className="input-control" name='key' value={this.state.selectedSource} onChange={(key) => this.setState({selectedSource: key.target.value})}>*/}
@@ -401,28 +412,29 @@ export class DrawerComponent extends Component {
                             </table>
                         </div>
                     </div>
-                </Tab>
-                <Tab label="Police Stations" value="b">
-                    <div>
-                        <h2 style={styles.headline}>Controllable Tab B</h2>
-                        <p>
-                            This is another example of a controllable tab. Remember, if you
-                            use controllable Tabs, you need to give all of your tabs values or else
-                            you wont be able to select them.
-                        </p>
-                    </div>
-                </Tab>
-                <Tab label="Fire Stations" value="c">
-                    <div>
-                        <h2 style={styles.headline}>Controllable Tab C</h2>
-                        <p>
-                            This is another example of a controllable tab. Remember, if you
-                            use controllable Tabs, you need to give all of your tabs values or else
-                            you wont be able to select them.
-                        </p>
-                    </div>
-                </Tab>
-            </Tabs>
+
+                {/*</Tab>*/}
+                {/*<Tab label="Police Stations" value="b">*/}
+                    {/*<div>*/}
+                        {/*<h2 style={styles.headline}>Controllable Tab B</h2>*/}
+                        {/*<p>*/}
+                            {/*This is another example of a controllable tab. Remember, if you*/}
+                            {/*use controllable Tabs, you need to give all of your tabs values or else*/}
+                            {/*you wont be able to select them.*/}
+                        {/*</p>*/}
+                    {/*</div>*/}
+                {/*</Tab>*/}
+                {/*<Tab label="Fire Stations" value="c">*/}
+                    {/*<div>*/}
+                        {/*<h2 style={styles.headline}>Controllable Tab C</h2>*/}
+                        {/*<p>*/}
+                            {/*This is another example of a controllable tab. Remember, if you*/}
+                            {/*use controllable Tabs, you need to give all of your tabs values or else*/}
+                            {/*you wont be able to select them.*/}
+                        {/*</p>*/}
+                    {/*</div>*/}
+                {/*</Tab>*/}
+            {/*</Tabs>*/}
         </ExpandableBottomSheet>
     </div>
 </div>

@@ -50,16 +50,33 @@ export class SelectFeature extends Component {
             },
             buttonContainer: {
                 position: 'absolute',
-                right: '45px',
+                right: '50px',
                 width: '50px',
                 height: '50px',
-                top:'80px',
+                top:'110px',
+                zIndex: 4,
+                borderTop: '1px solid #e6e6e6',
+            },
+            buttonHeader: {
+                backgroundColor: '#fff',
+                textAlign:'center',
+                paddingTop:'2px',
+                fontSize:'10px',
+                position: 'absolute',
+                right: '50px',
+                width: '50px',
+                height: '20px',
+                top:'90px',
                 zIndex: 4
             }
 
         }
 
         return (
+            <div>
+                <div style={styles.buttonHeader}>
+                    FILTER
+                </div>
                 <div style={styles.buttonContainer}>
                     <button style={styles.buttonGeneral} onClick={this.handleOnClick}>
                         <div >
@@ -68,6 +85,7 @@ export class SelectFeature extends Component {
                         </div>
                     </button>
                 </div>
+            </div>
 
 
         )

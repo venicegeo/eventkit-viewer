@@ -1,4 +1,4 @@
-
+import './styles/global.css'
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 import configureStore from './store/configureStore';
 
@@ -26,4 +26,4 @@ const muiTheme = getMuiTheme();
                     </MainMap>
 
                 </MuiThemeProvider>
-            </Provider>, document.getElementById('map'));
+            </Provider>, document.getElementById('root'));

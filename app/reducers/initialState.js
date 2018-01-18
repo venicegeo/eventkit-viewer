@@ -1,6 +1,5 @@
 
 export default {
     map: {},
-    dialog: false,
-
+    drawer: 'closed',
 }

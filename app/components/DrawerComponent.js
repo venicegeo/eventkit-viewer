@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux'
-import {closeDialog, openDialog} from '../actions/dialogActions';
+import {closeDrawer, openDrawer} from '../actions/drawerActions';
 import Drawer from 'material-ui/Drawer';
 import Checkbox from 'material-ui/Checkbox';
 import Layers from 'material-ui/svg-icons/maps/layers';
@@ -39,7 +39,6 @@ export class DrawerComponent extends Component {
         super(props);
 
         this.state = {
-            drawer : false,
             dialogOpen: false,
             isOpen: false,
             value: 'a',
@@ -105,11 +104,13 @@ export class DrawerComponent extends Component {
 
 
     handleDialog() {
-    this.setState({drawer:false, dialogOpen: true});
+        this.props.closeDrawer();
+    this.setState({dialogOpen: true});
     }
 
     handleSheetOpen() {
-        this.setState({drawer: false, isOpen: true, selectedSource:'dynamic-source'});
+        this.props.closeDrawer();
+        this.setState({isOpen: true, selectedSource:'dynamic-source'});
     }
 
     handleSheetClose() {
@@ -117,12 +118,14 @@ export class DrawerComponent extends Component {
     }
 
     handleDrawer() {
-        if (this.state.drawer) {
-            this.setState({drawer: false});
+        setTimeout( () => window.dispatchEvent(new Event('resize')), 500);//HACK TO RESIZE MAP AFTER THE DRAWER OPENS/CLOSES
+
+        if (this.props.drawer === 'open') {
+            this.props.closeDrawer();
 
         }
         else {
-            this.setState({drawer: true});
+            this.props.openDrawer();
         }
     }
 
@@ -299,11 +302,10 @@ export class DrawerComponent extends Component {
         const styles = {
             drawer: {
                 width: '200px',
-                height: '600px',
-                marginTop: '130px',
+                marginTop: '25px',
                 backgroundColor: '#4598bf',
                 padding: '0px',
-                background: 'rgba(69,152,191, .5)'
+                background: 'white'
             },
             headline: {
                 fontSize: 24,
@@ -311,6 +313,33 @@ export class DrawerComponent extends Component {
                 marginBottom: 12,
                 fontWeight: 400,
             },
+            subHeader: {
+                color:'black',
+                fontSize:'20px'
+            },
+            listItem: {
+                color:'black'
+            },
+            checkbox: {
+                fill:'black',
+            },
+            layersButtonIcon: {
+                height:'16px',
+                width:'16px',
+                fill:'white',
+                paddingBottom: '2px'
+            },
+            layersButton: {
+                margin: '12',
+                position: 'absolute',
+                zIndex: '3',
+                top: '10px',
+                left: '10px',
+                height: '20px',
+                maxHeight:'25px!important',
+                minWidth:'40px!important',
+                width:'25px'
+            }
 
         };
         // Get full list of properties
@@ -338,8 +367,8 @@ export class DrawerComponent extends Component {
         <RaisedButton
             onClick={this.handleDrawer.bind(this)}
             backgroundColor="#4498c0"
-            icon={<Layers style={{height:'16px', width:'16px', fill:'white', paddingBottom: '2px' }}/>}
-            style={{margin: '12', position: 'absolute', zIndex: '3', top: '95px', left: '75px', height: '20px', maxHeight:'25px!important', minWidth:'40px!important', width:'40px'}}
+            icon={<Layers style={styles.layersButtonIcon}/>}
+            style={styles.layersButton}
         />
 
                     <Drawer
@@ -347,24 +376,24 @@ export class DrawerComponent extends Component {
                         containerStyle={styles.drawer}
                         overlayStyle={styles.drawer}
                         docked={true}
-                        open={this.state.drawer}
-                    >
+                        open={this.props.drawer === 'open'}
+                        >
                         <List>
-                            <Subheader style={{color:'white', fontSize:'20px'}}>Layers</Subheader>
+                            <Subheader style={styles.subHeader}>Layers</Subheader>
                             <ListItem
-                                style={{color:'white'}}
-                                leftCheckbox={<Checkbox name="Airports" onCheck={this.onChangeCheck.bind(this)} iconStyle={{fill: 'white'}} />}
+                                style={styles.listItem}
+                                leftCheckbox={<Checkbox name="Airports" onCheck={this.onChangeCheck.bind(this)} iconStyle={styles.checkbox} />}
                                 primaryText="Airports"
 
                             />
                             <ListItem
-                                style={{color:'white'}}
-                                leftCheckbox={<Checkbox name='Police Stations' onCheck={this.onChangeCheck.bind(this)} iconStyle={{fill: 'white'}}/>}
+                                style={styles.listItem}
+                                leftCheckbox={<Checkbox name='Police Stations' onCheck={this.onChangeCheck.bind(this)} iconStyle={styles.checkbox} />}
                                 primaryText="Police Stations"
                             />
                             <ListItem
-                                style={{color:'white'}}
-                                leftCheckbox={<Checkbox name="Fire Stations" onCheck={this.onChangeCheck.bind(this)} iconStyle={{fill:'white'}}/>}
+                                style={styles.listItem}
+                                leftCheckbox={<Checkbox name="Fire Stations" onCheck={this.onChangeCheck.bind(this)} iconStyle={styles.checkbox} />}
                                 primaryText="Fire Stations"
                             />
                         </List>
@@ -445,6 +474,9 @@ export class DrawerComponent extends Component {
 
 DrawerComponent.propTypes = {
     dialog: PropTypes.bool,
+    openDrawer: PropTypes.func,
+    closeDrawer: PropTypes.func,
+    drawer: PropTypes.string,
 };
 
 
@@ -452,6 +484,7 @@ function mapStateToProps(state) {
     return {
         dialog: state.dialog,
         map: state.map,
+        drawer: state.drawer,
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -470,6 +503,12 @@ function mapDispatchToProps(dispatch) {
         },
         setView: (center, zoom) => {
             dispatch(mapActions.setView(center, zoom));
+        },
+        closeDrawer: () => {
+            dispatch(closeDrawer());
+        },
+        openDrawer: () => {
+            dispatch(openDrawer());
         }
     };
 }

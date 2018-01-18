@@ -55,7 +55,7 @@ export class SearchBar extends Component {
             },
             buttonContainer: {
                 position: 'absolute',
-                right: '-55px',
+                right: '-50px',
                 width: '50px',
                 height: '50px',
                 display:'inline-block',

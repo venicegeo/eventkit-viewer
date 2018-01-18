@@ -1,7 +1,7 @@
 
 const types = {
-    CLOSING_DIALOG: 'CLOSING_DIALOG',
-    OPENING_DIALOG: 'OPENING_DIALOG',
+    CLOSED_DRAWER: 'CLOSED_DRAWER',
+    OPENED_DRAWER: 'OPENED_DRAWER',
 }
 
 export default types

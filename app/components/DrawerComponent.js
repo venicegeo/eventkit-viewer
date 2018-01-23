@@ -7,11 +7,8 @@ import Checkbox from 'material-ui/Checkbox';
 import Layers from 'material-ui/svg-icons/maps/layers';
 import Close from 'material-ui/svg-icons/navigation/close';
 import ZoomIn from 'material-ui/svg-icons/action/zoom-in';
-import Done from 'material-ui/svg-icons/action/done';
-import EditMode from 'material-ui/svg-icons/editor/mode-edit';
-import FlatButton from 'material-ui/FlatButton';
 import { ExpandableBottomSheet } from 'material-ui-bottom-sheet';
-import { List, ListItem, Subheader, Tabs, Tab, FloatingActionButton, RaisedButton } from 'material-ui'
+import { List, ListItem, Subheader, FloatingActionButton, RaisedButton } from 'material-ui'
 import fetch from 'isomorphic-fetch';
 
 import IconButton from 'material-ui/IconButton';
@@ -52,8 +49,6 @@ export class DrawerComponent extends Component {
             selectValue: 1,
         }
     }
-
-    handleChange = (event, index, value) => this.setState({value});
 
     componentWillReceiveProps(nextProps) {
 
@@ -97,19 +92,6 @@ export class DrawerComponent extends Component {
                 .then(json => this.props.addFeatures(sourceName, json));
         };
 
-    handleOpen = () => {
-        this.setState({dialogOpen: true});
-    };
-
-    handleClose = () => {
-        this.setState({dialogOpen: false});
-    };
-
-
-    handleDialog() {
-        this.props.closeDrawer();
-    this.setState({dialogOpen: true});
-    }
 
     handleSheetOpen() {
         this.props.closeDrawer();
@@ -118,24 +100,6 @@ export class DrawerComponent extends Component {
 
     handleSheetClose() {
         this.setState({isOpen: false});
-    }
-
-    handleDrawer() {
-        setTimeout( () => window.dispatchEvent(new Event('resize')), 500);//HACK TO RESIZE MAP AFTER THE DRAWER OPENS/CLOSES
-
-        if (this.props.drawer === 'open') {
-            this.props.closeDrawer();
-
-        }
-        else {
-            this.props.openDrawer();
-        }
-    }
-
-    handleTabChange = (value) => {
-        this.setState({
-            value: value
-        });
     }
 
     zoomToFeature(feature){
@@ -233,23 +197,7 @@ export class DrawerComponent extends Component {
                         <EditField editRow={this.state.editRow === i} value={featureValue} onBlur={(evt) => this.updateFeature(evt.target.value, properties[j])}/>
                     </td>);
             }
-            // const editControls = (
-            //     <div>
-            //         <a className='actionButton'>
-            //             <Done style={{fill:'#55ba63'}} onClick={() => this.updateRow(i)} ></Done>
-            //
-            //         </a>
-            //         <a className='actionButton red'>
-            //             <Close style={{fill:'red'}} onClick={() => this.setState({editRow: -1})} > </Close>
-            //
-            //         </a>
-            //     </div>
-            // );
 
-            // row.push(<td style={{width:'50px', align:'right'}} key={properties.length + 1}>
-            //     {this.state.editRow !== -1 || <EditMode style={{fill:'#4598bf'}} onClick={() => this.setState({editRow: i})}></EditMode>}
-            //     {this.state.editRow !== i || editControls}
-            // </td>);
 
             row.push(<td style={{width:'25px'}}>
                 <a>
@@ -298,26 +246,11 @@ export class DrawerComponent extends Component {
 
         const rightIconMenu = (
             <IconMenu iconButtonElement={iconButtonElement}>
-                <MenuItem>Reply</MenuItem>
-                <MenuItem>Forward</MenuItem>
-                <MenuItem>Delete</MenuItem>
+                <MenuItem>menu 1</MenuItem>
+                <MenuItem>menu 2</MenuItem>
+                <MenuItem>menu 3</MenuItem>
             </IconMenu>
         );
-
-
-        const actions = [
-            <FlatButton
-                label="Cancel"
-                primary={true}
-                onClick={this.handleClose}
-            />,
-            <FlatButton
-                label="Submit"
-                primary={true}
-                keyboardFocused={true}
-                onClick={this.handleClose}
-            />,
-        ];
 
 
         const styles = {
@@ -396,16 +329,8 @@ export class DrawerComponent extends Component {
         });
 
 
-
         return (
-<div>
-        {/*<RaisedButton*/}
-            {/*onClick={this.handleDrawer.bind(this)}*/}
-            {/*backgroundColor="#4498c0"*/}
-            {/*icon={<Layers style={styles.layersButtonIcon}/>}*/}
-            {/*style={styles.layersButton}*/}
-        {/*/>*/}
-
+                <div>
                     <Drawer
                         className={'qa-Application-Drawer'}
                         width={'20%'}
@@ -467,35 +392,25 @@ export class DrawerComponent extends Component {
                             labelStyle={{color:'white'}}
                         />
                     </Drawer>
+                 <div>
+                    <ExpandableBottomSheet
+                        bodyStyle={{marginTop:'600px'}}
+                        action={
+                            <FloatingActionButton
+                                backgroundColor='red'
+                                onClick={this.handleSheetClose.bind(this)}>
+                                <Close/>
+                            </FloatingActionButton>
+                        }
+                        onRequestClose={() => console.log('close')}
+                        open={this.state.isOpen}
+                    >
+                    <div style={{height:'25px', padding:'10px', backgroundColor:'#e2e2e2', fontSize:'18px' }}>
+                        Airports
+                    </div>
 
-    <div>
-        <ExpandableBottomSheet
-            bodyStyle={{marginTop:'600px'}}
-            action={
-                <FloatingActionButton
-                    backgroundColor='red'
-                    onClick={this.handleSheetClose.bind(this)}>
-                    <Close/>
-                </FloatingActionButton>
-            }
-            onRequestClose={() => console.log('close')}
-            open={this.state.isOpen}
-        >
-        <div style={{height:'25px', padding:'10px', backgroundColor:'#e2e2e2', fontSize:'18px' }}>
-            Airports
-        </div>
-            {/*<Tabs value={this.state.value}*/}
-                  {/*tabItemContainerStyle={{backgroundColor:'#4598bf'}}*/}
-                  {/*onChange={this.handleTabChange}*/}
-            {/*>*/}
-                {/*<Tab label="Airports" value="a">*/}
                     <div className="feature-table">
-                        {/*<div className='table-header'>*/}
-                            {/*<select className="input-control" name='key' value={this.state.selectedSource} onChange={(key) => this.setState({selectedSource: key.target.value})}>*/}
-                                {/*<option value="">Select Source</option>*/}
-                                {/*{layerIds}*/}
-                            {/*</select>*/}
-                        {/*</div>*/}
+
                         <div className='table-content'>
                             <table style={{width:'95%', paddingLeft:'10px'}}>
                                 {tableHeader}
@@ -503,33 +418,9 @@ export class DrawerComponent extends Component {
                             </table>
                         </div>
                     </div>
-
-                {/*</Tab>*/}
-                {/*<Tab label="Police Stations" value="b">*/}
-                    {/*<div>*/}
-                        {/*<h2 style={styles.headline}>Controllable Tab B</h2>*/}
-                        {/*<p>*/}
-                            {/*This is another example of a controllable tab. Remember, if you*/}
-                            {/*use controllable Tabs, you need to give all of your tabs values or else*/}
-                            {/*you wont be able to select them.*/}
-                        {/*</p>*/}
-                    {/*</div>*/}
-                {/*</Tab>*/}
-                {/*<Tab label="Fire Stations" value="c">*/}
-                    {/*<div>*/}
-                        {/*<h2 style={styles.headline}>Controllable Tab C</h2>*/}
-                        {/*<p>*/}
-                            {/*This is another example of a controllable tab. Remember, if you*/}
-                            {/*use controllable Tabs, you need to give all of your tabs values or else*/}
-                            {/*you wont be able to select them.*/}
-                        {/*</p>*/}
-                    {/*</div>*/}
-                {/*</Tab>*/}
-            {/*</Tabs>*/}
-        </ExpandableBottomSheet>
-    </div>
-</div>
-
+                    </ExpandableBottomSheet>
+                </div>
+            </div>
         )
     }
 }

@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import * as mapActions from '@boundlessgeo/sdk/actions/map';
 import logo from './../images/eventkit-logo.1.png';
 import SdkMap from '@boundlessgeo/sdk/components/map';
+import TopAppBar from './../components/TopAppBar';
 import SdkZoomControl from '@boundlessgeo/sdk/components/map/zoom-control';
 import SdkZoomSlider from '@boundlessgeo/sdk/components/map/zoom-slider';
 import DrawerComponent from './../components/DrawerComponent';
@@ -29,6 +30,10 @@ export class Map extends Component {
 
     componentWillMount() {
         this.props.setView([-93, 45], 2.5);
+        this.props.updateMetadata({
+            'bnd:minzoom': 4,
+            'bnd:maxzoom': 20,
+        });
         this.props.addSource('osm', {
             type: 'raster',
             tileSize: 256,
@@ -57,11 +62,9 @@ export class Map extends Component {
 
         const styles = {
             content: {
-                left: ((this.props.drawer === 'open') && window.innerWidth) >= 1200 ? 200 : 0
+                left: ((this.props.drawer === 'open') && window.innerWidth) >= 1200 ? 300 : 0
             }
         }
-        //const img = <img style={{position: 'absolute', left: '0px', marginTop: '25px', height: '50px'}}
-                        // src={logo}/>
 
         const map = {center: [0, 0], zoom: 15, bearing: 0, metadata: {}, layers: [], sources: {}, sprite: undefined}
 
@@ -70,18 +73,12 @@ export class Map extends Component {
         <div id="map" style={styles.content} >
             <SdkMap map={map} className={mapCss.sdkMap} >
 
-                {/*<img style={{*/}
-                    {/*zIndex: '3',*/}
-                    {/*height: '50px',*/}
-                    {/*position: 'absolute',*/}
-                    {/*top: '20px',*/}
-                    {/*left: '5px'*/}
-                {/*}} src={logo}/>*/}
-
+                <TopAppBar/>
+                <DrawerComponent store={this.props.store}/>
                 <SdkZoomControl/>
                 <SearchBar store={this.props.store}/>
                 <SelectFeature store={this.props.store}/>
-                <DrawerComponent store={this.props.store}/>
+
                 <TableComponent store={this.props.store}/>
             </SdkMap>
 </div>
@@ -120,6 +117,9 @@ function mapDispatchToProps(dispatch) {
         },
         addFeatures: (sourceName, json) => {
             dispatch(mapActions.addFeatures(sourceName, json));
+        },
+        updateMetadata: (data) => {
+            dispatch(mapActions.updateMetadata(data));
         },
     }
 }

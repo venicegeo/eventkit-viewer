@@ -50,10 +50,10 @@ export class SelectFeature extends Component {
             },
             buttonContainer: {
                 position: 'absolute',
-                right: '50px',
+                right: '15px',
                 width: '50px',
                 height: '50px',
-                top:'110px',
+                top:'140px',
                 zIndex: 4,
                 borderTop: '1px solid #e6e6e6',
             },
@@ -63,10 +63,10 @@ export class SelectFeature extends Component {
                 paddingTop:'2px',
                 fontSize:'10px',
                 position: 'absolute',
-                right: '50px',
+                right: '15px',
                 width: '50px',
                 height: '20px',
-                top:'90px',
+                top:'120px',
                 zIndex: 4
             }
 

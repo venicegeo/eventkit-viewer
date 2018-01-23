@@ -13,7 +13,10 @@ import FlatButton from 'material-ui/FlatButton';
 import { ExpandableBottomSheet } from 'material-ui-bottom-sheet';
 import { List, ListItem, Subheader, Tabs, Tab, FloatingActionButton, RaisedButton } from 'material-ui'
 import fetch from 'isomorphic-fetch';
-import DropDownMenu from 'material-ui/DropDownMenu';
+
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 
 
@@ -283,6 +286,24 @@ export class DrawerComponent extends Component {
 
 
     render() {
+        const iconButtonElement = (
+            <IconButton
+                touch={true}
+                tooltip="more"
+                tooltipPosition="bottom-left"
+            >
+                <MoreVertIcon />
+            </IconButton>
+        );
+
+        const rightIconMenu = (
+            <IconMenu iconButtonElement={iconButtonElement}>
+                <MenuItem>Reply</MenuItem>
+                <MenuItem>Forward</MenuItem>
+                <MenuItem>Delete</MenuItem>
+            </IconMenu>
+        );
+
 
         const actions = [
             <FlatButton
@@ -300,8 +321,7 @@ export class DrawerComponent extends Component {
 
 
         const styles = {
-            drawer: {
-                width: '200px',
+            drawerContainer: {
                 marginTop: '25px',
                 backgroundColor: '#4598bf',
                 padding: '0px',
@@ -315,7 +335,9 @@ export class DrawerComponent extends Component {
             },
             subHeader: {
                 color:'black',
-                fontSize:'20px'
+                fontSize:'20px',
+                width:'75%!important',
+                display:'inline-block',
             },
             listItem: {
                 color:'black'
@@ -329,6 +351,13 @@ export class DrawerComponent extends Component {
                 fill:'white',
                 paddingBottom: '2px'
             },
+            layersDrawerIcon: {
+                height:'30px',
+                width:'30px',
+                fill:'black',
+                display:'inline-block',
+                verticalAlign:'middle',
+            },
             layersButton: {
                 margin: '12',
                 position: 'absolute',
@@ -339,6 +368,12 @@ export class DrawerComponent extends Component {
                 maxHeight:'25px!important',
                 minWidth:'40px!important',
                 width:'25px'
+            },
+            layersDrawerButton: {
+                height:'30px',
+                marginLeft:'10px',
+                width:'50px'
+
             }
 
         };
@@ -364,26 +399,53 @@ export class DrawerComponent extends Component {
 
         return (
 <div>
-        <RaisedButton
-            onClick={this.handleDrawer.bind(this)}
-            backgroundColor="#4498c0"
-            icon={<Layers style={styles.layersButtonIcon}/>}
-            style={styles.layersButton}
-        />
+        {/*<RaisedButton*/}
+            {/*onClick={this.handleDrawer.bind(this)}*/}
+            {/*backgroundColor="#4498c0"*/}
+            {/*icon={<Layers style={styles.layersButtonIcon}/>}*/}
+            {/*style={styles.layersButton}*/}
+        {/*/>*/}
 
                     <Drawer
                         className={'qa-Application-Drawer'}
-                        containerStyle={styles.drawer}
-                        overlayStyle={styles.drawer}
+                        width={'20%'}
+                        overlayStyle={styles.drawerContainer}
+                        containerStyle={styles.drawerContainer}
                         docked={true}
                         open={this.props.drawer === 'open'}
                         >
                         <List>
-                            <Subheader style={styles.subHeader}>Layers</Subheader>
+                            <div>
+                                <Layers style={styles.layersDrawerIcon}/>
+                                <Subheader style={styles.subHeader}> Layers</Subheader>
+                                <RaisedButton
+                                    style={{marginLeft:'10px', height:'25px', width:'80px', maxHeight:'25px!important', minWidth:'80px!important'}}
+                                    onClick={this.handleSheetOpen.bind(this)}
+                                    backgroundColor="#4598bf"
+                                    label="IMPORT"
+                                    labelStyle={{color:'white', fontWeight:'bold', fontSize:'12px', paddingBottom:'5px', textAlign:'middle', paddingLeft:'0px!important', paddingRight:'0px!important'}}
+                                />
+                            </div>
                             <ListItem
                                 style={styles.listItem}
+
                                 leftCheckbox={<Checkbox name="Airports" onCheck={this.onChangeCheck.bind(this)} iconStyle={styles.checkbox} />}
                                 primaryText="Airports"
+                                nestedItems={[
+                                    <ListItem
+                                        key={1}
+                                        rightIconButton={rightIconMenu}
+                                        primaryText="Terminal A"
+                                        leftCheckbox={<Checkbox name="Airports1" onCheck={this.onChangeCheck.bind(this)} iconStyle={styles.checkbox} />}
+
+                                    />,
+                                    <ListItem
+                                        key={2}
+                                        primaryText="Terminal B"
+                                        leftCheckbox={<Checkbox name="Airports2" onCheck={this.onChangeCheck.bind(this)} iconStyle={styles.checkbox} />}
+                                    />,
+
+                                ]}
 
                             />
                             <ListItem

@@ -1,26 +1,26 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux'
-import {closeDrawer, openDrawer} from '../actions/drawerActions';
+import {closeDrawer, openDrawer} from '../../actions/drawerActions';
 import Drawer from 'material-ui/Drawer';
-import Checkbox from 'material-ui/Checkbox';
 import Layers from 'material-ui/svg-icons/maps/layers';
 import Close from 'material-ui/svg-icons/navigation/close';
 import ZoomIn from 'material-ui/svg-icons/action/zoom-in';
 import { ExpandableBottomSheet } from 'material-ui-bottom-sheet';
-import { List, ListItem, Subheader, FloatingActionButton, RaisedButton } from 'material-ui'
+import { List, ListItem, Subheader, FloatingActionButton, RaisedButton } from 'material-ui';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
+
+import SearchLayers from './SearchLayers';
+import SelectedLayerCount from './SelectedLayerCount'
+import LayersSortDropDown from './LayersSortDropDown'
+import LayerCard from './LayerCard';
 import fetch from 'isomorphic-fetch';
-
-import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-
 
 import * as mapActions from '@boundlessgeo/sdk/actions/map';
 import * as drawingActions from '@boundlessgeo/sdk/actions/drawing';
 
 import {INTERACTIONS} from '@boundlessgeo/sdk/constants';
+
 
 export class EditField extends React.Component {
     render() {
@@ -38,15 +38,19 @@ export class DrawerComponent extends Component {
     constructor(props) {
         super(props);
 
+        this.handleLayerSort = this.handleLayerSort.bind(this);
+
         this.state = {
             dialogOpen: false,
             isOpen: false,
-            value: 'a',
+            value: 1,
             selectedSource: '',
             editRow: -1,
             editRecord: {},
             layers: [],
             selectValue: 1,
+            expanded: false,
+            layerSort:undefined,
         }
     }
 
@@ -232,27 +236,17 @@ export class DrawerComponent extends Component {
         }
     }
 
+    toggleExpanded() {
+        this.setState({ expanded: !this.state.expanded });
+    }
+
+    handleChange = (event, index, value) => this.setState({value});
+
+    handleLayerSort(event, index, value){
+        this.setState({layerSort: value})
+    }
 
     render() {
-        const iconButtonElement = (
-            <IconButton
-                touch={true}
-                tooltip="more"
-                tooltipPosition="bottom-left"
-            >
-                <MoreVertIcon />
-            </IconButton>
-        );
-
-        const rightIconMenu = (
-            <IconMenu iconButtonElement={iconButtonElement}>
-                <MenuItem>menu 1</MenuItem>
-                <MenuItem>menu 2</MenuItem>
-                <MenuItem>menu 3</MenuItem>
-            </IconMenu>
-        );
-
-
         const styles = {
             drawerContainer: {
                 marginTop: '25px',
@@ -306,8 +300,8 @@ export class DrawerComponent extends Component {
                 height:'30px',
                 marginLeft:'10px',
                 width:'50px'
+            },
 
-            }
 
         };
         // Get full list of properties
@@ -329,6 +323,8 @@ export class DrawerComponent extends Component {
         });
 
 
+
+
         return (
                 <div>
                     <Drawer
@@ -339,58 +335,28 @@ export class DrawerComponent extends Component {
                         docked={true}
                         open={this.props.drawer === 'open'}
                         >
-                        <List>
-                            <div>
+
+                        <div >
+                            <div style={{display:'inline-block', paddingLeft:'15px',}}>
                                 <Layers style={styles.layersDrawerIcon}/>
-                                <Subheader style={styles.subHeader}> Layers</Subheader>
-                                <RaisedButton
-                                    style={{marginLeft:'10px', height:'25px', width:'80px', maxHeight:'25px!important', minWidth:'80px!important'}}
-                                    onClick={this.handleSheetOpen.bind(this)}
-                                    backgroundColor="#4598bf"
-                                    label="IMPORT"
-                                    labelStyle={{color:'white', fontWeight:'bold', fontSize:'12px', paddingBottom:'5px', textAlign:'middle', paddingLeft:'0px!important', paddingRight:'0px!important'}}
-                                />
+                                <Subheader style={styles.subHeader}>LAYERS</Subheader>
                             </div>
-                            <ListItem
-                                style={styles.listItem}
+                            <div style={{display:'inline-block', float: 'right', bottom: 0, marginTop: '10px',}}>
+                                <LayersSortDropDown value={this.state.layerSort} handleChange={this.handleLayerSort}/>
+                            </div>
+                        </div>
+                        <div>
+                            <SearchLayers/>
+                        </div>
 
-                                leftCheckbox={<Checkbox name="Airports" onCheck={this.onChangeCheck.bind(this)} iconStyle={styles.checkbox} />}
-                                primaryText="Airports"
-                                nestedItems={[
-                                    <ListItem
-                                        key={1}
-                                        rightIconButton={rightIconMenu}
-                                        primaryText="Terminal A"
-                                        leftCheckbox={<Checkbox name="Airports1" onCheck={this.onChangeCheck.bind(this)} iconStyle={styles.checkbox} />}
+                        <div>
+                            <SelectedLayerCount/>
+                        </div>
 
-                                    />,
-                                    <ListItem
-                                        key={2}
-                                        primaryText="Terminal B"
-                                        leftCheckbox={<Checkbox name="Airports2" onCheck={this.onChangeCheck.bind(this)} iconStyle={styles.checkbox} />}
-                                    />,
+                        <div>
+                            <LayerCard/>
+                        </div>
 
-                                ]}
-
-                            />
-                            <ListItem
-                                style={styles.listItem}
-                                leftCheckbox={<Checkbox name='Police Stations' onCheck={this.onChangeCheck.bind(this)} iconStyle={styles.checkbox} />}
-                                primaryText="Police Stations"
-                            />
-                            <ListItem
-                                style={styles.listItem}
-                                leftCheckbox={<Checkbox name="Fire Stations" onCheck={this.onChangeCheck.bind(this)} iconStyle={styles.checkbox} />}
-                                primaryText="Fire Stations"
-                            />
-                        </List>
-                        <RaisedButton
-                            style={{marginTop:'50px', marginLeft:'50px'}}
-                            onClick={this.handleSheetOpen.bind(this)}
-                            backgroundColor="#4598bf"
-                            label="Update Table"
-                            labelStyle={{color:'white'}}
-                        />
                     </Drawer>
                  <div>
                     <ExpandableBottomSheet

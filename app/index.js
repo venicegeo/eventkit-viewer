@@ -16,7 +16,31 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 const store = configureStore();
-const muiTheme = getMuiTheme();
+const muiTheme = getMuiTheme({
+
+    flatButton: {
+        textColor: '#253447',
+        primaryTextColor: '#253447',
+    },
+
+    checkbox: {
+        boxColor: '#4598bf',
+        checkedColor: '#4598bf',
+    },
+
+    tableRow: {
+        selectedColor: 'initial',
+    },
+
+    svgIcon: {
+        color: '#4598bf',
+    },
+
+    palette: {
+        accent1Color: '#4598bf',
+    },
+
+});
 
     render(
             <Provider store={store}>

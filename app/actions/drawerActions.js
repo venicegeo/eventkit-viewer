@@ -11,3 +11,7 @@ export function closeDrawer() {
         type: types.CLOSED_DRAWER,
     }
 }
+
+export function loadLayers(url) {
+
+}

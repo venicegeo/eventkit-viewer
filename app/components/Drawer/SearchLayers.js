@@ -32,7 +32,7 @@ export class SearchLayers extends Component {
                 backgroundColor: '#f8f8f8',
                 height: '25px',
                 lineHeight: '25px',
-                width:'275px',
+                width:'280px',
             },
             inputHint: {
                 color: '#8b9396',
@@ -57,7 +57,7 @@ export class SearchLayers extends Component {
 
 
         return (
-            <div style={{display:'inline-block', paddingLeft:'15px', paddingTop:'10px'}}>
+            <div style={{display:'inline-block', paddingLeft:'10px', paddingTop:'10px'}}>
                 <TextField
                     style={styles.inputContainer}
                     inputStyle={styles.input}

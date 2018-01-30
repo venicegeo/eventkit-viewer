@@ -31,19 +31,33 @@ export class SelectedLayerCount extends Component {
             checkIcon: {
                 position: 'relative',
                 display: 'inline-block',
-                width: '28px',
-                height: '28px',
+                width: '20px',
+                height: '20px',
                 float: 'right',
                 cursor: 'pointer',
             },
+            checkIconContainer: {
+                display:'inline-block',
+                paddingLeft:'15px',
+                paddingTop:'15px'
+            },
+            checkCountText: {
+                paddingLeft:'15px',
+                display:'inline-block',
+                position: 'absolute',
+                paddingTop: '18px',
+                fontSize:'12px',
+                fontWeight:'bold',
+                color:'#707274'
+            }
         }
 
         return (
             <div>
-            <div style={{display:'inline-block', paddingLeft:'15px', paddingTop:'15px'}}>
+            <div style={styles.checkIconContainer}>
                 <IndeterminateIcon style={styles.checkIcon}  />
             </div>
-            <div style={{paddingLeft:'15px', display:'inline-block', position: 'absolute', paddingTop: '22px',fontSize:'12px', fontWeight:'bold', color:'#707274'}}> 6 of 9 selected</div>
+            <div style={styles.checkCountText}> 6 of 9 selected</div>
             </div>
         )
     }

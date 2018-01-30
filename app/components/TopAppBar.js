@@ -48,11 +48,14 @@ export class TopAppBar extends Component {
                 height: '50px',
             },
             img: {
-                position: 'absolute',
-                left: '50%',
-                marginLeft: '-110px',
-                marginTop: '5px',
-                height: '40px'
+                //position: 'absolute',
+                //left: '50%',
+                //marginLeft: '-110px',
+                //marginTop: '5px',
+                height: '40px',
+                paddingBottom:'10px',
+                marginTop:'-4px',
+                paddingRight:'10px',
             },
             layersButtonIcon: {
                 height:'16px',
@@ -86,8 +89,9 @@ export class TopAppBar extends Component {
             <div style={styles.containerDiv}>
                 <AppBar
                     style={styles.appBar}
-                    title={img}
+                    //title={img}
                     iconStyleLeft={styles.layersButtonIcon}
+                    iconElementRight={img}
                     iconElementLeft={icon}
                 />
             </div>

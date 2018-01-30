@@ -18,6 +18,7 @@ import fetch from 'isomorphic-fetch';
 
 import * as mapActions from '@boundlessgeo/sdk/actions/map';
 import * as drawingActions from '@boundlessgeo/sdk/actions/drawing';
+import { Config } from '../../../app/config.js'
 
 import {INTERACTIONS} from '@boundlessgeo/sdk/constants';
 
@@ -50,7 +51,7 @@ export class DrawerComponent extends Component {
             layers: [],
             selectValue: 1,
             expanded: false,
-            layerSort:undefined,
+            layerSort: 1,
         }
     }
 
@@ -61,6 +62,8 @@ export class DrawerComponent extends Component {
     componentDidMount() {
         const url = '../app/data/airports.json';
         this.addLayerFromGeoJSON(url, 'dynamic-source');
+
+
     }
 
     componentWillUnmount() {
@@ -322,7 +325,10 @@ export class DrawerComponent extends Component {
             return null;
         });
 
-
+        const sourceConfig = Config.SOURCE_DATA;
+        let sourceList = sourceConfig.sources;
+        console.log(sourceList)
+        sourceList.map((source) => (console.log(source.name)));
 
 
         return (
@@ -354,7 +360,7 @@ export class DrawerComponent extends Component {
                         </div>
 
                         <div>
-                            <LayerCard/>
+                            {sourceList.map((source) => (<LayerCard source={source}/>))}
                         </div>
 
                     </Drawer>

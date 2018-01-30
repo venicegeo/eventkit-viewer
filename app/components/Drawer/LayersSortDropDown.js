@@ -64,9 +64,9 @@ export class layersSortDropDown extends React.Component {
             underlineStyle={styles.underline}
             value={this.props.value}
             onChange={this.props.handleChange}>
-            <MenuItem style={styles.item} value={undefined} primaryText={"Sort By"} />
-            <MenuItem style={styles.item} value={2} primaryText={"sort 1"} />
-            <MenuItem style={styles.item} value={3} primaryText={"sort 2"} />
+            <MenuItem style={styles.item} value={1} primaryText={"Sort By"} />
+            <MenuItem style={styles.item} value={2} primaryText={"Name Ascending (A-Z)"} />
+            <MenuItem style={styles.item} value={3} primaryText={"Name Descending (Z-A)"} />
         </DropDownMenu>
         );
     }

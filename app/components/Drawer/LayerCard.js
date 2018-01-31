@@ -17,30 +17,45 @@ export class LayerCard extends Component {
         super(props);
 
         this.toggleExpanded = this.toggleExpanded.bind(this);
+        this.handleUncheckAll = this.handleUncheckAll.bind(this);
+        this.handleCheckAll = this.handleCheckAll.bind(this);
+        this.handleCheckedClick = this.handleCheckedClick.bind(this);
+        this.handleUncheckedClick = this.handleUncheckedClick.bind(this);
 
         this.state = {
-            expanded: false,
+            expanded: true,
+            selection: [],
         }
+    }
+
+    componentDidMount() {
+
     }
 
     toggleExpanded() {
         this.setState({ expanded: !this.state.expanded });
     }
 
-    componentWillReceiveProps(nextProps) {
-
+    handleUncheckAll() {
+        this.setState({ selection: [] });
     }
 
-    componentDidMount() {
-        const ha = this.props.source;
-        console.log(ha)
+    handleCheckAll() {
+        const newSelection = [...this.props.source.layers];
+        this.setState({selection: newSelection})
     }
 
-    componentWillUnmount() {
+    handleCheckedClick(layer) {
+        const newSelection = [...this.state.selection];
+        newSelection.splice(newSelection.indexOf(layer), 1);
+        this.setState({selection : newSelection});
+    }
 
-    };
-
-
+    handleUncheckedClick(layer) {
+        const newSelection = [...this.state.selection];
+        newSelection.push(layer);
+        this.setState({selection: newSelection});
+    }
 
 
     render() {
@@ -102,9 +117,10 @@ export class LayerCard extends Component {
             cardText: {
                 backgroundColor: '#fff',
                 color: '#707274',
-                padding: '10px 16px 0px',
-            },
-            menu: {
+                paddingTop: '10px',
+                paddingBottom: '5px',
+                paddingLeft: '16px',
+                paddingRight: '0px',
 
             },
             menuItem: {
@@ -113,12 +129,52 @@ export class LayerCard extends Component {
             menuItemDelete: {
                 fontSize: '11px',
                 color: 'red',
-            }
+            },
+            layerIcon: {
+                width: '16px',
+                height: '16px',
+                verticalAlign: 'bottom',
+                fill: 'black'
+            },
+            checkCountText: {
+                paddingLeft:'15px',
+                display:'inline-block',
+                position: 'absolute',
+                paddingTop: '5px',
+                fontSize:'10px',
+                fontWeight:'bold',
+                color:'#707274'
+            },
+
 
         };
 
+        // Assume none of the layers are selected to start
+        let groupIcon = <CheckBoxOutline style={styles.checkIcon} onClick={this.handleCheckAll} />;
+
+        // All of the selected layers, within the source
+        const selectedTotal = this.state.selection.length;
+        // All of the layers in this source
+        const inGroupTotal = this.props.source.layers.length;
+        // All of the layers in this source and in the selected users
+        const selectedInGroupTotal = this.state.selection.filter(selection => (
+            this.props.source.layers.includes(selection)
+        )).length;
+
+        if (selectedTotal) {
+            // if some layers are selected we need to check if they are in this source
+            if (inGroupTotal === selectedInGroupTotal) {
+                // if all of the group are in the selection show the checked icon
+                groupIcon = <CheckBox style={styles.checkIcon} onClick={this.handleUncheckAll} />;
+            } else if (selectedInGroupTotal > 0) {
+                // If only some of the group are in the selection show the indeterminate icon
+                groupIcon = <IndeterminateIcon style={styles.checkIcon} onClick={this.handleUncheckAll} />;
+            }
+        }
+
+
         return (
-            <div style={{paddingLeft:'10px', paddingTop:'10px'}}>
+            <div style={{paddingTop:'10px'}}>
 
                         <Card
                             key={this.props.source.name}
@@ -130,15 +186,20 @@ export class LayerCard extends Component {
                                 textStyle={{ padding:'0px', width: '100%' }}
                                 title={
                                     <div >
-                                        <div style={{display:'inline-block',}}>
+                                        <div style={{display:'inline-block', paddingBottom:'1px'}}>
                                             <span>
-                                                <CheckBox style={styles.checkIcon} />
+                                                {groupIcon}
                                             </span>
                                         </div>
                                         <div style={{display:'inline-block', paddingLeft:'10px', verticalAlign:'super'}}>
                                             <span>
                                                 {this.props.source.name}
                                             </span>
+                                        </div>
+                                        <div style={{display:'inline-block',verticalAlign: 'top'}}>
+
+                                            <div style={styles.checkCountText}> {selectedInGroupTotal} of {inGroupTotal} selected</div>
+
                                         </div>
                                         <div style={{right:'30px', bottom:'3px',display:'inline-block', position: 'absolute', verticalAlign:'super'}} >
                                             <span >
@@ -149,10 +210,7 @@ export class LayerCard extends Component {
                                                 targetOrigin={{horizontal: 'left', vertical: 'top'}}
                                             >
                                                 <MenuItem style={styles.menuItem} primaryText="View Properties" />
-                                                <MenuItem style={styles.menuItem} primaryText="Open Attribute Table" />
-                                                <MenuItem style={styles.menuItem} primaryText="Remove Layer Extent" />
-                                                 <Divider />
-                                                <MenuItem style={styles.menuItemDelete} primaryText="Delete" />
+                                                <MenuItem style={styles.menuItem} primaryText="Zoom to AOI Extent" />
                                             </IconMenu>
                                             </span>
                                         </div>
@@ -173,11 +231,48 @@ export class LayerCard extends Component {
                                 {this.props.source.layers.map((layer) => {
 
                                     return (
-                                        <div key={layer.name} style={{ padding: '6px 34px 0px 0px' }}>
-                                            <div style={{ display: 'inline-block' }}>
-                                                <div><strong>{layer.name}</strong></div>
+                                        <div key={layer.name} style={{ padding: '0px 34px 0px 0px', width: '100%' }}>
+                                            <div style={{display:'inline-block',}}>
+                                            <span>
+                                                { this.state.selection.includes(layer) ?
+                                                    <CheckBox
+                                                        style={styles.checkIcon}
+                                                        onClick={() => { this.handleCheckedClick(layer); }}
+                                                    />
+                                                    :
+                                                    <CheckBoxOutline
+                                                        style={styles.checkIcon}
+                                                        onClick={() => { this.handleUncheckedClick(layer); }}
+                                                    />
+                                                }
+                                            </span>
+                                            </div>
+                                            <div style={{ display: 'inline-block', paddingLeft: '10px', verticalAlign: 'super' }}>
+                                                {layer.icon.iconUrl ?
+                                                    <div><img style={styles.layerIcon} src={layer.icon.iconUrl}/> </div>
+                                                    :
+                                                    <div><img style={styles.layerIcon} /></div>
+                                                }
+
+                                            </div>
+                                            <div style={{ display: 'inline-block', paddingLeft: '10px', verticalAlign: 'super' }}>
                                                 <div>{layer.name}</div>
                                             </div>
+                                            <div style={{right:'47px',display:'inline-block', position: 'absolute', verticalAlign:'super'}} >
+                                            <span >
+                                            <IconMenu
+
+                                                iconButtonElement={<IconButton style={{padding:'0px', width:'24px', height:'24px'}}><MoreVertIcon /></IconButton>}
+                                                anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+                                                targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                                            >
+                                                <MenuItem style={styles.menuItem} primaryText="View Properties" />
+                                                <MenuItem style={styles.menuItem} primaryText="Open Attribute Table" />
+                                                <MenuItem style={styles.menuItem} primaryText="Zoom to AOI" />
+                                            </IconMenu>
+                                            </span>
+                                            </div>
+                                            <Divider style={{marginTop:'5px', marginBottom: '5px'}}/>
 
                                         </div>
                                     );

@@ -11,9 +11,7 @@ import { List, ListItem, Subheader, FloatingActionButton, RaisedButton } from 'm
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 
 import SearchLayers from './SearchLayers';
-import SelectedLayerCount from './SelectedLayerCount'
-import LayersSortDropDown from './LayersSortDropDown'
-import LayerCard from './LayerCard';
+import DataPackCard from "./DataPackCard";
 import fetch from 'isomorphic-fetch';
 
 import * as mapActions from '@boundlessgeo/sdk/actions/map';
@@ -21,6 +19,7 @@ import * as drawingActions from '@boundlessgeo/sdk/actions/drawing';
 import { Config } from '../../../app/config.js'
 
 import {INTERACTIONS} from '@boundlessgeo/sdk/constants';
+
 
 
 export class EditField extends React.Component {
@@ -326,10 +325,7 @@ export class DrawerComponent extends Component {
         });
 
         const sourceConfig = Config.SOURCE_DATA;
-        let sourceList = sourceConfig.sources;
-        console.log(sourceList)
-        sourceList.map((source) => (console.log(source.name)));
-
+        //let sourceList = sourceConfig.sources;
 
         return (
                 <div>
@@ -347,20 +343,20 @@ export class DrawerComponent extends Component {
                                 <Layers style={styles.layersDrawerIcon}/>
                                 <Subheader style={styles.subHeader}>LAYERS</Subheader>
                             </div>
-                            <div style={{display:'inline-block', float: 'right', bottom: 0, marginTop: '10px',}}>
-                                <LayersSortDropDown value={this.state.layerSort} handleChange={this.handleLayerSort}/>
-                            </div>
+                            {/*<div style={{display:'inline-block', float: 'right', bottom: 0, marginTop: '10px',}}>*/}
+                                {/*<LayersSortDropDown value={this.state.layerSort} handleChange={this.handleLayerSort}/>*/}
+                            {/*</div>*/}
                         </div>
                         <div>
                             <SearchLayers/>
                         </div>
 
-                        <div>
-                            <SelectedLayerCount/>
-                        </div>
+                        {/*<div>*/}
+                            {/*<SelectedLayerCount/>*/}
+                        {/*</div>*/}
 
                         <div>
-                            {sourceList.map((source) => (<LayerCard source={source}/>))}
+                            <DataPackCard source={sourceConfig}/>
                         </div>
 
                     </Drawer>
@@ -423,9 +419,9 @@ function mapDispatchToProps(dispatch) {
         addLayer: (info) => {
             dispatch(mapActions.addLayer(info));
         },
-        addFeatures: (sourceName, json) => {
-            dispatch(mapActions.addFeatures(sourceName, json));
-        },
+        // addFeatures: (sourceName, json) => {
+        //     dispatch(mapActions.addFeatures(sourceName, json));
+        // },
         setView: (center, zoom) => {
             dispatch(mapActions.setView(center, zoom));
         },

@@ -39,7 +39,7 @@ var config = {
         publicPath: '/build/'
     },
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx', '.css']
     },
     module: {
         loaders: [
@@ -50,24 +50,25 @@ var config = {
             },
             {
                 test: /\.css$/,
-                loader: 'style-loader'
-            }, {
-                test: /\.css$/,
-                loader: 'css-loader?modules=true,localIdentName=[name]__[local]___[hash:base64:5]',
+                use: ['style-loader', 'css-loader']
             },
-            {
-                test: /\.s?css$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: ['css-loader', {
-                        loader: 'sass-loader',
-                        options: {
-                            includePaths: ['node_modules'],
-                        }
-                    }],
-                }),
-
-            },
+            // {
+            //     test: /\.css$/,
+            //     loader: 'css-loader?modules=true,localIdentName=[name]__[local]___[hash:base64:5]',
+            // },
+            // {
+            //     test: /\.s?css$/,
+            //     use: ExtractTextPlugin.extract({
+            //         fallback: 'style-loader',
+            //         use: ['css-loader', {
+            //             loader: 'sass-loader',
+            //             options: {
+            //                 includePaths: ['node_modules'],
+            //             }
+            //         }],
+            //     }),
+            //
+            // },
             {
                 test: /\.(woff2?|ttf|eot)$/,
                 loader: 'url-loader?limit=100000,name=fonts/[hash].[ext]',

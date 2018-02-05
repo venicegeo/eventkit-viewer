@@ -1,0 +1,186 @@
+{
+"type": "FeatureCollection",
+
+"features": [
+{ "type": "Feature","properties": { "name": "Dupont Circle" }, "geometry": { "type": "Point", "coordinates": [ -77.043414359699995, 38.909598057499998 ] } }
+,
+{ "type": "Feature","properties": { "name": "Farragut North" }, "geometry": { "type": "Point", "coordinates": [ -77.039700827199994, 38.903201946199999 ] } }
+,
+{ "type": "Feature","properties": { "name": "Metro Center" }, "geometry": { "type": "Point", "coordinates": [ -77.028077997099999, 38.898314473200003 ] } }
+,
+{ "type": "Feature","properties": { "name": "Tenleytown" }, "geometry": { "type": "Point", "coordinates": [ -77.0795873255, 38.948851435100003 ] } }
+,
+{ "type": "Feature","properties": { "name": "Van Ness UDC" }, "geometry": { "type": "Point", "coordinates": [ -77.062986180500005, 38.943265288299997 ] } }
+,
+{ "type": "Feature","properties": { "name": "Cleveland Park" }, "geometry": { "type": "Point", "coordinates": [ -77.058042519099999, 38.934762890800002 ] } }
+,
+{ "type": "Feature","properties": { "name": "Woodley Park Zoo" }, "geometry": { "type": "Point", "coordinates": [ -77.052418020700003, 38.925085137099998 ] } }
+,
+{ "type": "Feature","properties": { "name": "Judiciary Square" }, "geometry": { "type": "Point", "coordinates": [ -77.016638956600005, 38.896090317599999 ] } }
+,
+{ "type": "Feature","properties": { "name": "National Arpt" }, "geometry": { "type": "Point", "coordinates": [ -77.044042294299999, 38.853416385899997 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Greenbelt" }, "geometry": { "type": "Point", "coordinates": [ -76.911057573099995, 39.011145860500001 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Stadium Armory" }, "geometry": { "type": "Point", "coordinates": [ -76.977088901399995, 38.8867090898 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Silver Spring" }, "geometry": { "type": "Point", "coordinates": [ -77.031017826799996, 38.993949374700001 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Forest Glen" }, "geometry": { "type": "Point", "coordinates": [ -77.042916554800001, 39.014954275199997 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Minnesota Avenue" }, "geometry": { "type": "Point", "coordinates": [ -76.946747733600006, 38.899191223 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Eastern Market" }, "geometry": { "type": "Point", "coordinates": [ -76.996001126699994, 38.884622260800001 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Potomac Avenue" }, "geometry": { "type": "Point", "coordinates": [ -76.985495319600005, 38.881263273599998 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Federal Center SW" }, "geometry": { "type": "Point", "coordinates": [ -77.015868216900003, 38.8850723551 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Capitol South" }, "geometry": { "type": "Point", "coordinates": [ -77.005139419900004, 38.885062500899998 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Smithsonian" }, "geometry": { "type": "Point", "coordinates": [ -77.028066234199997, 38.888018702 ] } }
+,
+{ "type": "Feature", "properties": { "name": "L'Enfant Plaza" }, "geometry": { "type": "Point", "coordinates": [ -77.021908484, 38.884837727899999 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Gallery Place" }, "geometry": { "type": "Point", "coordinates": [ -77.021915390399997, 38.898316809699999 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Federal Triangle" }, "geometry": { "type": "Point", "coordinates": [ -77.028131998399999, 38.893180871799998 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Union Station" }, "geometry": { "type": "Point", "coordinates": [ -77.007414292099995, 38.8977660392 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Rhode Island Avenue" }, "geometry": { "type": "Point", "coordinates": [ -76.995936916600002, 38.921059689099998 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Brookland" }, "geometry": { "type": "Point", "coordinates": [ -76.994534285100002, 38.933210991300001 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Fort Totten" }, "geometry": { "type": "Point", "coordinates": [ -77.002203076800001, 38.951846767500001 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Takoma" }, "geometry": { "type": "Point", "coordinates": [ -77.018176698700003, 38.976078531 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Virginia Square" }, "geometry": { "type": "Point", "coordinates": [ -77.102977294200002, 38.883366151799997 ] } }
+,
+{ "type": "Feature", "properties": { "name": "E Falls Church" }, "geometry": { "type": "Point", "coordinates": [ -77.156883019899993, 38.885953166299998 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Ballston" }, "geometry": { "type": "Point", "coordinates": [ -77.113168835, 38.882182873799998 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Branch Avenue" }, "geometry": { "type": "Point", "coordinates": [ -76.911464217700001, 38.826446348300003 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Suitland" }, "geometry": { "type": "Point", "coordinates": [ -76.931870158899997, 38.843964554400003 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Landover" }, "geometry": { "type": "Point", "coordinates": [ -76.891197967599993, 38.933506234399999 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Largo Town Center" }, "geometry": { "type": "Point", "coordinates": [ -76.842037520199995, 38.905068807200003 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Morgan Blvd" }, "geometry": { "type": "Point", "coordinates": [ -76.868074768100001, 38.8938349282 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Court House" }, "geometry": { "type": "Point", "coordinates": [ -77.087131231, 38.890175531200001 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Benning Road" }, "geometry": { "type": "Point", "coordinates": [ -76.938364868099995, 38.890975676 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Clarendon" }, "geometry": { "type": "Point", "coordinates": [ -77.095394098300005, 38.886704839 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Addison Road" }, "geometry": { "type": "Point", "coordinates": [ -76.89410791, 38.886747816800003 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Capitol Heights" }, "geometry": { "type": "Point", "coordinates": [ -76.911808114500005, 38.889465856800001 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Dunn Loring" }, "geometry": { "type": "Point", "coordinates": [ -77.227160672099998, 38.883625135899997 ] } }
+,
+{ "type": "Feature", "properties": { "name": "W Falls Church" }, "geometry": { "type": "Point", "coordinates": [ -77.189094822499996, 38.900780551 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Vienna" }, "geometry": { "type": "Point", "coordinates": [ -77.272622256899993, 38.877601123799998 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Twinbrook" }, "geometry": { "type": "Point", "coordinates": [ -77.120817951700005, 39.062467651699997 ] } }
+,
+{ "type": "Feature", "properties": { "name": "White Flint" }, "geometry": { "type": "Point", "coordinates": [ -77.112829859, 39.0481513573 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Grosvenor" }, "geometry": { "type": "Point", "coordinates": [ -77.10384972, 39.02926895 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Medical Center" }, "geometry": { "type": "Point", "coordinates": [ -77.096952290499999, 39.000056484300003 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Huntington" }, "geometry": { "type": "Point", "coordinates": [ -77.075205789099996, 38.7939158529 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Eisenhower Avenue" }, "geometry": { "type": "Point", "coordinates": [ -77.070874389300002, 38.800425449700001 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Shady Grove" }, "geometry": { "type": "Point", "coordinates": [ -77.164627334299993, 39.119927324899997 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Rockville" }, "geometry": { "type": "Point", "coordinates": [ -77.146125339199997, 39.084321607500002 ] } }
+,
+{ "type": "Feature", "properties": { "name": "New York Avenue" }, "geometry": { "type": "Point", "coordinates": [ -77.003020447200001, 38.907016212099997 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Pentagon" }, "geometry": { "type": "Point", "coordinates": [ -77.053715673400006, 38.8694627012 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Crystal City" }, "geometry": { "type": "Point", "coordinates": [ -77.050289809700004, 38.857904320400003 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Pentagon City" }, "geometry": { "type": "Point", "coordinates": [ -77.059538921500007, 38.861882386700003 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Prince Georges Plaza" }, "geometry": { "type": "Point", "coordinates": [ -76.955881507800001, 38.965385445800003 ] } }
+,
+{ "type": "Feature", "properties": { "name": "West Hyattsville" }, "geometry": { "type": "Point", "coordinates": [ -76.969576675100001, 38.955040170700002 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Fort Totten:1" }, "geometry": { "type": "Point", "coordinates": [ -77.002203076800001, 38.951846767500001 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Georgia Avenue" }, "geometry": { "type": "Point", "coordinates": [ -77.023460904, 38.9374346301 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Columbia Heights" }, "geometry": { "type": "Point", "coordinates": [ -77.032552117700007, 38.927837967499997 ] } }
+,
+{ "type": "Feature", "properties": { "name": "U Street" }, "geometry": { "type": "Point", "coordinates": [ -77.027495892900006, 38.917002399200001 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Metro Center:1" }, "geometry": { "type": "Point", "coordinates": [ -77.028077997099999, 38.898314473200003 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Mt Vernon Sq" }, "geometry": { "type": "Point", "coordinates": [ -77.021914380300004, 38.906436814899998 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Farragut West" }, "geometry": { "type": "Point", "coordinates": [ -77.040695415100004, 38.901312894100002 ] } }
+,
+{ "type": "Feature", "properties": { "name": "McPherson Square" }, "geometry": { "type": "Point", "coordinates": [ -77.033634172099994, 38.901332796799998 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Rosslyn" }, "geometry": { "type": "Point", "coordinates": [ -77.070908685299997, 38.895979096200001 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Foggy Bottom" }, "geometry": { "type": "Point", "coordinates": [ -77.050277739, 38.900698009199999 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Shaw" }, "geometry": { "type": "Point", "coordinates": [ -77.021911700700002, 38.913476871100002 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Arlington Cemetery" }, "geometry": { "type": "Point", "coordinates": [ -77.062810129100001, 38.884686858499997 ] } }
+,
+{ "type": "Feature", "properties": { "name": "College Park" }, "geometry": { "type": "Point", "coordinates": [ -76.928124981799996, 38.978633633900003 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Franconia-Springf'ld" }, "geometry": { "type": "Point", "coordinates": [ -77.167970180400005, 38.766521892599997 ] } }
+,
+{ "type": "Feature", "properties": { "name": "King Street" }, "geometry": { "type": "Point", "coordinates": [ -77.060811208499999, 38.806586117199998 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Braddock Road" }, "geometry": { "type": "Point", "coordinates": [ -77.053667574, 38.8141436672 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Southern Ave" }, "geometry": { "type": "Point", "coordinates": [ -76.975054138800004, 38.841085780299998 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Naylor Road" }, "geometry": { "type": "Point", "coordinates": [ -76.956262709399994, 38.851301383500001 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Waterfront" }, "geometry": { "type": "Point", "coordinates": [ -77.017505208800003, 38.8764618668 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Navy Yard" }, "geometry": { "type": "Point", "coordinates": [ -77.005085651300007, 38.8764810849 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Anacostia" }, "geometry": { "type": "Point", "coordinates": [ -76.995370738700004, 38.862963116800003 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Congress Height" }, "geometry": { "type": "Point", "coordinates": [ -76.988511932600005, 38.845657702799997 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Van Dorn St" }, "geometry": { "type": "Point", "coordinates": [ -77.129111523700004, 38.799307672 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Gallery Place:1" }, "geometry": { "type": "Point", "coordinates": [ -77.021915390399997, 38.898316809699999 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Archives" }, "geometry": { "type": "Point", "coordinates": [ -77.021914387899997, 38.893665223500001 ] } }
+,
+{ "type": "Feature", "properties": { "name": "L'Enfant Plaza:1" }, "geometry": { "type": "Point", "coordinates": [ -77.021908484, 38.884837727899999 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Wheaton" }, "geometry": { "type": "Point", "coordinates": [ -77.0501070535, 39.037527143600002 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Glenmont" }, "geometry": { "type": "Point", "coordinates": [ -77.053557359300001, 39.061783765500003 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Bethesda" }, "geometry": { "type": "Point", "coordinates": [ -77.0941291922, 38.9843936603 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Friendship Heights" }, "geometry": { "type": "Point", "coordinates": [ -77.084995805, 38.9594838736 ] } }
+,
+{ "type": "Feature", "properties": { "name": "New Carrollton" }, "geometry": { "type": "Point", "coordinates": [ -76.8718412865, 38.947784855800002 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Deanwood" }, "geometry": { "type": "Point", "coordinates": [ -76.935256783, 38.9081784965 ] } }
+,
+{ "type": "Feature", "properties": { "name": "Cheverly" }, "geometry": { "type": "Point", "coordinates": [ -76.916628044, 38.916631854599999 ] } }
+
+]
+}

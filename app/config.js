@@ -9,8 +9,19 @@ export const Config = {
                 "name": "OSM",
                 "layers": [
                     {
+                        "name": "AOI Boundary",
+                        "filepath": "../app/data/airports.json",
+                        "style": {
+                        },
+                        "icon": {
+                            "iconUrl": "app/data/icons/hotel.svg"
+                        },
+                        "show": true,
+                        "addToTable": true
+                    },
+                    {
                         "name": "Hotels",
-                        "filepath": "data/airports.json",
+                        "filepath": "../app/data/Hotels.geojson",
                         "style": {
                         },
                         "icon": {
@@ -21,7 +32,7 @@ export const Config = {
                     },
                     {
                         "name": "Embassys",
-                        "filepath": "data/Fire_Stations.geojson",
+                        "filepath": "../app/data/Fire_Stations.geojson",
                         "style": {
                         },
                         "icon": {
@@ -33,7 +44,7 @@ export const Config = {
 
                     {
                         "name": "Hospitals",
-                        "filepath": "data/Police_Stations.geojson",
+                        "filepath": "../app/data/Hospitals.geojson",
                         "style": {
                         },
                         "icon": {
@@ -44,7 +55,7 @@ export const Config = {
                     },
                     {
                         "name": "Police",
-                        "filepath": "data/Police_Stations.geojson",
+                        "filepath": "../app/data/Police_Stations.geojson",
                         "style": {
                         },
                         "icon": {
@@ -55,7 +66,7 @@ export const Config = {
                     },
                     {
                         "name": "Buildings",
-                        "filepath": "data/Police_Stations.geojson",
+                        "filepath": "../app/data/Police_Stations.geojson",
                         "style": {
                         },
                         "icon": {
@@ -66,7 +77,7 @@ export const Config = {
                     },
                     {
                         "name": "Places of Worship",
-                        "filepath": "data/Police_Stations.geojson",
+                        "filepath": "../app/data/Places_of_Worship.geojson",
                         "style": {
                         },
                         "icon": {
@@ -77,7 +88,7 @@ export const Config = {
                     },
                     {
                         "name": "Schools",
-                        "filepath": "data/Police_Stations.geojson",
+                        "filepath": "../app/data/Police_Stations.geojson",
                         "style": {
                         },
                         "icon": {
@@ -88,7 +99,7 @@ export const Config = {
                     },
                     {
                         "name": "Roads",
-                        "filepath": "data/Police_Stations.geojson",
+                        "filepath": "../app/data/Police_Stations.geojson",
                         "style": {
                         },
                         "icon": {
@@ -99,7 +110,7 @@ export const Config = {
                     },
                     {
                         "name": "Neighborhoods",
-                        "filepath": "data/Police_Stations.geojson",
+                        "filepath": "../app/data/Police_Stations.geojson",
                         "style": {
                         },
                         "icon": {

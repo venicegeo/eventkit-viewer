@@ -39,6 +39,8 @@ export class DrawerComponent extends Component {
         super(props);
 
         this.handleLayerSort = this.handleLayerSort.bind(this);
+        this.addLayerToMap = this.addLayerToMap.bind(this);
+        this.removeLayerFromMap = this.removeLayerFromMap.bind(this);
 
         this.state = {
             dialogOpen: false,
@@ -59,37 +61,57 @@ export class DrawerComponent extends Component {
     }
 
     componentDidMount() {
-        const url = '../app/data/airports.json';
-        this.addLayerFromGeoJSON(url, 'dynamic-source');
+        //this.loadLayerData(Config.SOURCE_DATA.sources);
+
+
+        // const url = '../app/data/Fire_Stations.geojson';
+        // const url2 = '../app/data/Police_Stations.geojson';
+        // const url3 = '../app/data/airports.json';
+        //
+        // this.addLayerFromGeoJSON(url, 'dynamic-source');
+        // this.addLayerFromGeoJSON(url2, 'dynamic-source');
+        // this.addLayerFromGeoJSON(url3, 'dynamic-source');
 
 
     }
 
+    loadLayerData(sources) {
+        let filePaths = [];
+        sources.forEach((source) => {
+            const layerArray = (source.layers);
+            layerArray.forEach((layer) => {
+                filePaths.push = layer.filepath.toString();
+            })
+            console.log(filePaths)
+        });
+
+    }
     componentWillUnmount() {
 
     };
 
-    addLayerFromGeoJSON = (url, sourceName) => {
+    addLayerFromGeoJSON = (layer, sourceName) => {
+
             this.props.addLayer({
-                id: 'dynamic-layer',
+                id: layer.name,
                 type: 'symbol',
-                source: 'dynamic-source',
-                layout: {
-                    'text-font': [
-                        'FontAwesome normal',
-                    ],
-                    'text-size': 18,
-                    'icon-optional': true,
-                    // airplane icon
-                    'text-field': '\uf072',
+                source: layer.name,
+                metadata: {
+                    'bnd:animate-sprite': {
+                        src: layer.icon.iconUrl,
+                        color: [255, 0, 0],
+                        width: 30.5,
+                        height: 32,
+                        spriteCount: 1,
+                    }
                 },
-                paint: {
-                    'text-color': 'red',
-                },
+                // layout: {
+                //     'icon-image':layer.icon.iconUrl,
+                // },
             });
 
             // Fetch URL
-            fetch(url)
+            fetch(layer.filepath)
                 .then(
                     response => response.json(),
                     error => console.error('An error occured.', error),
@@ -219,34 +241,20 @@ export class DrawerComponent extends Component {
         return (<tbody>{body}</tbody>);
     }
 
-    onChangeCheck(e) {
-        // current array of providers
-        const layers = this.state.layers;
-
-        let index;
-        // check if the check box is checked or unchecked
-        if (e.target.checked) {
-            // add the provider to the array
-            layers.push(e.target.name);
-            this.setState({layers})
-
-        } else {
-            // or remove the value from the unchecked checkbox from the array
-            index = layers.map(x => x.name).indexOf(e.target.name);
-            layers.splice(index, 1);
-            this.setState({layers})
-        }
-    }
-
-    toggleExpanded() {
-        this.setState({ expanded: !this.state.expanded });
-    }
-
-    handleChange = (event, index, value) => this.setState({value});
-
     handleLayerSort(event, index, value){
         this.setState({layerSort: value})
     }
+
+    addLayerToMap(layer){
+        this.props.setSprite(layer.icon.iconUrl);
+        this.props.addSource(layer.name, {type: 'geojson'});
+        this.addLayerFromGeoJSON(layer, layer.name);
+    };
+
+    removeLayerFromMap(layer){
+        this.props.removeLayer(layer.name);
+    };
+
 
     render() {
         const styles = {
@@ -325,7 +333,6 @@ export class DrawerComponent extends Component {
         });
 
         const sourceConfig = Config.SOURCE_DATA;
-        //let sourceList = sourceConfig.sources;
 
         return (
                 <div>
@@ -356,7 +363,9 @@ export class DrawerComponent extends Component {
                         {/*</div>*/}
 
                         <div>
-                            <DataPackCard source={sourceConfig}/>
+                            <DataPackCard source={sourceConfig}
+                                          onAddLayer={this.addLayerToMap}
+                                          onRemoveLayer={this.removeLayerFromMap}/>
                         </div>
 
                     </Drawer>
@@ -419,18 +428,27 @@ function mapDispatchToProps(dispatch) {
         addLayer: (info) => {
             dispatch(mapActions.addLayer(info));
         },
-        // addFeatures: (sourceName, json) => {
-        //     dispatch(mapActions.addFeatures(sourceName, json));
-        // },
+        addFeatures: (sourceName, json) => {
+            dispatch(mapActions.addFeatures(sourceName, json));
+        },
         setView: (center, zoom) => {
             dispatch(mapActions.setView(center, zoom));
+        },
+        removeLayer: (layerId) => {
+            dispatch(mapActions.removeLayer(layerId));
         },
         closeDrawer: () => {
             dispatch(closeDrawer());
         },
         openDrawer: () => {
             dispatch(openDrawer());
-        }
+        },
+        addSource:(type, data) => {
+            dispatch(mapActions.addSource(type, data))
+        },
+        setSprite:(url) => {
+            dispatch(mapActions.setSprite(url))
+        },
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(DrawerComponent);

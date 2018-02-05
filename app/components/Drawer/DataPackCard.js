@@ -153,7 +153,12 @@ export class DataPackCard extends Component {
 
                     />
                     <CardText expandable style={styles.cardText}>
-                        {this.props.source.sources.map((source) => (<LayerCard source={source}/>))}
+                        {this.props.source.sources.map((source) => (
+                            <LayerCard source={source}
+                                       onAddLayer={this.props.onAddLayer}
+                                       onRemoveLayer={this.props.onRemoveLayer}
+                                       />
+                        ))}
                     </CardText>
                 </Card>
 
@@ -164,7 +169,9 @@ export class DataPackCard extends Component {
 
 
 DataPackCard.propTypes = {
-    source : PropTypes.object
+    source : PropTypes.object,
+    onAddLayer: PropTypes.func.isRequired,
+    onRemoveLayer: PropTypes.func.isRequired,
 };
 
 export default DataPackCard;

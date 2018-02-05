@@ -37,24 +37,41 @@ export class LayerCard extends Component {
     }
 
     handleUncheckAll() {
+        const layers = [...this.props.source.layers];
+        layers.forEach((selection) => {
+            console.log(selection)
+            this.props.onRemoveLayer(selection);
+        });
         this.setState({ selection: [] });
     }
 
     handleCheckAll() {
         const newSelection = [...this.props.source.layers];
         this.setState({selection: newSelection})
+        console.log(newSelection)
+        newSelection.forEach((selection) => {
+            console.log(selection)
+            this.props.onAddLayer(selection);
+        });
+
     }
 
     handleCheckedClick(layer) {
+        console.log("CheckedClicked " + layer.name)
         const newSelection = [...this.state.selection];
         newSelection.splice(newSelection.indexOf(layer), 1);
         this.setState({selection : newSelection});
+        this.props.onRemoveLayer(layer);
+
     }
 
     handleUncheckedClick(layer) {
+        console.log("UnCheckedClicked " + layer.name)
         const newSelection = [...this.state.selection];
         newSelection.push(layer);
         this.setState({selection: newSelection});
+        console.log(layer)
+        this.props.onAddLayer(layer);
     }
 
 
@@ -287,7 +304,10 @@ export class LayerCard extends Component {
 
 
 LayerCard.propTypes = {
-    source : PropTypes.object
+    source : PropTypes.object,
+    onAddLayer: PropTypes.func.isRequired,
+    onRemoveLayer: PropTypes.func.isRequired,
+
 };
 
 export default LayerCard;

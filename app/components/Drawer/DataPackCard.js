@@ -157,6 +157,7 @@ export class DataPackCard extends Component {
                             <LayerCard source={source}
                                        onAddLayer={this.props.onAddLayer}
                                        onRemoveLayer={this.props.onRemoveLayer}
+                                       onAttributeOpen={this.props.onAttributeOpen}
                                        />
                         ))}
                     </CardText>
@@ -172,6 +173,7 @@ DataPackCard.propTypes = {
     source : PropTypes.object,
     onAddLayer: PropTypes.func.isRequired,
     onRemoveLayer: PropTypes.func.isRequired,
+    onAttributeOpen: PropTypes.func.isRequired,
 };
 
 export default DataPackCard;

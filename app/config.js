@@ -31,7 +31,7 @@ export const Config = {
                         "addToTable": true
                     },
                     {
-                        "name": "Embassys",
+                        "name": "Embassies",
                         "filepath": "../app/data/Fire_Stations.geojson",
                         "style": {
                         },

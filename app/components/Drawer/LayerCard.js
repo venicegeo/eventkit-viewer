@@ -284,7 +284,7 @@ export class LayerCard extends Component {
                                                 targetOrigin={{horizontal: 'left', vertical: 'top'}}
                                             >
                                                 <MenuItem style={styles.menuItem} primaryText="View Properties" />
-                                                <MenuItem style={styles.menuItem} primaryText="Open Attribute Table" />
+                                                <MenuItem disabled={!this.state.selection.includes(layer)} style={styles.menuItem} primaryText="Open Attribute Table" onClick={() => {this.props.onAttributeOpen(layer)}}/>
                                                 <MenuItem style={styles.menuItem} primaryText="Zoom to AOI" />
                                             </IconMenu>
                                             </span>
@@ -307,6 +307,7 @@ LayerCard.propTypes = {
     source : PropTypes.object,
     onAddLayer: PropTypes.func.isRequired,
     onRemoveLayer: PropTypes.func.isRequired,
+    onAttributeOpen: PropTypes.func.isRequired,
 
 };
 

@@ -41,6 +41,7 @@ export class DrawerComponent extends Component {
         this.handleLayerSort = this.handleLayerSort.bind(this);
         this.addLayerToMap = this.addLayerToMap.bind(this);
         this.removeLayerFromMap = this.removeLayerFromMap.bind(this);
+        this.handleSheetOpen = this.handleSheetOpen.bind(this);
 
         this.state = {
             dialogOpen: false,
@@ -61,17 +62,6 @@ export class DrawerComponent extends Component {
     }
 
     componentDidMount() {
-        //this.loadLayerData(Config.SOURCE_DATA.sources);
-
-
-        // const url = '../app/data/Fire_Stations.geojson';
-        // const url2 = '../app/data/Police_Stations.geojson';
-        // const url3 = '../app/data/airports.json';
-        //
-        // this.addLayerFromGeoJSON(url, 'dynamic-source');
-        // this.addLayerFromGeoJSON(url2, 'dynamic-source');
-        // this.addLayerFromGeoJSON(url3, 'dynamic-source');
-
 
     }
 
@@ -121,9 +111,9 @@ export class DrawerComponent extends Component {
         };
 
 
-    handleSheetOpen() {
+    handleSheetOpen(layer) {
         this.props.closeDrawer();
-        this.setState({isOpen: true, selectedSource:'dynamic-source'});
+        this.setState({isOpen: true, selectedSource:layer.name});
     }
 
     handleSheetClose() {
@@ -132,7 +122,7 @@ export class DrawerComponent extends Component {
 
     zoomToFeature(feature){
         let coords = feature.geometry.coordinates;
-        this.props.setView(coords, 12)
+        this.props.setView(coords, 18)
     }
 
     // Next few functions are all about building the feature Table
@@ -314,6 +304,8 @@ export class DrawerComponent extends Component {
 
 
         };
+
+        const attributeTableName = this.state.selectedSource;
         // Get full list of properties
         const propertyList = this.getTableHeaders(this.state.selectedSource);
 
@@ -365,7 +357,8 @@ export class DrawerComponent extends Component {
                         <div>
                             <DataPackCard source={sourceConfig}
                                           onAddLayer={this.addLayerToMap}
-                                          onRemoveLayer={this.removeLayerFromMap}/>
+                                          onRemoveLayer={this.removeLayerFromMap}
+                                          onAttributeOpen={this.handleSheetOpen}/>
                         </div>
 
                     </Drawer>
@@ -383,7 +376,7 @@ export class DrawerComponent extends Component {
                         open={this.state.isOpen}
                     >
                     <div style={{height:'25px', padding:'10px', backgroundColor:'#e2e2e2', fontSize:'18px' }}>
-                        Airports
+                        {attributeTableName}
                     </div>
 
                     <div className="feature-table">

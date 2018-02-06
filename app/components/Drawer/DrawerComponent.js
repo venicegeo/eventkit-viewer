@@ -366,7 +366,8 @@ export class DrawerComponent extends Component {
                     </Drawer>
                  <div>
                     <ExpandableBottomSheet
-                        bodyStyle={{marginTop:'600px'}}
+                        className={"expandable-sheet"}
+                        bodyStyle={{marginTop:'500px', maxHeight:'300px'}}
                         action={
                             <FloatingActionButton
                                 backgroundColor='red'
@@ -390,7 +391,7 @@ export class DrawerComponent extends Component {
                             </table>
                         </div>
                     </div>
-                    </ExpandableBottomSheet>
+                    </ExpandableBottomSheet >
                 </div>
             </div>
         )

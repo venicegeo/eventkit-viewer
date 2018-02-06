@@ -32,7 +32,7 @@ export const Config = {
                     },
                     {
                         "name": "Embassies",
-                        "filepath": "../app/data/Fire_Stations.geojson",
+                        "filepath": "../app/data/Places_of_Worship.geojson",
                         "style": {
                         },
                         "icon": {
@@ -77,7 +77,7 @@ export const Config = {
                     },
                     {
                         "name": "Places of Worship",
-                        "filepath": "../app/data/Places_of_Worship.geojson",
+                        "filepath": "../app/data/Places_of_Worship2.geojson",
                         "style": {
                         },
                         "icon": {

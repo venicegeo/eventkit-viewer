@@ -113,6 +113,7 @@ export class DrawerComponent extends Component {
 
     handleSheetOpen(layer) {
         this.props.closeDrawer();
+        setTimeout( () => window.dispatchEvent(new Event('resize')), 500);//HACK TO RESIZE MAP AFTER THE DRAWER OPENS/CLOSES
         this.setState({isOpen: true, selectedSource:layer.name});
     }
 
@@ -156,7 +157,7 @@ export class DrawerComponent extends Component {
         for (let i = 0, ii = properties.length; i < ii; i++) {
             th.push(<th style={{textAlign:'left'}} key={properties[i]}>{properties[i]}</th>);
         }
-        return (<thead><tr style={{height: '20px', fontSize:'16px', width:'100%', paddingLeft:'10px', paddingRight:'10px'}}>{th}</tr></thead>);
+        return (<thead><tr style={{height: '20px', fontSize:'13px', width:'100%'}}>{th}</tr></thead>);
     }
 
     updateRow(rowNumber) {
@@ -211,8 +212,9 @@ export class DrawerComponent extends Component {
                 // Build list of properties for each feature
                 const featureValue = features[i].properties[properties[j]];
                 row.push(
-                    <td style={{width:'13%'}} key={j}>
-                        <EditField editRow={this.state.editRow === i} value={featureValue} onBlur={(evt) => this.updateFeature(evt.target.value, properties[j])}/>
+                    <td key={j}>
+                        {featureValue}
+                        {/*<EditField editRow={this.state.editRow === i} value={featureValue} onBlur={(evt) => this.updateFeature(evt.target.value, properties[j])}/>*/}
                     </td>);
             }
 
@@ -223,7 +225,7 @@ export class DrawerComponent extends Component {
                 </a>
             </td>)
             // add the features properties to the list
-            body.push(<tr style={{width:'100%', fontSize:'14px'}} key={i}>{row}</tr>);
+            body.push(<tr style={{width:'100%', fontSize:'12px'}} key={i}>{row}</tr>);
             // Reset the row
             row = [];
         }

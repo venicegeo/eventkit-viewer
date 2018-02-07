@@ -73,13 +73,14 @@ export class TopAppBar extends Component {
             },
             layersIcon: {
                 color:'#4598bf',
-                fill:'#4598bf'
+                fill:'#4598bf',
+                cursor:'pointer',
             }
         }
 
         const img = <img style={styles.img} src={logo}/>
         const icon = this.props.drawer == 'open' ?
-            <ArrowBack onTouchTap={this.handleDrawer.bind(this)} style={styles.layersIcon} />
+            <div></div>
             :
             <Layers onTouchTap={this.handleDrawer.bind(this)} style={styles.layersIcon}/>
 

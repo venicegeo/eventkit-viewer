@@ -9,6 +9,7 @@ import ZoomIn from 'material-ui/svg-icons/action/zoom-in';
 import { ExpandableBottomSheet } from 'material-ui-bottom-sheet';
 import { List, ListItem, Subheader, FloatingActionButton, RaisedButton } from 'material-ui';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
+import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 
 import SearchLayers from './SearchLayers';
 import DataPackCard from "./DataPackCard";
@@ -110,6 +111,16 @@ export class DrawerComponent extends Component {
                 .then(json => this.props.addFeatures(sourceName, json));
         };
 
+    handleDrawer() {
+        setTimeout( () => window.dispatchEvent(new Event('resize')), 500);//HACK TO RESIZE MAP AFTER THE DRAWER OPENS/CLOSES
+
+        if (this.props.drawer === 'open') {
+            this.props.closeDrawer();
+        }
+        else {
+            this.props.openDrawer();
+        }
+    }
 
     handleSheetOpen(layer) {
         this.props.closeDrawer();
@@ -255,8 +266,7 @@ export class DrawerComponent extends Component {
                 backgroundColor: '#4598bf',
                 padding: '0px',
                 background: 'white',
-                maxWidth:'300px',
-                minWidth:'300px',
+                width:'300px',
                 overflow:'hidden'
             },
             headline: {
@@ -306,7 +316,11 @@ export class DrawerComponent extends Component {
                 marginLeft:'10px',
                 width:'50px'
             },
-
+            layersIcon: {
+                color:'#4598bf',
+                fill:'#4598bf',
+                cursor:'pointer',
+            }
 
         };
 
@@ -332,10 +346,10 @@ export class DrawerComponent extends Component {
         const sourceConfig = Config.SOURCE_DATA;
 
         return (
-                <div>
+                <div style={{overflow:'hidden'}}>
                     <Drawer
                         className={'qa-Application-Drawer'}
-                        width={'20%'}
+                        width={300}
                         overlayStyle={styles.drawerContainer}
                         containerStyle={styles.drawerContainer}
                         docked={true}
@@ -347,9 +361,10 @@ export class DrawerComponent extends Component {
                                 <Layers style={styles.layersDrawerIcon}/>
                                 <Subheader style={styles.subHeader}>LAYERS</Subheader>
                             </div>
-                            {/*<div style={{display:'inline-block', float: 'right', bottom: 0, marginTop: '10px',}}>*/}
-                                {/*<LayersSortDropDown value={this.state.layerSort} handleChange={this.handleLayerSort}/>*/}
-                            {/*</div>*/}
+                            <div style={{display:'inline-block', float: 'right', bottom: 0, marginTop: '10px', marginRight:'10px'}}>
+                                <ArrowBack onTouchTap={this.handleDrawer.bind(this)} style={styles.layersIcon} />
+                            </div>
+
                         </div>
                         <div>
                             <SearchLayers/>

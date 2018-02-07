@@ -220,15 +220,15 @@ export class LayerCard extends Component {
                                         </div>
                                         <div style={{right:'30px', bottom:'3px',display:'inline-block', position: 'absolute', verticalAlign:'super'}} >
                                             <span >
-                                            <IconMenu
+                                            {/*<IconMenu*/}
 
-                                                iconButtonElement={<IconButton style={{padding:'0px', width:'24px', height:'24px'}}><MoreVertIcon /></IconButton>}
-                                                anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-                                                targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                                            >
-                                                <MenuItem style={styles.menuItem} primaryText="View Properties" />
-                                                <MenuItem style={styles.menuItem} primaryText="Zoom to AOI Extent" />
-                                            </IconMenu>
+                                                {/*iconButtonElement={<IconButton style={{padding:'0px', width:'24px', height:'24px'}}><MoreVertIcon /></IconButton>}*/}
+                                                {/*anchorOrigin={{horizontal: 'left', vertical: 'top'}}*/}
+                                                {/*targetOrigin={{horizontal: 'left', vertical: 'top'}}*/}
+                                            {/*>*/}
+                                                {/*<MenuItem style={styles.menuItem} disabled={true} primaryText="View Properties" />*/}
+                                                {/*<MenuItem style={styles.menuItem} disabled={true} primaryText="Zoom to AOI Extent" />*/}
+                                            {/*</IconMenu>*/}
                                             </span>
                                         </div>
                                         <div style={styles.groupIcons}>
@@ -283,9 +283,9 @@ export class LayerCard extends Component {
                                                 anchorOrigin={{horizontal: 'left', vertical: 'top'}}
                                                 targetOrigin={{horizontal: 'left', vertical: 'top'}}
                                             >
-                                                <MenuItem style={styles.menuItem} primaryText="View Properties" />
+                                                <MenuItem style={styles.menuItem} disabled={true} primaryText="View Properties" />
                                                 <MenuItem disabled={!this.state.selection.includes(layer)} style={styles.menuItem} primaryText="Open Attribute Table" onClick={() => {this.props.onAttributeOpen(layer)}}/>
-                                                <MenuItem style={styles.menuItem} primaryText="Zoom to AOI" />
+                                                <MenuItem style={styles.menuItem} disabled={true} primaryText="Zoom to AOI" />
                                             </IconMenu>
                                             </span>
                                             </div>

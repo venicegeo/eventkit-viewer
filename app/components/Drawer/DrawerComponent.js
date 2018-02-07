@@ -367,7 +367,7 @@ export class DrawerComponent extends Component {
                  <div>
                     <ExpandableBottomSheet
                         className={"expandable-sheet"}
-                        bodyStyle={{marginTop:'500px', maxHeight:'300px'}}
+                        bodyStyle={{marginTop:'500px', marginBottom:'25px'}}
                         action={
                             <FloatingActionButton
                                 backgroundColor='red'

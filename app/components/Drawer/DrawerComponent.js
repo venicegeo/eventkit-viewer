@@ -254,7 +254,10 @@ export class DrawerComponent extends Component {
                 marginTop: '25px',
                 backgroundColor: '#4598bf',
                 padding: '0px',
-                background: 'white'
+                background: 'white',
+                maxWidth:'300px',
+                minWidth:'300px',
+                overflow:'hidden'
             },
             headline: {
                 fontSize: 24,

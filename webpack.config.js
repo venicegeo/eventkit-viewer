@@ -3,6 +3,7 @@ var path = require('path');
 var WriteFilePlugin = require('write-file-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const UglifyJs = require('uglifyjs-webpack-plugin');
 
 var BASE_DIR = path.resolve('/var', 'lib', 'eventkit');
 var BUILD_DIR = path.resolve(BASE_DIR, 'build');
@@ -99,10 +100,7 @@ var config = {
 
 if (PROD) {
     config.plugins.push(new webpack.DefinePlugin({'process.env.NODE_ENV': "'production'"}));
-    config.plugins.push(new webpack.optimize.UglifyJsPlugin({
-        compress: { warnings: false },
-        sourceMap: false,
-    }));
+    config.plugins.push(new UglifyJs());
 } else {
     config.entry.app.push('webpack-dev-server/client?http://0.0.0.0:7080')
     config.plugins.push(new webpack.HotModuleReplacementPlugin());

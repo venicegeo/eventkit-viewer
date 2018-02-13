@@ -1,26 +1,27 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux'
-import {closeDrawer, openDrawer} from '../actions/drawerActions';
+import {closeDrawer, openDrawer} from '../../actions/drawerActions';
 import Drawer from 'material-ui/Drawer';
-import Checkbox from 'material-ui/Checkbox';
 import Layers from 'material-ui/svg-icons/maps/layers';
 import Close from 'material-ui/svg-icons/navigation/close';
 import ZoomIn from 'material-ui/svg-icons/action/zoom-in';
 import { ExpandableBottomSheet } from 'material-ui-bottom-sheet';
-import { List, ListItem, Subheader, FloatingActionButton, RaisedButton } from 'material-ui'
+import { List, ListItem, Subheader, FloatingActionButton, RaisedButton } from 'material-ui';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
+import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
+
+import SearchLayers from './SearchLayers';
+import DataPackCard from "./DataPackCard";
 import fetch from 'isomorphic-fetch';
-
-import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-
 
 import * as mapActions from '@boundlessgeo/sdk/actions/map';
 import * as drawingActions from '@boundlessgeo/sdk/actions/drawing';
+import { Config } from '../../../app/config.js'
 
 import {INTERACTIONS} from '@boundlessgeo/sdk/constants';
+
+
 
 export class EditField extends React.Component {
     render() {
@@ -38,15 +39,22 @@ export class DrawerComponent extends Component {
     constructor(props) {
         super(props);
 
+        this.handleLayerSort = this.handleLayerSort.bind(this);
+        this.addLayerToMap = this.addLayerToMap.bind(this);
+        this.removeLayerFromMap = this.removeLayerFromMap.bind(this);
+        this.handleSheetOpen = this.handleSheetOpen.bind(this);
+
         this.state = {
             dialogOpen: false,
             isOpen: false,
-            value: 'a',
+            value: 1,
             selectedSource: '',
             editRow: -1,
             editRecord: {},
             layers: [],
             selectValue: 1,
+            expanded: false,
+            layerSort: 1,
         }
     }
 
@@ -55,35 +63,46 @@ export class DrawerComponent extends Component {
     }
 
     componentDidMount() {
-        const url = '../app/data/airports.json';
-        this.addLayerFromGeoJSON(url, 'dynamic-source');
+
     }
 
+    loadLayerData(sources) {
+        let filePaths = [];
+        sources.forEach((source) => {
+            const layerArray = (source.layers);
+            layerArray.forEach((layer) => {
+                filePaths.push = layer.filepath.toString();
+            })
+            console.log(filePaths)
+        });
+
+    }
     componentWillUnmount() {
 
     };
 
-    addLayerFromGeoJSON = (url, sourceName) => {
+    addLayerFromGeoJSON = (layer, sourceName) => {
+
             this.props.addLayer({
-                id: 'dynamic-layer',
+                id: layer.name,
                 type: 'symbol',
-                source: 'dynamic-source',
-                layout: {
-                    'text-font': [
-                        'FontAwesome normal',
-                    ],
-                    'text-size': 18,
-                    'icon-optional': true,
-                    // airplane icon
-                    'text-field': '\uf072',
+                source: layer.name,
+                metadata: {
+                    'bnd:animate-sprite': {
+                        src: layer.icon.iconUrl,
+                        color: [255, 0, 0],
+                        width: 30.5,
+                        height: 32,
+                        spriteCount: 1,
+                    }
                 },
-                paint: {
-                    'text-color': 'red',
-                },
+                // layout: {
+                //     'icon-image':layer.icon.iconUrl,
+                // },
             });
 
             // Fetch URL
-            fetch(url)
+            fetch(layer.filepath)
                 .then(
                     response => response.json(),
                     error => console.error('An error occured.', error),
@@ -92,10 +111,21 @@ export class DrawerComponent extends Component {
                 .then(json => this.props.addFeatures(sourceName, json));
         };
 
+    handleDrawer() {
+        setTimeout( () => window.dispatchEvent(new Event('resize')), 500);//HACK TO RESIZE MAP AFTER THE DRAWER OPENS/CLOSES
 
-    handleSheetOpen() {
+        if (this.props.drawer === 'open') {
+            this.props.closeDrawer();
+        }
+        else {
+            this.props.openDrawer();
+        }
+    }
+
+    handleSheetOpen(layer) {
         this.props.closeDrawer();
-        this.setState({isOpen: true, selectedSource:'dynamic-source'});
+        setTimeout( () => window.dispatchEvent(new Event('resize')), 500);//HACK TO RESIZE MAP AFTER THE DRAWER OPENS/CLOSES
+        this.setState({isOpen: true, selectedSource:layer.name});
     }
 
     handleSheetClose() {
@@ -104,7 +134,7 @@ export class DrawerComponent extends Component {
 
     zoomToFeature(feature){
         let coords = feature.geometry.coordinates;
-        this.props.setView(coords, 12)
+        this.props.setView(coords, 18)
     }
 
     // Next few functions are all about building the feature Table
@@ -138,7 +168,7 @@ export class DrawerComponent extends Component {
         for (let i = 0, ii = properties.length; i < ii; i++) {
             th.push(<th style={{textAlign:'left'}} key={properties[i]}>{properties[i]}</th>);
         }
-        return (<thead><tr style={{height: '20px', fontSize:'16px', width:'100%', paddingLeft:'10px', paddingRight:'10px'}}>{th}</tr></thead>);
+        return (<thead><tr style={{height: '20px', fontSize:'13px', width:'100%'}}>{th}</tr></thead>);
     }
 
     updateRow(rowNumber) {
@@ -193,8 +223,9 @@ export class DrawerComponent extends Component {
                 // Build list of properties for each feature
                 const featureValue = features[i].properties[properties[j]];
                 row.push(
-                    <td style={{width:'13%'}} key={j}>
-                        <EditField editRow={this.state.editRow === i} value={featureValue} onBlur={(evt) => this.updateFeature(evt.target.value, properties[j])}/>
+                    <td key={j}>
+                        {featureValue}
+                        {/*<EditField editRow={this.state.editRow === i} value={featureValue} onBlur={(evt) => this.updateFeature(evt.target.value, properties[j])}/>*/}
                     </td>);
             }
 
@@ -205,7 +236,7 @@ export class DrawerComponent extends Component {
                 </a>
             </td>)
             // add the features properties to the list
-            body.push(<tr style={{width:'100%', fontSize:'14px'}} key={i}>{row}</tr>);
+            body.push(<tr style={{width:'100%', fontSize:'12px'}} key={i}>{row}</tr>);
             // Reset the row
             row = [];
         }
@@ -213,52 +244,30 @@ export class DrawerComponent extends Component {
         return (<tbody>{body}</tbody>);
     }
 
-    onChangeCheck(e) {
-        // current array of providers
-        const layers = this.state.layers;
-
-        let index;
-        // check if the check box is checked or unchecked
-        if (e.target.checked) {
-            // add the provider to the array
-            layers.push(e.target.name);
-            this.setState({layers})
-
-        } else {
-            // or remove the value from the unchecked checkbox from the array
-            index = layers.map(x => x.name).indexOf(e.target.name);
-            layers.splice(index, 1);
-            this.setState({layers})
-        }
+    handleLayerSort(event, index, value){
+        this.setState({layerSort: value})
     }
+
+    addLayerToMap(layer){
+        this.props.setSprite(layer.icon.iconUrl);
+        this.props.addSource(layer.name, {type: 'geojson'});
+        this.addLayerFromGeoJSON(layer, layer.name);
+    };
+
+    removeLayerFromMap(layer){
+        this.props.removeLayer(layer.name);
+    };
 
 
     render() {
-        const iconButtonElement = (
-            <IconButton
-                touch={true}
-                tooltip="more"
-                tooltipPosition="bottom-left"
-            >
-                <MoreVertIcon />
-            </IconButton>
-        );
-
-        const rightIconMenu = (
-            <IconMenu iconButtonElement={iconButtonElement}>
-                <MenuItem>menu 1</MenuItem>
-                <MenuItem>menu 2</MenuItem>
-                <MenuItem>menu 3</MenuItem>
-            </IconMenu>
-        );
-
-
         const styles = {
             drawerContainer: {
                 marginTop: '25px',
                 backgroundColor: '#4598bf',
                 padding: '0px',
-                background: 'white'
+                background: 'white',
+                width:'300px',
+                overflow:'hidden'
             },
             headline: {
                 fontSize: 24,
@@ -306,10 +315,16 @@ export class DrawerComponent extends Component {
                 height:'30px',
                 marginLeft:'10px',
                 width:'50px'
-
+            },
+            layersIcon: {
+                color:'#4598bf',
+                fill:'#4598bf',
+                cursor:'pointer',
             }
 
         };
+
+        const attributeTableName = this.state.selectedSource;
         // Get full list of properties
         const propertyList = this.getTableHeaders(this.state.selectedSource);
 
@@ -328,73 +343,49 @@ export class DrawerComponent extends Component {
             return null;
         });
 
+        const sourceConfig = Config.SOURCE_DATA;
 
         return (
-                <div>
+                <div style={{overflow:'hidden'}}>
                     <Drawer
                         className={'qa-Application-Drawer'}
-                        width={'20%'}
+                        width={300}
                         overlayStyle={styles.drawerContainer}
                         containerStyle={styles.drawerContainer}
                         docked={true}
                         open={this.props.drawer === 'open'}
                         >
-                        <List>
-                            <div>
+
+                        <div >
+                            <div style={{display:'inline-block', paddingLeft:'15px',}}>
                                 <Layers style={styles.layersDrawerIcon}/>
-                                <Subheader style={styles.subHeader}> Layers</Subheader>
-                                <RaisedButton
-                                    style={{marginLeft:'10px', height:'25px', width:'80px', maxHeight:'25px!important', minWidth:'80px!important'}}
-                                    onClick={this.handleSheetOpen.bind(this)}
-                                    backgroundColor="#4598bf"
-                                    label="IMPORT"
-                                    labelStyle={{color:'white', fontWeight:'bold', fontSize:'12px', paddingBottom:'5px', textAlign:'middle', paddingLeft:'0px!important', paddingRight:'0px!important'}}
-                                />
+                                <Subheader style={styles.subHeader}>LAYERS</Subheader>
                             </div>
-                            <ListItem
-                                style={styles.listItem}
+                            <div style={{display:'inline-block', float: 'right', bottom: 0, marginTop: '10px', marginRight:'10px'}}>
+                                <ArrowBack onTouchTap={this.handleDrawer.bind(this)} style={styles.layersIcon} />
+                            </div>
 
-                                leftCheckbox={<Checkbox name="Airports" onCheck={this.onChangeCheck.bind(this)} iconStyle={styles.checkbox} />}
-                                primaryText="Airports"
-                                nestedItems={[
-                                    <ListItem
-                                        key={1}
-                                        rightIconButton={rightIconMenu}
-                                        primaryText="Terminal A"
-                                        leftCheckbox={<Checkbox name="Airports1" onCheck={this.onChangeCheck.bind(this)} iconStyle={styles.checkbox} />}
+                        </div>
+                        <div>
+                            <SearchLayers/>
+                        </div>
 
-                                    />,
-                                    <ListItem
-                                        key={2}
-                                        primaryText="Terminal B"
-                                        leftCheckbox={<Checkbox name="Airports2" onCheck={this.onChangeCheck.bind(this)} iconStyle={styles.checkbox} />}
-                                    />,
+                        {/*<div>*/}
+                            {/*<SelectedLayerCount/>*/}
+                        {/*</div>*/}
 
-                                ]}
+                        <div>
+                            <DataPackCard source={sourceConfig}
+                                          onAddLayer={this.addLayerToMap}
+                                          onRemoveLayer={this.removeLayerFromMap}
+                                          onAttributeOpen={this.handleSheetOpen}/>
+                        </div>
 
-                            />
-                            <ListItem
-                                style={styles.listItem}
-                                leftCheckbox={<Checkbox name='Police Stations' onCheck={this.onChangeCheck.bind(this)} iconStyle={styles.checkbox} />}
-                                primaryText="Police Stations"
-                            />
-                            <ListItem
-                                style={styles.listItem}
-                                leftCheckbox={<Checkbox name="Fire Stations" onCheck={this.onChangeCheck.bind(this)} iconStyle={styles.checkbox} />}
-                                primaryText="Fire Stations"
-                            />
-                        </List>
-                        <RaisedButton
-                            style={{marginTop:'50px', marginLeft:'50px'}}
-                            onClick={this.handleSheetOpen.bind(this)}
-                            backgroundColor="#4598bf"
-                            label="Update Table"
-                            labelStyle={{color:'white'}}
-                        />
                     </Drawer>
                  <div>
                     <ExpandableBottomSheet
-                        bodyStyle={{marginTop:'600px'}}
+                        className={"expandable-sheet"}
+                        bodyStyle={{marginTop:'500px', marginBottom:'25px'}}
                         action={
                             <FloatingActionButton
                                 backgroundColor='red'
@@ -406,7 +397,7 @@ export class DrawerComponent extends Component {
                         open={this.state.isOpen}
                     >
                     <div style={{height:'25px', padding:'10px', backgroundColor:'#e2e2e2', fontSize:'18px' }}>
-                        Airports
+                        {attributeTableName}
                     </div>
 
                     <div className="feature-table">
@@ -418,7 +409,7 @@ export class DrawerComponent extends Component {
                             </table>
                         </div>
                     </div>
-                    </ExpandableBottomSheet>
+                    </ExpandableBottomSheet >
                 </div>
             </div>
         )
@@ -457,12 +448,21 @@ function mapDispatchToProps(dispatch) {
         setView: (center, zoom) => {
             dispatch(mapActions.setView(center, zoom));
         },
+        removeLayer: (layerId) => {
+            dispatch(mapActions.removeLayer(layerId));
+        },
         closeDrawer: () => {
             dispatch(closeDrawer());
         },
         openDrawer: () => {
             dispatch(openDrawer());
-        }
+        },
+        addSource:(type, data) => {
+            dispatch(mapActions.addSource(type, data))
+        },
+        setSprite:(url) => {
+            dispatch(mapActions.setSprite(url))
+        },
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(DrawerComponent);

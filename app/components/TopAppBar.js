@@ -48,11 +48,14 @@ export class TopAppBar extends Component {
                 height: '50px',
             },
             img: {
-                position: 'absolute',
-                left: '50%',
-                marginLeft: '-110px',
-                marginTop: '5px',
-                height: '40px'
+                //position: 'absolute',
+                //left: '50%',
+                //marginLeft: '-110px',
+                //marginTop: '5px',
+                height: '40px',
+                paddingBottom:'10px',
+                marginTop:'-4px',
+                paddingRight:'10px',
             },
             layersButtonIcon: {
                 height:'16px',
@@ -70,13 +73,14 @@ export class TopAppBar extends Component {
             },
             layersIcon: {
                 color:'#4598bf',
-                fill:'#4598bf'
+                fill:'#4598bf',
+                cursor:'pointer',
             }
         }
 
         const img = <img style={styles.img} src={logo}/>
         const icon = this.props.drawer == 'open' ?
-            <ArrowBack onTouchTap={this.handleDrawer.bind(this)} style={styles.layersIcon} />
+            <div></div>
             :
             <Layers onTouchTap={this.handleDrawer.bind(this)} style={styles.layersIcon}/>
 
@@ -86,8 +90,9 @@ export class TopAppBar extends Component {
             <div style={styles.containerDiv}>
                 <AppBar
                     style={styles.appBar}
-                    title={img}
+                    //title={img}
                     iconStyleLeft={styles.layersButtonIcon}
+                    iconElementRight={img}
                     iconElementLeft={icon}
                 />
             </div>

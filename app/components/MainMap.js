@@ -6,7 +6,7 @@ import SdkMap from '@boundlessgeo/sdk/components/map';
 import TopAppBar from './../components/TopAppBar';
 import SdkZoomControl from '@boundlessgeo/sdk/components/map/zoom-control';
 import SdkZoomSlider from '@boundlessgeo/sdk/components/map/zoom-slider';
-import DrawerComponent from './../components/DrawerComponent';
+import DrawerComponent from './Drawer/DrawerComponent';
 import TableComponent from './../components/TableComponent';
 import SearchBar from './../components/SearchBar';
 import fetch from 'isomorphic-fetch';

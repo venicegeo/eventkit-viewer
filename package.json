@@ -32,7 +32,7 @@
     "jest": "^20.0.4",
     "jsdoc": "^3.5.4",
     "marked": "^0.3.6",
-    "material-ui": "~0.18.0",
+    "material-ui": "~0.19.4",
     "material-ui-bottom-sheet": "~0.5.1",
     "metalsmith": "^2.3.0",
     "metalsmith-layouts": "^1.8.1",

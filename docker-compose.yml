@@ -11,6 +11,7 @@ services:
        - ./app:/var/lib/eventkit/app:ro
        - ./static:/var/lib/eventkit/static:ro
        - ./index.html:/var/lib/eventkit/index.html:ro
+       - ./build:/var/lib/eventkit/build
      ports:
         - "7080:7080"
 

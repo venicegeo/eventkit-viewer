@@ -15,7 +15,7 @@ end
 VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-    config.vm.hostname = "viewer.eventkit.dev"
+    config.vm.hostname = "viewer.eventkit.test"
     config.vm.network :private_network, ip: "192.168.99.140"
 
     # Check required plugins

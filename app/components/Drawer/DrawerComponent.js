@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux'
 import {closeDrawer, openDrawer} from '../../actions/drawerActions';
+import {processFile, resetFile} from '../../actions/importActions';
 import Drawer from 'material-ui/Drawer';
 import Layers from 'material-ui/svg-icons/maps/layers';
 import Close from 'material-ui/svg-icons/navigation/close';
@@ -10,9 +11,11 @@ import { ExpandableBottomSheet } from 'material-ui-bottom-sheet';
 import { List, ListItem, Subheader, FloatingActionButton, RaisedButton } from 'material-ui';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
+import FileFileUpload from 'material-ui/svg-icons/file/file-upload';
 
 import SearchLayers from './SearchLayers';
 import DataPackCard from "./DataPackCard";
+import DropZone from './DropZone';
 import fetch from 'isomorphic-fetch';
 
 import * as mapActions from '@boundlessgeo/sdk/actions/map';
@@ -43,6 +46,7 @@ export class DrawerComponent extends Component {
         this.addLayerToMap = this.addLayerToMap.bind(this);
         this.removeLayerFromMap = this.removeLayerFromMap.bind(this);
         this.handleSheetOpen = this.handleSheetOpen.bind(this);
+        this.toggleImportModal = this.toggleImportModal.bind(this);
 
         this.state = {
             dialogOpen: false,
@@ -55,11 +59,32 @@ export class DrawerComponent extends Component {
             selectValue: 1,
             expanded: false,
             layerSort: 1,
+            showImportModal: false,
         }
     }
 
     componentWillReceiveProps(nextProps) {
+        if (nextProps.importFile.newLayer && (this.props.importFile.newLayer === null ||
+            nextProps.importFile.newLayer.name !== this.props.importFile.newLayer.name)) {
 
+            var layer = nextProps.importFile.newLayer;
+            this.props.addSource(layer.name, {type: 'geojson'});
+            this.props.addLayer({
+                id: layer.name,
+                type: 'symbol',
+                source: layer.name,
+                metadata: {
+                    'bnd:animate-sprite': {
+                        src: "app/data/icons/hospital.svg",
+                        color: [255, 0, 0],
+                        width: 30.5,
+                        height: 32,
+                        spriteCount: 1,
+                    }
+                }
+            });
+            this.props.addFeatures(layer.name, layer.features);
+        }
     }
 
     componentDidMount() {
@@ -109,7 +134,7 @@ export class DrawerComponent extends Component {
                 )
                 // addFeatures with the features, source name
                 .then(json => this.props.addFeatures(sourceName, json));
-        };
+    };
 
     handleDrawer() {
         setTimeout( () => window.dispatchEvent(new Event('resize')), 500);//HACK TO RESIZE MAP AFTER THE DRAWER OPENS/CLOSES
@@ -258,6 +283,15 @@ export class DrawerComponent extends Component {
         this.props.removeLayer(layer.name);
     };
 
+    toggleImportModal(show) {
+        if (show != undefined) {
+            this.setState({ showImportModal: show });
+        }
+        else {
+            this.setState({ showImportModal: !this.state.showImportModal });
+        }
+    };
+
 
     render() {
         const styles = {
@@ -267,7 +301,7 @@ export class DrawerComponent extends Component {
                 padding: '0px',
                 background: 'white',
                 width:'300px',
-                overflow:'hidden'
+                overflow:'hidden',
             },
             headline: {
                 fontSize: 24,
@@ -282,7 +316,7 @@ export class DrawerComponent extends Component {
                 display:'inline-block',
             },
             listItem: {
-                color:'black'
+                color:'black',
             },
             checkbox: {
                 fill:'black',
@@ -291,7 +325,7 @@ export class DrawerComponent extends Component {
                 height:'16px',
                 width:'16px',
                 fill:'white',
-                paddingBottom: '2px'
+                paddingBottom: '2px',
             },
             layersDrawerIcon: {
                 height:'30px',
@@ -309,19 +343,33 @@ export class DrawerComponent extends Component {
                 height: '20px',
                 maxHeight:'25px!important',
                 minWidth:'40px!important',
-                width:'25px'
+                width:'25px',
             },
             layersDrawerButton: {
                 height:'30px',
                 marginLeft:'10px',
-                width:'50px'
+                width:'50px',
             },
             layersIcon: {
                 color:'#4598bf',
                 fill:'#4598bf',
                 cursor:'pointer',
-            }
-
+            },
+            importButton: {
+                border: 'none',
+                marginTop: '10px',
+                marginLeft: '10px',
+                padding: '5px',
+                backgroundColor: '#fff',
+                outline: 'none',
+            },
+            importButtonText: {
+                color: '#4498c0',
+                position: 'absolute',
+                marginTop: '5px',
+                fontSize: '1.3em',
+                fontWeight: 'bold',
+            },
         };
 
         const attributeTableName = this.state.selectedSource;
@@ -356,6 +404,13 @@ export class DrawerComponent extends Component {
                         open={this.props.drawer === 'open'}
                         >
 
+                        <div>
+                            <button className={'qa-ImportButton-button'} style={styles.importButton} onClick={this.toggleImportModal.bind(this, true)}>
+                                <FileFileUpload className={'qa-ImportButton-FileFileUpload'}/>
+                                <span className={'qa-ImportButton-span'} style={styles.importButtonText}>IMPORT</span>
+                            </button>
+                        </div>
+
                         <div >
                             <div style={{display:'inline-block', paddingLeft:'15px',}}>
                                 <Layers style={styles.layersDrawerIcon}/>
@@ -382,37 +437,44 @@ export class DrawerComponent extends Component {
                         </div>
 
                     </Drawer>
-                 <div>
-                    <ExpandableBottomSheet
-                        className={"expandable-sheet"}
-                        bodyStyle={{marginTop:'500px', marginBottom:'25px'}}
-                        action={
-                            <FloatingActionButton
-                                backgroundColor='red'
-                                onClick={this.handleSheetClose.bind(this)}>
-                                <Close/>
-                            </FloatingActionButton>
-                        }
-                        onRequestClose={() => console.log('close')}
-                        open={this.state.isOpen}
-                    >
-                    <div style={{height:'25px', padding:'10px', backgroundColor:'#e2e2e2', fontSize:'18px' }}>
-                        {attributeTableName}
-                    </div>
-
-                    <div className="feature-table">
-
-                        <div className='table-content'>
-                            <table style={{width:'95%', paddingLeft:'10px'}}>
-                                {tableHeader}
-                                {tableBody}
-                            </table>
+                    <div>
+                        <ExpandableBottomSheet
+                            className={"expandable-sheet"}
+                            bodyStyle={{marginTop:'500px', marginBottom:'25px'}}
+                            action={
+                                <FloatingActionButton
+                                    backgroundColor='red'
+                                    onClick={this.handleSheetClose.bind(this)}>
+                                    <Close/>
+                                </FloatingActionButton>
+                            }
+                            onRequestClose={() => console.log('close')}
+                            open={this.state.isOpen}
+                        >
+                        <div style={{height:'25px', padding:'10px', backgroundColor:'#e2e2e2', fontSize:'18px' }}>
+                            {attributeTableName}
                         </div>
+
+                        <div className="feature-table">
+
+                            <div className='table-content'>
+                                <table style={{width:'95%', paddingLeft:'10px'}}>
+                                    {tableHeader}
+                                    {tableBody}
+                                </table>
+                            </div>
+                        </div>
+                        </ExpandableBottomSheet >
                     </div>
-                    </ExpandableBottomSheet >
+                    <DropZone
+                        importFile={this.props.importFile}
+                        showImportModal={this.state.showImportModal}
+                        setImportModalState={this.toggleImportModal}
+                        processFile={this.props.processFile}
+                        resetFile={this.props.resetFile}
+                    />
                 </div>
-            </div>
-        )
+        );
     }
 }
 
@@ -420,7 +482,11 @@ DrawerComponent.propTypes = {
     dialog: PropTypes.bool,
     openDrawer: PropTypes.func,
     closeDrawer: PropTypes.func,
+    importFile: PropTypes.object,
+    processFile: PropTypes.func,
+    resetFile: PropTypes.func,
     drawer: PropTypes.string,
+    newLayer: PropTypes.object,
 };
 
 
@@ -429,6 +495,7 @@ function mapStateToProps(state) {
         dialog: state.dialog,
         map: state.map,
         drawer: state.drawer,
+        importFile: state.importFile,
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -462,6 +529,12 @@ function mapDispatchToProps(dispatch) {
         },
         setSprite:(url) => {
             dispatch(mapActions.setSprite(url))
+        },
+        processFile: (file) => {
+            dispatch(processFile(file));
+        },
+        resetFile: () => {
+            dispatch(resetFile());
         },
     };
 }

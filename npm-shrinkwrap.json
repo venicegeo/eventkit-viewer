@@ -1,0 +1,13 @@
+{
+  "name": "eventkit_viewer",
+  "dependencies": {
+    "@ngageoint/geopackage": {
+      "version": "^1.0.24",
+      "dependencies": {
+        "proj4": {
+          "version": "2.3.16"
+        }
+      }
+    }
+  }
+}

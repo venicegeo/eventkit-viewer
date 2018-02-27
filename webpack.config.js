@@ -95,6 +95,9 @@ var config = {
         },
         inline: true
     },
+    node: {
+        fs: 'empty',
+    }
 
 };
 

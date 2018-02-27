@@ -1,5 +1,6 @@
-import React, {Component, PropTypes} from 'react'
-import {connect} from 'react-redux'
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import * as mapActions from '@boundlessgeo/sdk/actions/map';
 import logo from './../images/eventkit-logo.1.png';
 import SdkMap from '@boundlessgeo/sdk/components/map';

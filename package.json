@@ -44,6 +44,7 @@
     "react": "^16.0.0",
     "react-custom-scrollbars": "~4.1.1",
     "react-dom": "^16.0.0",
+    "react-dropzone": "~3.12.4",
     "react-hot-loader": "3.0.0-beta.6",
     "react-redux": "^5.0.5",
     "react-tap-event-plugin": "^3.0.2",
@@ -59,12 +60,14 @@
     "webpack": "3.8.1",
     "webpack-bundle-analyzer":"~2.9.0",
     "webpack-dev-server": "2.9.3",
-	"write-file-webpack-plugin": "~4.0.2",
+    "webworkify": "^1.4.0",
+    "write-file-webpack-plugin": "~4.0.2",
     "xmldom": "^0.1.27"
   },
   "dependencies": {
     "@boundlessgeo/sdk": "2.2.0",
     "@mapbox/mapbox-gl-style-spec": "^9.0.0",
+    "@ngageoint/geopackage": "^1.0.24",
     "isomorphic-fetch": "^2.2.1",
     "jest-cli": "^21.2.1",
     "ol-mapbox-style": "^2.6.1",

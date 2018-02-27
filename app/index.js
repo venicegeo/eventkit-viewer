@@ -2,7 +2,8 @@ import './styles/global.css'
 import {createStore, combineReducers, applyMiddleware} from 'redux';
 import configureStore from './store/configureStore';
 
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import { render } from 'react-dom';
 import {Provider} from 'react-redux';
 

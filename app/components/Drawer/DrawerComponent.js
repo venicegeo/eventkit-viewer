@@ -76,7 +76,7 @@ export class DrawerComponent extends Component {
                 metadata: {
                     'bnd:animate-sprite': {
                         src: "app/data/icons/hospital.svg",
-                        color: [255, 0, 0],
+                        color: [0,0,0].map(() => Math.floor(Math.random()*255)),
                         width: 30.5,
                         height: 32,
                         spriteCount: 1,

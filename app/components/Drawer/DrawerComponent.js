@@ -69,20 +69,53 @@ export class DrawerComponent extends Component {
 
             var layer = nextProps.importFile.newLayer;
             this.props.addSource(layer.name, {type: 'geojson'});
-            this.props.addLayer({
-                id: layer.name,
-                type: 'symbol',
-                source: layer.name,
-                metadata: {
-                    'bnd:animate-sprite': {
-                        src: "app/data/icons/hospital.svg",
-                        color: [0,0,0].map(() => Math.floor(Math.random()*255)),
-                        width: 30.5,
-                        height: 32,
-                        spriteCount: 1,
-                    }
-                }
-            });
+            switch(layer.geomType) {
+                case 'LINESTRING':
+                case 'MULTILINESTRING':
+                    this.props.addLayer({
+                        id: layer.name,
+                        type: 'line',
+                        source: layer.name,
+                        layout: {
+                            'line-join': 'round',
+                            'line-cap': 'round',
+                        },
+                        paint: {
+                            'line-color': '#'+Math.floor(Math.random()*0xffffff).toString(16),
+                            'line-width': 4,
+                        },
+                    });
+                    break;
+                case 'POLYGON':
+                case 'MULTIPOLYGON':
+                    this.props.addLayer({
+                        id: layer.name,
+                        type: 'fill',
+                        source: layer.name,
+                        paint: {
+                            'fill-color': '#'+Math.floor(Math.random()*0xffffff).toString(16),
+                            'fill-opacity': 0.8,
+                        },
+                    });
+                    break;
+                case 'POINT':
+                case 'MULTIPOINT':
+                default:
+                    this.props.addLayer({
+                        id: layer.name,
+                        type: 'symbol',
+                        source: layer.name,
+                        metadata: {
+                            'bnd:animate-sprite': {
+                                src: "app/data/icons/generic-pt.svg",
+                                color: [0,0,0].map(() => Math.floor(Math.random()*255)),
+                                width: 30.5,
+                                height: 32,
+                                spriteCount: 1,
+                            }
+                        },
+                    });
+            }
             this.props.addFeatures(layer.name, layer.features);
         }
     }

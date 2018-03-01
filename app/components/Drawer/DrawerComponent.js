@@ -63,60 +63,122 @@ export class DrawerComponent extends Component {
         }
     }
 
+    checkLabel(rules, props) {
+        const ret = rules.every((rule) => {
+            if (!props.hasOwnProperty(rule.prop))
+                return false;
+
+            const prop = props[rule.prop];
+            switch(rule.relation) {
+                case "=":
+                    return rule.hasOwnProperty("value") && prop === rule.value;
+                case "!=":
+                    return rule.hasOwnProperty("value") && prop !== rule.value;
+                case "is null":
+                    return prop === null;
+                case "is not null":
+                    return prop !== null;
+                case "in":
+                    return rule.hasOwnProperty("values") &&
+                        rule.values.map((s) => s.toLowerCase()).includes(prop.toLowerCase());
+                case "not in":
+                    return rule.hasOwnProperty("values") &&
+                        !rule.values.map((s) => s.toLowerCase()).includes(prop.toLowerCase());
+            }
+        });
+        return ret;
+    }
+
+    sectionLayer(layer) {
+        var labelSections = {
+            "POINT": "point", "MULTIPOINT": "point",
+            "LINESTRING": "line", "MULTILINESTRING": "line",
+            "POLYGON": "polygon", "MULTIPOLYGON": "polygon",
+        };
+        const labels = Config.LABELS[labelSections[layer.geomType]];
+
+        if (labels === undefined) return [layer];
+
+        var sections = labels.map((label) => ({
+            name: label.name || label.rules.value,
+            features: layer.features.filter((feature) =>
+                this.checkLabel(label.rules, feature.properties)
+            ),
+            geomType: layer.geomType,
+            style: label.style
+        })).filter((section) =>
+            0 < section.features.length
+        );
+
+        return sections;
+    }
+
+    createAddLayer(name, features, geomType, style) {
+        style = style || {};
+        this.props.addSource(name, {
+            type: 'geojson',
+
+        });
+        switch(geomType) {
+            case 'LINESTRING':
+            case 'MULTILINESTRING':
+                this.props.addLayer({
+                    id: name,
+                    type: 'line',
+                    source: name,
+                    layout: {
+                        'line-join': 'round',
+                        'line-cap': 'round',
+                    },
+                    paint: {
+                        'line-color': style.color || '#dddddd',
+                        'line-width': style.width || 2,
+                    },
+                });
+                break;
+            case 'POLYGON':
+            case 'MULTIPOLYGON':
+                this.props.addLayer({
+                    id: name,
+                    type: 'fill',
+                    source: name,
+                    paint: {
+                        'fill-color': style.color || '#dddddd',
+                        // '#'+Math.floor(Math.random()*0xffffff).toString(16),
+                        'fill-opacity': style.opacity || 0.8,
+                    },
+                });
+                break;
+            case 'POINT':
+            case 'MULTIPOINT':
+            default:
+                this.props.addLayer({
+                    id: name,
+                    type: 'symbol',
+                    source: name,
+                    metadata: {
+                        'bnd:animate-sprite': {
+                            src: style.symbol || "app/data/icons/generic-pt.svg",
+                            color: style.color || [0, 0, 0], // [0,0,0].map(() => Math.floor(Math.random()*255)),
+                            width: 30.5,
+                            height: 32,
+                            spriteCount: 1,
+                        }
+                    },
+                });
+        }
+        this.props.addFeatures(name, features);
+    }
+
     componentWillReceiveProps(nextProps) {
         if (nextProps.importFile.newLayer && (this.props.importFile.newLayer === null ||
             nextProps.importFile.newLayer.name !== this.props.importFile.newLayer.name)) {
 
-            var layer = nextProps.importFile.newLayer;
-            this.props.addSource(layer.name, {type: 'geojson'});
-            switch(layer.geomType) {
-                case 'LINESTRING':
-                case 'MULTILINESTRING':
-                    this.props.addLayer({
-                        id: layer.name,
-                        type: 'line',
-                        source: layer.name,
-                        layout: {
-                            'line-join': 'round',
-                            'line-cap': 'round',
-                        },
-                        paint: {
-                            'line-color': '#'+Math.floor(Math.random()*0xffffff).toString(16),
-                            'line-width': 4,
-                        },
-                    });
-                    break;
-                case 'POLYGON':
-                case 'MULTIPOLYGON':
-                    this.props.addLayer({
-                        id: layer.name,
-                        type: 'fill',
-                        source: layer.name,
-                        paint: {
-                            'fill-color': '#'+Math.floor(Math.random()*0xffffff).toString(16),
-                            'fill-opacity': 0.8,
-                        },
-                    });
-                    break;
-                case 'POINT':
-                case 'MULTIPOINT':
-                default:
-                    this.props.addLayer({
-                        id: layer.name,
-                        type: 'symbol',
-                        source: layer.name,
-                        metadata: {
-                            'bnd:animate-sprite': {
-                                src: "app/data/icons/generic-pt.svg",
-                                color: [0,0,0].map(() => Math.floor(Math.random()*255)),
-                                width: 30.5,
-                                height: 32,
-                                spriteCount: 1,
-                            }
-                        },
-                    });
-            }
-            this.props.addFeatures(layer.name, layer.features);
+            var rawLayer = nextProps.importFile.newLayer;
+            var splitLayers = this.sectionLayer(rawLayer);
+            splitLayers.forEach((layer) => {
+                this.createAddLayer(layer.name, layer.features, layer.geomType, layer.style);
+            });
         }
     }
 

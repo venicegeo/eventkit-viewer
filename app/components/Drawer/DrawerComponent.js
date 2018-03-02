@@ -131,7 +131,7 @@ export class DrawerComponent extends Component {
                         'line-cap': 'round',
                     },
                     paint: {
-                        'line-color': style.color || '#dddddd',
+                        'line-color': style.color || '#'+Math.floor(Math.random()*0xffffff).toString(16),
                         'line-width': style.width || 2,
                     },
                 });
@@ -143,7 +143,7 @@ export class DrawerComponent extends Component {
                     type: 'fill',
                     source: name,
                     paint: {
-                        'fill-color': style.color || '#dddddd',
+                        'fill-color': style.color || '#'+Math.floor(Math.random()*0xffffff).toString(16),
                         // '#'+Math.floor(Math.random()*0xffffff).toString(16),
                         'fill-opacity': style.opacity || 0.8,
                     },
@@ -487,6 +487,7 @@ export class DrawerComponent extends Component {
         });
 
         const sourceConfig = Config.SOURCE_DATA;
+        const qgisUrl = Config.QGIS_URL;
 
         return (
                 <div style={{overflow:'hidden'}}>

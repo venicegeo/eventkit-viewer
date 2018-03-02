@@ -5,6 +5,7 @@ export const Config = {
             "name1": "/path"
         }
     ],
+    "QGIS_URL": "../static/sanaa-20180226.qgs",
     "SOURCE_DATA": {
         "dataPackName": "DataPack Sample",
         "fileUrl": "DataPackSample.gpkg",
@@ -715,8 +716,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/theatre.svg"
-            }
+                    "symbol": "static/icons/gray/theatre.svg"
+                }
             },
             {
                 "name": "toilets",
@@ -730,8 +731,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/toilets.svg"
-            }
+                    "symbol": "static/icons/gray/toilets.svg"
+                }
             },
             {
                 "name": "arts_centre",
@@ -745,8 +746,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/arts_centre.svg"
-            }
+                    "symbol": "static/icons/gray/arts_centre.svg"
+                }
             },
             {
                 "name": "ngo",
@@ -760,8 +761,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/ngo.svg"
-            }
+                    "symbol": "static/icons/gray/ngo.svg"
+                }
             },
             {
                 "name": "grave_yard",
@@ -775,8 +776,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/graveyard.svg"
-            }
+                    "symbol": "static/icons/gray/graveyard.svg"
+                }
             },
             {
                 "name": "shower",
@@ -790,8 +791,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/shower.svg"
-            }
+                    "symbol": "static/icons/gray/shower.svg"
+                }
             },
             {
                 "name": "studio",
@@ -805,8 +806,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/studio.svg"
-            }
+                    "symbol": "static/icons/gray/studio.svg"
+                }
             },
             {
                 "name": "money_transfer",
@@ -820,8 +821,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/money transfer.svg"
-            }
+                    "symbol": "static/icons/gray/money transfer.svg"
+                }
             },
             {
                 "name": "bureau_de_change",
@@ -835,8 +836,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/bureau de change.svg"
-            }
+                    "symbol": "static/icons/gray/bureau de change.svg"
+                }
             },
             {
                 "name": "beverages",
@@ -850,8 +851,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/beverages.svg"
-            }
+                    "symbol": "static/icons/gray/beverages.svg"
+                }
             },
             {
                 "name": "hairdresser",
@@ -865,8 +866,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/hairdresser.svg"
-            }
+                    "symbol": "static/icons/gray/hairdresser.svg"
+                }
             },
             {
                 "name": "supermarket",
@@ -880,8 +881,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/supermarket.svg"
-            }
+                    "symbol": "static/icons/gray/supermarket.svg"
+                }
             },
             {
                 "name": "bakery",
@@ -895,8 +896,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/bakery.svg"
-            }
+                    "symbol": "static/icons/gray/bakery.svg"
+                }
             },
             {
                 "name": "mobile_phone",
@@ -910,8 +911,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/mobile phone.svg"
-            }
+                    "symbol": "static/icons/gray/mobile phone.svg"
+                }
             },
             {
                 "name": "tailor",
@@ -925,8 +926,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/tailor.svg"
-            }
+                    "symbol": "static/icons/gray/tailor.svg"
+                }
             },
             {
                 "name": "car_parts",
@@ -940,8 +941,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/car parts.svg"
-            }
+                    "symbol": "static/icons/gray/car parts.svg"
+                }
             },
             {
                 "name": "computer",
@@ -955,8 +956,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/computer.svg"
-            }
+                    "symbol": "static/icons/gray/computer.svg"
+                }
             },
             {
                 "name": "clothes",
@@ -970,8 +971,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/clothes.svg"
-            }
+                    "symbol": "static/icons/gray/clothes.svg"
+                }
             },
             {
                 "name": "car_repair",
@@ -985,8 +986,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/car repair.svg"
-            }
+                    "symbol": "static/icons/gray/car repair.svg"
+                }
             },
             {
                 "name": "funeral_directors",
@@ -1000,8 +1001,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/funeral directors.svg"
-            }
+                    "symbol": "static/icons/gray/funeral directors.svg"
+                }
             },
             {
                 "name": "dry_cleaning",
@@ -1015,8 +1016,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/dry cleaning.svg"
-            }
+                    "symbol": "static/icons/gray/dry cleaning.svg"
+                }
             },
             {
                 "name": "butcher",
@@ -1030,8 +1031,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/butcher.svg"
-            }
+                    "symbol": "static/icons/gray/butcher.svg"
+                }
             },
             {
                 "name": "seafood",
@@ -1045,8 +1046,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/seafood.svg"
-            }
+                    "symbol": "static/icons/gray/seafood.svg"
+                }
             },
             {
                 "name": "hardware",
@@ -1060,8 +1061,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/hardware.svg"
-            }
+                    "symbol": "static/icons/gray/hardware.svg"
+                }
             },
             {
                 "name": "bicycle",
@@ -1075,8 +1076,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/bike.svg"
-            }
+                    "symbol": "static/icons/gray/bike.svg"
+                }
             },
             {
                 "name": "motorcycle",
@@ -1090,8 +1091,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/motorcycle.svg"
-            }
+                    "symbol": "static/icons/gray/motorcycle.svg"
+                }
             },
             {
                 "name": "tyres",
@@ -1105,8 +1106,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/tyres.svg"
-            }
+                    "symbol": "static/icons/gray/tyres.svg"
+                }
             },
             {
                 "name": "photo",
@@ -1120,8 +1121,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/photo.svg"
-            }
+                    "symbol": "static/icons/gray/photo.svg"
+                }
             },
             {
                 "name": "information",
@@ -1135,8 +1136,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/information.svg"
-            }
+                    "symbol": "static/icons/gray/information.svg"
+                }
             },
             {
                 "name": "camp_site",
@@ -1150,8 +1151,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/campsite.svg"
-            }
+                    "symbol": "static/icons/gray/campsite.svg"
+                }
             },
             {
                 "name": "viewpoint",
@@ -1165,8 +1166,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/viewpoint.svg"
-            }
+                    "symbol": "static/icons/gray/viewpoint.svg"
+                }
             },
             {
                 "name": "hostel",
@@ -1180,8 +1181,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/hotel.svg"
-            }
+                    "symbol": "static/icons/gray/hotel.svg"
+                }
             },
             {
                 "name": "hotel",
@@ -1195,8 +1196,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/hotel.svg"
-            }
+                    "symbol": "static/icons/gray/hotel.svg"
+                }
             },
             {
                 "name": "museum",
@@ -1210,8 +1211,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/museum.svg"
-            }
+                    "symbol": "static/icons/gray/museum.svg"
+                }
             },
             {
                 "name": "beach_resort",
@@ -1225,8 +1226,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/beach resort.svg"
-            }
+                    "symbol": "static/icons/gray/beach resort.svg"
+                }
             },
             {
                 "name": "playground",
@@ -1240,8 +1241,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/playground.svg"
-            }
+                    "symbol": "static/icons/gray/playground.svg"
+                }
             },
             {
                 "name": "motel",
@@ -1255,8 +1256,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/hotel.svg"
-            }
+                    "symbol": "static/icons/gray/hotel.svg"
+                }
             },
             {
                 "name": "craft",
@@ -1270,8 +1271,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/craft.svg"
-            }
+                    "symbol": "static/icons/gray/craft.svg"
+                }
             },
             {
                 "name": "water_well",
@@ -1285,8 +1286,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/bucket.svg"
-            }
+                    "symbol": "static/icons/gray/bucket.svg"
+                }
             },
             {
                 "name": "water_tower",
@@ -1300,8 +1301,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/water tower.svg"
-            }
+                    "symbol": "static/icons/gray/water tower.svg"
+                }
             },
             {
                 "name": "tower",
@@ -1315,8 +1316,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/communication tower.svg"
-            }
+                    "symbol": "static/icons/gray/communication tower.svg"
+                }
             },
             {
                 "name": "storage_tank",
@@ -1330,8 +1331,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/tank.svg"
-            }
+                    "symbol": "static/icons/gray/tank.svg"
+                }
             },
             {
                 "name": "gambling",
@@ -1345,8 +1346,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/gambling.svg"
-            }
+                    "symbol": "static/icons/gray/gambling.svg"
+                }
             },
             {
                 "name": "recycling",
@@ -1360,8 +1361,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/recycling.svg"
-            }
+                    "symbol": "static/icons/gray/recycling.svg"
+                }
             },
             {
                 "name": "waste_basket",
@@ -1375,8 +1376,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/waste basket.svg"
-            }
+                    "symbol": "static/icons/gray/waste basket.svg"
+                }
             },
             {
                 "name": "street_lamp",
@@ -1390,8 +1391,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/street lamp.svg"
-            }
+                    "symbol": "static/icons/gray/street lamp.svg"
+                }
             },
             {
                 "name": "fire_hydrant",
@@ -1405,8 +1406,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/fire hydrant.svg"
-            }
+                    "symbol": "static/icons/gray/fire hydrant.svg"
+                }
             },
             {
                 "name": "waste_disposal",
@@ -1420,8 +1421,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/waste basket.svg"
-            }
+                    "symbol": "static/icons/gray/waste basket.svg"
+                }
             },
             {
                 "name": "christian",
@@ -1435,8 +1436,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/christian.svg"
-            }
+                    "symbol": "static/icons/gray/christian.svg"
+                }
             },
             {
                 "name": "jewish",
@@ -1450,8 +1451,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/jewish.svg"
-            }
+                    "symbol": "static/icons/gray/jewish.svg"
+                }
             },
             {
                 "name": "muslim",
@@ -1465,8 +1466,8 @@ export const Config = {
                 "minScale": 5000,
                 "maxScale": 100,
                 "style": {
-                "symbol": "static/icons/gray/muslim.svg"
-            }
+                    "symbol": "static/icons/gray/muslim.svg"
+                }
             },
             {
                 "name": "other religion",
@@ -1479,13 +1480,13 @@ export const Config = {
                     {
                         "prop": "religion",
                         "relation": "is not null",
-                        "style": {
-                        "symbol": "static/icons/gray/place of worship.svg"
-                    }
                     }
                 ],
                 "minScale": 5000,
-                "maxScale": 100
+                "maxScale": 100,
+                "style": {
+                    "symbol": "static/icons/gray/place of worship.svg"
+                }
             },
             {
                 "name": "embassy",
@@ -1499,8 +1500,8 @@ export const Config = {
                 "minScale": 12000,
                 "maxScale": 5000,
                 "style": {
-                "symbol": "static/icons/black/Embassy.svg"
-            }
+                    "symbol": "static/icons/black/Embassy.svg"
+                }
             },
             {
                 "name": "school",
@@ -1514,8 +1515,8 @@ export const Config = {
                 "minScale": 12000,
                 "maxScale": 5000,
                 "style": {
-                "symbol": "static/icons/black/School.svg"
-            }
+                    "symbol": "static/icons/black/School.svg"
+                }
             },
             {
                 "name": "bank",
@@ -1529,8 +1530,8 @@ export const Config = {
                 "minScale": 30000,
                 "maxScale": 5000,
                 "style": {
-                "symbol": "static/icons/black/Bank.svg"
-            }
+                    "symbol": "static/icons/black/Bank.svg"
+                }
             },
             {
                 "name": "border_control",
@@ -1544,8 +1545,8 @@ export const Config = {
                 "minScale": 30000,
                 "maxScale": 5000,
                 "style": {
-                "symbol": "static/icons/black/Border Control.svg"
-            }
+                    "symbol": "static/icons/black/Border Control.svg"
+                }
             },
             {
                 "name": "government",
@@ -1559,8 +1560,8 @@ export const Config = {
                 "minScale": 30000,
                 "maxScale": 5000,
                 "style": {
-                "symbol": "static/icons/black/Government.svg"
-            }
+                    "symbol": "static/icons/black/Government.svg"
+                }
             },
             {
                 "name": "hospital",
@@ -1574,8 +1575,8 @@ export const Config = {
                 "minScale": 30000,
                 "maxScale": 5000,
                 "style": {
-                "symbol": "static/icons/black/Hospital.svg"
-            }
+                    "symbol": "static/icons/black/Hospital.svg"
+                }
             },
             {
                 "name": "police",
@@ -1589,8 +1590,8 @@ export const Config = {
                 "minScale": 30000,
                 "maxScale": 5000,
                 "style": {
-                "symbol": "static/icons/black/Police.svg"
-            }
+                    "symbol": "static/icons/black/Police.svg"
+                }
             },
             {
                 "name": "taxi",
@@ -1604,8 +1605,8 @@ export const Config = {
                 "minScale": 30000,
                 "maxScale": 5000,
                 "style": {
-                "symbol": "static/icons/black/Taxi.svg"
-            }
+                    "symbol": "static/icons/black/Taxi.svg"
+                }
             },
             {
                 "name": "university",
@@ -1619,8 +1620,8 @@ export const Config = {
                 "minScale": 30000,
                 "maxScale": 5000,
                 "style": {
-                "symbol": "static/icons/black/University.svg"
-            }
+                    "symbol": "static/icons/black/University.svg"
+                }
             },
             {
                 "name": "fire_station",
@@ -1634,8 +1635,8 @@ export const Config = {
                 "minScale": 60000,
                 "maxScale": 5000,
                 "style": {
-                "symbol": "static/icons/black/Fire Station.svg"
-            }
+                    "symbol": "static/icons/black/Fire Station.svg"
+                }
             },
             {
                 "name": "townhall",
@@ -1649,8 +1650,8 @@ export const Config = {
                 "minScale": 60000,
                 "maxScale": 5000,
                 "style": {
-                "symbol": "static/icons/black/Townhall.svg"
-            }
+                    "symbol": "static/icons/black/Townhall.svg"
+                }
             }
         ]
     }

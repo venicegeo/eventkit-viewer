@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux'
 import {closeDrawer, openDrawer} from '../../actions/drawerActions';
-import {processFile, resetFile} from '../../actions/importActions';
+// import {loadLayer} from '../../actions/loadActions';
 import Drawer from 'material-ui/Drawer';
 import Layers from 'material-ui/svg-icons/maps/layers';
 import Close from 'material-ui/svg-icons/navigation/close';
@@ -17,6 +17,7 @@ import SearchLayers from './SearchLayers';
 import DataPackCard from "./DataPackCard";
 import DropZone from './DropZone';
 import fetch from 'isomorphic-fetch';
+import CustomScrollbar from '../CustomScrollbar';
 
 import * as mapActions from '@boundlessgeo/sdk/actions/map';
 import * as drawingActions from '@boundlessgeo/sdk/actions/drawing';
@@ -42,6 +43,8 @@ export class DrawerComponent extends Component {
     constructor(props) {
         super(props);
 
+        let sourceConfig = Config.SOURCE_DATA;
+
         this.handleLayerSort = this.handleLayerSort.bind(this);
         this.addLayerToMap = this.addLayerToMap.bind(this);
         this.removeLayerFromMap = this.removeLayerFromMap.bind(this);
@@ -60,10 +63,35 @@ export class DrawerComponent extends Component {
             expanded: false,
             layerSort: 1,
             showImportModal: false,
+            datapackName: sourceConfig.datapackName,
+            datapackUrl: sourceConfig.datapackUrl,
         }
     }
 
-    checkLabel(rules, props) {
+    // sectionLayer(layer) {
+    //     var labelSections = {
+    //         "POINT": "point", "MULTIPOINT": "point",
+    //         "LINESTRING": "line", "MULTILINESTRING": "line",
+    //         "POLYGON": "polygon", "MULTIPOLYGON": "polygon",
+    //     };
+    //     const labels = Config.LABELS[labelSections[layer.geomType]];
+
+    //     if (labels === undefined) return [layer];
+
+    //     var sections = labels.map((label) => ({
+    //         name: label.name || label.rules.value,
+    //         features: layer.features.filter((feature) =>
+    //             this.checkLabel(label.rules, feature.properties)
+    //         ),
+    //         geomType: layer.geomType,
+    //         style: label.style
+    //     })).filter((section) =>
+    //         0 < section.features.length
+    //     );
+
+    //     return sections;
+    // }
+    checkRules(rules, props) {
         const ret = rules.every((rule) => {
             if (!props.hasOwnProperty(rule.prop))
                 return false;
@@ -88,34 +116,87 @@ export class DrawerComponent extends Component {
         });
         return ret;
     }
+    
+    loadLayer(layer) {
+        var gpkgPromise = fetch(
+            Config.SOURCE_DATA.datapackUrl
+        ).then(response => {
+            var array = new Uint8Array(response.arrayBuffer());
+            return new Promise((resolve, reject) => {
+                Geopackage.openGeoPackageByteArray(array, function(err, gpkg) {
+                    if (err) return reject(err);
+                    resolve(gpkg);
+                });
+            });
+        });
+        var namesPromise = gpkgPromise.then((gpkg) => {
+            return new Promise((resolve, reject) => {
+                gpkg.getFeatureTables(function(err, featureTableNames) {
+                    if (err) return reject(err);
+                    resolve(featureTableNames);
+                });
+            });
+        });
+        return Promise.all([gpkgPromise, namesPromise]).then(([gpkg, featureTableNames]) => {
 
-    sectionLayer(layer) {
-        var labelSections = {
-            "POINT": "point", "MULTIPOINT": "point",
-            "LINESTRING": "line", "MULTILINESTRING": "line",
-            "POLYGON": "polygon", "MULTIPOLYGON": "polygon",
-        };
-        const labels = Config.LABELS[labelSections[layer.geomType]];
+            const name = layer.table;
 
-        if (labels === undefined) return [layer];
+            if (!featureTableNames.includes(name))
+                throw "Table not found in gpkg: '"+name+"'";
 
-        var sections = labels.map((label) => ({
-            name: label.name || label.rules.value,
-            features: layer.features.filter((feature) =>
-                this.checkLabel(label.rules, feature.properties)
-            ),
-            geomType: layer.geomType,
-            style: label.style
-        })).filter((section) =>
-            0 < section.features.length
-        );
+            var featureDaoPromise = new Promise((resolve, reject) => {
+                gpkg.getFeatureDaoWithTableName(name, function(err, featureDao) {
+                    if (err) return reject(err);
+                    resolve(featureDao);
+                });
+            });
+            var tableInfoPromise = featureDaoPromise.then((featureDao) => new Promise((resolve, reject) => {
+                gpkg.getInfoForTable(featureDao, (err, info) => {
+                    if (err) return reject(err);
+                    resolve(info);
+                });
+            }));
+            return Promise.all([featureDaoPromise, tableInfoPromise]);
 
-        return sections;
+        }).then(([featureDao, tableInfo]) => {
+            return new Promise((resolve, reject) => {
+                var features = [];
+                featureDao.queryForEach(function(err, row, rowDone) {
+                    var feature = featureDao.getFeatureRow(row);
+                    var geometry = feature.getGeometry();
+                    if (geometry == null) return;
+
+                    var geojson = geometry.geometry.toGeoJSON();
+                    geojson.properties = {};
+                    for (var key in feature.values) {
+                        if (feature.values.hasOwnProperty(key) && key != feature.getGeometryColumn().name) {
+                            var column = tableInfo.columnMap[key];
+                            geojson.properties[column.displayName] = feature.values[key];
+                        }
+                    }
+                    if (this.checkRules(layer.rules, geojson.properties)) {
+                        features.push(geojson);
+                    }
+                    rowDone();
+                }, function() { // table finished
+                    var geomType = tableInfo.geometryColumns ?
+                        tableInfo.geometryColumns.geometryTypeName :
+                        "POINT";
+                    var layer = { id: layer.id, features: features };
+                    dispatch({ type: types.LAYER_LOADED, ...layer });
+                    resolve(layer);
+                });
+            });
+        }).catch((err) => {
+            // TODO: error action?
+        });
+        return promise;
     }
 
-    createAddLayer(name, features, geomType, style) {
+    createAddLayer(layer) {
+        let {id, style, geomType, features} = layer;
         style = style || {};
-        this.props.addSource(name, {
+        this.props.addSource(id, {
             type: 'geojson',
 
         });
@@ -123,9 +204,9 @@ export class DrawerComponent extends Component {
             case 'LINESTRING':
             case 'MULTILINESTRING':
                 this.props.addLayer({
-                    id: name,
+                    id: id,
                     type: 'line',
-                    source: name,
+                    source: id,
                     layout: {
                         'line-join': 'round',
                         'line-cap': 'round',
@@ -139,9 +220,9 @@ export class DrawerComponent extends Component {
             case 'POLYGON':
             case 'MULTIPOLYGON':
                 this.props.addLayer({
-                    id: name,
+                    id: id,
                     type: 'fill',
-                    source: name,
+                    source: id,
                     paint: {
                         'fill-color': style.color || '#'+Math.floor(Math.random()*0xffffff).toString(16),
                         // '#'+Math.floor(Math.random()*0xffffff).toString(16),
@@ -153,9 +234,9 @@ export class DrawerComponent extends Component {
             case 'MULTIPOINT':
             default:
                 this.props.addLayer({
-                    id: name,
+                    id: id,
                     type: 'symbol',
-                    source: name,
+                    source: id,
                     metadata: {
                         'bnd:animate-sprite': {
                             src: style.symbol || "app/data/icons/generic-pt.svg",
@@ -167,36 +248,27 @@ export class DrawerComponent extends Component {
                     },
                 });
         }
-        this.props.addFeatures(name, features);
+        this.loadLayer(layer).then((layer) => {
+            this.props.addFeatures(layer.id, layer.features);
+        });
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.importFile.newLayer && (this.props.importFile.newLayer === null ||
-            nextProps.importFile.newLayer.name !== this.props.importFile.newLayer.name)) {
-
-            var rawLayer = nextProps.importFile.newLayer;
-            var splitLayers = this.sectionLayer(rawLayer);
-            splitLayers.forEach((layer) => {
-                this.createAddLayer(layer.name, layer.features, layer.geomType, layer.style);
-            });
-        }
-    }
+        // if (this.props.layers === undefined)
+        //     return;
+        // this.props.layers.map((layer) => {
+        //     let nextLayer = nextProps.layers.find((nextLayer) => nextLayer.id === layer.id);
+        //     if (layer.features !== null || nextLayer.features === null)
+        //         return;
+        //     if (nextLayer.show)
+        //         this.props.addFeatures(nextLayer.id, nextLayer.features);
+        // });
+    };
 
     componentDidMount() {
 
-    }
+    };
 
-    loadLayerData(sources) {
-        let filePaths = [];
-        sources.forEach((source) => {
-            const layerArray = (source.layers);
-            layerArray.forEach((layer) => {
-                filePaths.push = layer.filepath.toString();
-            })
-            console.log(filePaths)
-        });
-
-    }
     componentWillUnmount() {
 
     };
@@ -369,13 +441,13 @@ export class DrawerComponent extends Component {
     }
 
     addLayerToMap(layer){
-        this.props.setSprite(layer.icon.iconUrl);
-        this.props.addSource(layer.name, {type: 'geojson'});
-        this.addLayerFromGeoJSON(layer, layer.name);
+        this.props.setSprite(layer.style.symbol);
+        this.props.addSource(layer.id, {type: 'geojson'});
+        this.createAddLayer(layer);
     };
 
     removeLayerFromMap(layer){
-        this.props.removeLayer(layer.name);
+        this.props.removeLayer(layer.id);
     };
 
     toggleImportModal(show) {
@@ -397,6 +469,7 @@ export class DrawerComponent extends Component {
                 background: 'white',
                 width:'300px',
                 overflow:'hidden',
+                paddingBottom: '125px',
             },
             headline: {
                 fontSize: 24,
@@ -487,7 +560,6 @@ export class DrawerComponent extends Component {
         });
 
         const sourceConfig = Config.SOURCE_DATA;
-        const qgisUrl = Config.QGIS_URL;
 
         return (
                 <div style={{overflow:'hidden'}}>
@@ -500,12 +572,12 @@ export class DrawerComponent extends Component {
                         open={this.props.drawer === 'open'}
                         >
 
-                        <div>
+                        {/*<div>
                             <button className={'qa-ImportButton-button'} style={styles.importButton} onClick={this.toggleImportModal.bind(this, true)}>
                                 <FileFileUpload className={'qa-ImportButton-FileFileUpload'}/>
                                 <span className={'qa-ImportButton-span'} style={styles.importButtonText}>IMPORT</span>
                             </button>
-                        </div>
+                        </div>*/}
 
                         <div >
                             <div style={{display:'inline-block', paddingLeft:'15px',}}>
@@ -525,12 +597,12 @@ export class DrawerComponent extends Component {
                             {/*<SelectedLayerCount/>*/}
                         {/*</div>*/}
 
-                        <div>
+                        <CustomScrollbar>
                             <DataPackCard source={sourceConfig}
                                           onAddLayer={this.addLayerToMap}
                                           onRemoveLayer={this.removeLayerFromMap}
                                           onAttributeOpen={this.handleSheetOpen}/>
-                        </div>
+                        </CustomScrollbar>
 
                     </Drawer>
                     <div>
@@ -562,13 +634,13 @@ export class DrawerComponent extends Component {
                         </div>
                         </ExpandableBottomSheet >
                     </div>
-                    <DropZone
+                    {/*<DropZone
                         importFile={this.props.importFile}
                         showImportModal={this.state.showImportModal}
                         setImportModalState={this.toggleImportModal}
                         processFile={this.props.processFile}
                         resetFile={this.props.resetFile}
-                    />
+                    />*/}
                 </div>
         );
     }
@@ -578,11 +650,9 @@ DrawerComponent.propTypes = {
     dialog: PropTypes.bool,
     openDrawer: PropTypes.func,
     closeDrawer: PropTypes.func,
-    importFile: PropTypes.object,
-    processFile: PropTypes.func,
-    resetFile: PropTypes.func,
+    // loadLayer: PropTypes.func,
     drawer: PropTypes.string,
-    newLayer: PropTypes.object,
+    layers: PropTypes.object,
 };
 
 
@@ -591,8 +661,8 @@ function mapStateToProps(state) {
         dialog: state.dialog,
         map: state.map,
         drawer: state.drawer,
-        importFile: state.importFile,
-    }
+        layers: state.layers,
+    };
 }
 function mapDispatchToProps(dispatch) {
     return {
@@ -620,17 +690,14 @@ function mapDispatchToProps(dispatch) {
         openDrawer: () => {
             dispatch(openDrawer());
         },
+        // loadLayer: (layer) => {
+        //     dispatch(loadLayer(layer));
+        // },
         addSource:(type, data) => {
             dispatch(mapActions.addSource(type, data))
         },
         setSprite:(url) => {
             dispatch(mapActions.setSprite(url))
-        },
-        processFile: (file) => {
-            dispatch(processFile(file));
-        },
-        resetFile: () => {
-            dispatch(resetFile());
         },
     };
 }

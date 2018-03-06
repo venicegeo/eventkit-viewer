@@ -40,13 +40,10 @@ export class DataPackCard extends Component {
 
     };
 
-
-
-
     render() {
         const styles = {
             card: {
-                marginBottom: '10px',
+                marginBottom: '100px',
                 boxShadow: 'none',
                 width:'280px'
             },
@@ -122,7 +119,7 @@ export class DataPackCard extends Component {
             <div style={{paddingLeft:'10px', paddingTop:'10px'}}>
 
                 <Card
-                    key={this.props.source.fileUrl}
+                    key={this.props.source.datapackUrl}
                     expanded={this.state.expanded}
                     style={styles.card}
                     containerStyle={{ paddingBottom: '0px' }}
@@ -133,7 +130,7 @@ export class DataPackCard extends Component {
                             <div >
                                 <div style={{display:'inline-block',  verticalAlign:'super'}}>
                                             <span>
-                                                {this.props.source.dataPackName}
+                                                {this.props.source.datapackName}
                                             </span>
                                 </div>
 

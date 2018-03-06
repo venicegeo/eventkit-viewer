@@ -248,7 +248,7 @@ export class LayerCard extends Component {
                                 {this.props.source.layers.map((layer) => {
 
                                     return (
-                                        <div key={layer.name} style={{ padding: '0px 34px 0px 0px', width: '100%' }}>
+                                        <div key={layer.id} style={{ padding: '0px 34px 0px 0px', width: '100%' }}>
                                             <div style={{display:'inline-block',}}>
                                             <span>
                                                 { this.state.selection.includes(layer) ?
@@ -265,8 +265,8 @@ export class LayerCard extends Component {
                                             </span>
                                             </div>
                                             <div style={{ display: 'inline-block', paddingLeft: '10px', verticalAlign: 'super' }}>
-                                                {layer.icon.iconUrl ?
-                                                    <div><img style={styles.layerIcon} src={layer.icon.iconUrl}/> </div>
+                                                {layer.style.symbol ?
+                                                    <div><img style={styles.layerIcon} src={layer.style.symbol}/> </div>
                                                     :
                                                     <div><img style={styles.layerIcon} /></div>
                                                 }

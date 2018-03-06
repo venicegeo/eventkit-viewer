@@ -1,12 +1,13 @@
 export const Config = {
     "BASEMAP_URL": "/",
     "SOURCE_DATA": {
-        "datapackName": "sanaa-osm-20180226.gpkg",
-        "datapackUrl": "../static/data/osm/sanaa-osm-20180226.gpkg",
+        "datapackName": "sanaa-20180226",
         "sources": [
             {
                 "name": "OSM",
+                "url": "static/data/osm/sanaa-osm-20180226.gpkg",
                 "layers": [
+                    /*                    
                     {
                         "name": "atm",
                         "id": "atm_5000-100",
@@ -23,7 +24,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/atm.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -44,7 +45,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/bar.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -65,7 +66,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/bench.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -86,7 +87,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/bus stop.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -107,7 +108,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/cafe.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -128,7 +129,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/car repair.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -149,7 +150,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/car rental.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -170,7 +171,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/gambling.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -191,7 +192,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/cinema.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -212,7 +213,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/university.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -233,7 +234,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/community center.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -254,7 +255,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/courthouse.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -275,7 +276,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/tooth.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -296,7 +297,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/doctors.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -317,7 +318,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/drinking water.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -338,7 +339,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/fast food.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -359,7 +360,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/fuel.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -380,7 +381,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/kindergarten.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -401,7 +402,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/library.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -422,7 +423,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/pharmacy.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -443,7 +444,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/post office.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -464,7 +465,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/pub.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -485,7 +486,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/recycling.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -506,7 +507,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/restaurant.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -527,7 +528,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/social facility.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -548,7 +549,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/telephone.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -569,7 +570,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/fire station.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -590,7 +591,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/townhall.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -611,7 +612,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/bank.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -632,7 +633,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/embassy.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -653,7 +654,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/school.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -674,7 +675,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/border control.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -695,7 +696,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/bus stop.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -716,7 +717,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/government.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -737,7 +738,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/hospital.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -758,7 +759,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/police.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -779,7 +780,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/taxi.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -800,7 +801,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/university.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -821,7 +822,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/theatre.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -842,7 +843,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/toilets.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -863,7 +864,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/arts_centre.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -884,7 +885,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/ngo.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -905,7 +906,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/graveyard.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -926,7 +927,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/shower.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -947,7 +948,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/studio.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -968,7 +969,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/money transfer.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -989,7 +990,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/bureau de change.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1010,7 +1011,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/beverages.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1031,7 +1032,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/hairdresser.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1052,7 +1053,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/supermarket.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1073,7 +1074,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/bakery.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1094,7 +1095,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/mobile phone.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1115,7 +1116,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/tailor.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1136,7 +1137,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/car parts.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1157,7 +1158,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/computer.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1178,7 +1179,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/clothes.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1199,7 +1200,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/car repair.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1220,7 +1221,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/funeral directors.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1241,7 +1242,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/dry cleaning.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1262,7 +1263,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/butcher.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1283,7 +1284,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/seafood.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1304,7 +1305,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/hardware.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1325,7 +1326,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/bike.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1346,7 +1347,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/motorcycle.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1367,7 +1368,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/tyres.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1388,7 +1389,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/photo.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1409,7 +1410,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/information.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1430,7 +1431,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/campsite.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1451,7 +1452,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/viewpoint.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1472,7 +1473,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/hotel.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1493,7 +1494,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/hotel.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1514,7 +1515,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/museum.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1535,7 +1536,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/beach resort.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1556,7 +1557,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/playground.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1577,7 +1578,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/hotel.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1598,7 +1599,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/craft.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1619,7 +1620,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/bucket.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1640,7 +1641,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/water tower.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1661,7 +1662,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/communication tower.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1682,7 +1683,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/tank.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1703,7 +1704,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/gambling.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1724,7 +1725,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/waste basket.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1745,7 +1746,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/street lamp.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1766,7 +1767,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/fire hydrant.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1787,11 +1788,12 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/waste basket.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
                     },
+                    */
                     {
                         "name": "christian",
                         "id": "christian_5000-100",
@@ -1808,7 +1810,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/christian.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1829,7 +1831,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/jewish.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1850,7 +1852,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/muslim.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1875,7 +1877,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/gray/place of worship.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1896,7 +1898,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/black/Embassy.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1917,11 +1919,12 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/black/School.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
                     },
+                    /*
                     {
                         "name": "bank",
                         "id": "bank_30000-5000",
@@ -1938,11 +1941,12 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/black/Bank.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
                     },
+                    */
                     {
                         "name": "border_control",
                         "id": "border_control_30000-5000",
@@ -1959,7 +1963,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/black/Border Control.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -1980,7 +1984,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/black/Government.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -2001,7 +2005,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/black/Hospital.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -2022,11 +2026,12 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/black/Police.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
                     },
+                    /*
                     {
                         "name": "taxi",
                         "id": "taxi_30000-5000",
@@ -2043,11 +2048,12 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/black/Taxi.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
                     },
+                    */
                     {
                         "name": "university",
                         "id": "university_30000-5000",
@@ -2064,7 +2070,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/black/University.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -2085,7 +2091,7 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/black/Fire Station.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
@@ -2106,24 +2112,32 @@ export const Config = {
                         "style": {
                             "symbol": "static/icons/black/Townhall.svg"
                         },
-                        "show": true,
+                        "show": false,
                         "addToTable": true,
                         "features": null,
                         "geomType": "POINT"
                     }
                 ]
             },
+            // {
+            //     "name": "OSM Tiles",
+            //     "layers": [
+            //         {
+
+            //         }
+            //     ]
+            // },
             {
-                "name": "Rasters",
+                "name": "dg_foundation_geoint",
+                "url": "static/data/dg_foundation_geoint/sanaa-dg_foundation_geoint-20180226.gpkg",
                 "layers": [
                     {
                         "name": "dg_foundation_geoint",
-                        "filepath": "",
-                        "style": {},
-                        "icon": {
-                            "iconUrl": "app/data/icons/imagery.png"
+                        "style": {
+
                         },
-                        "show": true,
+                        "icon": "static/icons/imagery.png",
+                        "show": false,
                         "addToTable": true
                     }
                 ]

@@ -19,8 +19,8 @@ export class LayerCard extends Component {
         this.toggleExpanded = this.toggleExpanded.bind(this);
         this.handleUncheckAll = this.handleUncheckAll.bind(this);
         this.handleCheckAll = this.handleCheckAll.bind(this);
-        this.handleCheckedClick = this.handleCheckedClick.bind(this);
-        this.handleUncheckedClick = this.handleUncheckedClick.bind(this);
+        this.handleUncheck = this.handleUncheck.bind(this);
+        this.handleCheck = this.handleCheck.bind(this);
 
         this.state = {
             expanded: true,
@@ -51,13 +51,13 @@ export class LayerCard extends Component {
         console.log(newSelection)
         newSelection.forEach((selection) => {
             console.log(selection)
-            this.props.onAddLayer(selection);
+            this.props.onAddLayer(selection, this.props.source.url);
         });
 
     }
 
-    handleCheckedClick(layer) {
-        console.log("CheckedClicked " + layer.name)
+    handleUncheck(layer) {
+        console.log("Unchecked " + layer.name)
         const newSelection = [...this.state.selection];
         newSelection.splice(newSelection.indexOf(layer), 1);
         this.setState({selection : newSelection});
@@ -65,13 +65,13 @@ export class LayerCard extends Component {
 
     }
 
-    handleUncheckedClick(layer) {
-        console.log("UnCheckedClicked " + layer.name)
+    handleCheck(layer) {
+        console.log("Checked " + layer.name)
         const newSelection = [...this.state.selection];
         newSelection.push(layer);
         this.setState({selection: newSelection});
         console.log(layer)
-        this.props.onAddLayer(layer);
+        this.props.onAddLayer(layer, this.props.source.url);
     }
 
 
@@ -189,7 +189,6 @@ export class LayerCard extends Component {
             }
         }
 
-
         return (
             <div style={{paddingTop:'10px'}}>
 
@@ -247,6 +246,8 @@ export class LayerCard extends Component {
                             <CardText expandable style={styles.cardText}>
                                 {this.props.source.layers.map((layer) => {
 
+                                    const iconSrc = layer.icon || layer.style.symbol || null;
+
                                     return (
                                         <div key={layer.id} style={{ padding: '0px 34px 0px 0px', width: '100%' }}>
                                             <div style={{display:'inline-block',}}>
@@ -254,19 +255,19 @@ export class LayerCard extends Component {
                                                 { this.state.selection.includes(layer) ?
                                                     <CheckBox
                                                         style={styles.checkIcon}
-                                                        onClick={() => { this.handleCheckedClick(layer); }}
+                                                        onClick={() => { this.handleUncheck(layer); }}
                                                     />
                                                     :
                                                     <CheckBoxOutline
                                                         style={styles.checkIcon}
-                                                        onClick={() => { this.handleUncheckedClick(layer); }}
+                                                        onClick={() => { this.handleCheck(layer); }}
                                                     />
                                                 }
                                             </span>
                                             </div>
                                             <div style={{ display: 'inline-block', paddingLeft: '10px', verticalAlign: 'super' }}>
-                                                {layer.style.symbol ?
-                                                    <div><img style={styles.layerIcon} src={layer.style.symbol}/> </div>
+                                                {iconSrc ?
+                                                    <div><img style={styles.layerIcon} src={iconSrc}/> </div>
                                                     :
                                                     <div><img style={styles.layerIcon} /></div>
                                                 }

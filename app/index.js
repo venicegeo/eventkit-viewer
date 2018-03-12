@@ -46,9 +46,8 @@ const muiTheme = getMuiTheme({
     render(
             <Provider store={store}>
                 <MuiThemeProvider muiTheme={muiTheme}>
-                    <MainMap store={store}>
-
-                    </MainMap>
-
+                    <MainMap store={store}></MainMap>
+                    <canvas id="OSM Tiles"></canvas>
+                    <canvas id="dg_foundation_geoint"></canvas>
                 </MuiThemeProvider>
             </Provider>, document.getElementById('root'));

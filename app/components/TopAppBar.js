@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux'
-import logo from '../images/eventKit_LogoNew.png'
+import {connect} from 'react-redux';
+import logo from '../../static/images/eventKit_LogoNew.png';
 import AppBar from 'material-ui/AppBar';
 import Layers from 'material-ui/svg-icons/maps/layers';
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';

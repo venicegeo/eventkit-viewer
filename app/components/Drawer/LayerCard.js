@@ -51,7 +51,7 @@ export class LayerCard extends Component {
         console.log(newSelection)
         newSelection.forEach((selection) => {
             console.log(selection)
-            this.props.onAddLayer(selection, this.props.source.url);
+            this.props.onAddLayer(selection, this.props.source);
         });
 
     }
@@ -71,7 +71,7 @@ export class LayerCard extends Component {
         newSelection.push(layer);
         this.setState({selection: newSelection});
         console.log(layer)
-        this.props.onAddLayer(layer, this.props.source.url);
+        this.props.onAddLayer(layer, this.props.source);
     }
 
 

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import * as mapActions from '@boundlessgeo/sdk/actions/map';
-import logo from './../images/eventkit-logo.1.png';
+import logo from '../../static/images/eventkit-logo.1.png';
 import SdkMap from '@boundlessgeo/sdk/components/map';
 import TopAppBar from './../components/TopAppBar';
 import SdkZoomControl from '@boundlessgeo/sdk/components/map/zoom-control';
@@ -71,18 +71,18 @@ export class Map extends Component {
 
 
         return (
-        <div id="map" style={styles.content} >
-            <SdkMap map={map} className={mapCss.sdkMap} >
+            <div id="map" style={styles.content} >
+                <SdkMap map={map} className={mapCss.sdkMap} >
 
-                <TopAppBar/>
-                <DrawerComponent store={this.props.store}/>
-                <SdkZoomControl/>
-                <SearchBar store={this.props.store}/>
-                <SelectFeature store={this.props.store}/>
+                    <TopAppBar/>
+                    <DrawerComponent store={this.props.store}/>
+                    <SdkZoomControl/>
+                    <SearchBar store={this.props.store}/>
+                    <SelectFeature store={this.props.store}/>
 
-                <TableComponent store={this.props.store}/>
-            </SdkMap>
-</div>
+                    <TableComponent store={this.props.store}/>
+                </SdkMap>
+            </div>
         )
     }
 }

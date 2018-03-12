@@ -1,5 +1,7 @@
 export const Config = {
     "BASEMAP_URL": "/",
+    "DEFAULT_ZOOM": 14,
+    "DEFAULT_CENTER": [44.20196328365, 15.3458230565],
     "SOURCE_DATA": {
         "datapackName": "sanaa-20180226",
         "sources": [
@@ -27,7 +29,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "bar",
@@ -48,7 +50,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "bench",
@@ -69,7 +71,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "bus_station",
@@ -90,7 +92,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "cafe",
@@ -111,7 +113,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "car_fix",
@@ -132,7 +134,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "car_rental",
@@ -153,7 +155,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "casino",
@@ -174,7 +176,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "cinema",
@@ -195,7 +197,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "college",
@@ -216,7 +218,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "community_centre",
@@ -237,7 +239,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "courthouse",
@@ -258,7 +260,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "dentist",
@@ -279,7 +281,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "doctors",
@@ -300,7 +302,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "drinking_water",
@@ -321,7 +323,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "fast_food",
@@ -342,7 +344,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "fuel",
@@ -363,7 +365,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "kindergarten",
@@ -384,7 +386,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "library",
@@ -405,7 +407,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "pharmacy",
@@ -426,7 +428,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "post_office",
@@ -447,7 +449,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "pub",
@@ -468,7 +470,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "recycling",
@@ -489,7 +491,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "restaurant",
@@ -510,7 +512,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "social_facility",
@@ -531,7 +533,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "telephone",
@@ -552,7 +554,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "fire_station",
@@ -573,7 +575,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "townhall",
@@ -594,7 +596,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "bank",
@@ -615,7 +617,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "embassy",
@@ -636,7 +638,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "school",
@@ -657,7 +659,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "border_control",
@@ -678,7 +680,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "bus_stop",
@@ -699,7 +701,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "government",
@@ -720,7 +722,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "hospital",
@@ -741,7 +743,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "police",
@@ -762,7 +764,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "taxi",
@@ -783,7 +785,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "university",
@@ -804,7 +806,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "theatre",
@@ -825,7 +827,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "toilets",
@@ -846,7 +848,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "arts_centre",
@@ -867,7 +869,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "ngo",
@@ -888,7 +890,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "grave_yard",
@@ -909,7 +911,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "shower",
@@ -930,7 +932,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "studio",
@@ -951,7 +953,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "money_transfer",
@@ -972,7 +974,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "bureau_de_change",
@@ -993,7 +995,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "beverages",
@@ -1014,7 +1016,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "hairdresser",
@@ -1035,7 +1037,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "supermarket",
@@ -1056,7 +1058,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "bakery",
@@ -1077,7 +1079,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "mobile_phone",
@@ -1098,7 +1100,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "tailor",
@@ -1119,7 +1121,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "car_parts",
@@ -1140,7 +1142,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "computer",
@@ -1161,7 +1163,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "clothes",
@@ -1182,7 +1184,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "car_repair",
@@ -1203,7 +1205,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "funeral_directors",
@@ -1224,7 +1226,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "dry_cleaning",
@@ -1245,7 +1247,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "butcher",
@@ -1266,7 +1268,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "seafood",
@@ -1287,7 +1289,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "hardware",
@@ -1308,7 +1310,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "bicycle",
@@ -1329,7 +1331,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "motorcycle",
@@ -1350,7 +1352,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "tyres",
@@ -1371,7 +1373,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "photo",
@@ -1392,7 +1394,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "information",
@@ -1413,7 +1415,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "camp_site",
@@ -1434,7 +1436,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "viewpoint",
@@ -1455,7 +1457,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "hostel",
@@ -1476,7 +1478,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "hotel",
@@ -1497,7 +1499,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "museum",
@@ -1518,7 +1520,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "beach_resort",
@@ -1539,7 +1541,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "playground",
@@ -1560,7 +1562,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "motel",
@@ -1581,7 +1583,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "craft",
@@ -1602,7 +1604,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "water_well",
@@ -1623,7 +1625,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "water_tower",
@@ -1644,7 +1646,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "tower",
@@ -1665,7 +1667,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "storage_tank",
@@ -1686,7 +1688,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "gambling",
@@ -1707,7 +1709,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "waste_basket",
@@ -1728,7 +1730,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "street_lamp",
@@ -1749,7 +1751,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "fire_hydrant",
@@ -1770,7 +1772,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "waste_disposal",
@@ -1791,7 +1793,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     */
                     {
@@ -1813,7 +1815,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "jewish",
@@ -1834,7 +1836,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "muslim",
@@ -1855,7 +1857,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "other religion",
@@ -1880,7 +1882,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "embassy",
@@ -1901,7 +1903,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "school",
@@ -1922,7 +1924,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     /*
                     {
@@ -1944,7 +1946,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     */
                     {
@@ -1966,7 +1968,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "government",
@@ -1987,7 +1989,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "hospital",
@@ -2008,7 +2010,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "police",
@@ -2029,7 +2031,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     /*
                     {
@@ -2051,7 +2053,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     */
                     {
@@ -2073,7 +2075,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "fire_station",
@@ -2094,7 +2096,7 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     },
                     {
                         "name": "townhall",
@@ -2115,33 +2117,46 @@ export const Config = {
                         "show": false,
                         "addToTable": true,
                         "features": null,
-                        "geomType": "POINT"
+                        "type": "POINT"
                     }
                 ]
             },
             // {
             //     "name": "OSM Tiles",
+            //     "url": "static/data/osm_tiles/sanaa-osm_tiles-20180226.gpkg",
             //     "layers": [
             //         {
+            //             "name": "OSM Tiles",
+            //             "id": "osm-tiles",
+            //             "table": "imagery",
+            //             "style": {
 
+            //             },
+            //             "icon": "static/icons/osm.png",
+            //             "show": false,
+            //             "addToTable": true,
+            //             "type": "RASTER"
             //         }
             //     ]
             // },
-            {
-                "name": "dg_foundation_geoint",
-                "url": "static/data/dg_foundation_geoint/sanaa-dg_foundation_geoint-20180226.gpkg",
-                "layers": [
-                    {
-                        "name": "dg_foundation_geoint",
-                        "style": {
+            // {
+            //     "name": "dg_foundation_geoint",
+            //     "url": "static/data/dg_foundation_geoint/sanaa-dg_foundation_geoint-20180226.gpkg",
+            //     "layers": [
+            //         {
+            //             "name": "dg_foundation_geoint",
+            //             "id": "dg_foundation_geoint",
+            //             "table": "imagery",
+            //             "style": {
 
-                        },
-                        "icon": "static/icons/imagery.png",
-                        "show": false,
-                        "addToTable": true
-                    }
-                ]
-            }
+            //             },
+            //             "icon": "static/icons/imagery.png",
+            //             "show": false,
+            //             "addToTable": true,
+            //             "type": "RASTER"
+            //         }
+            //     ]
+            // }
         ]
     }
 };

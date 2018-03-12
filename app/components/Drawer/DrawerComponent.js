@@ -13,6 +13,10 @@ import { Card, CardHeader, CardText } from 'material-ui/Card';
 import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 import FileFileUpload from 'material-ui/svg-icons/file/file-upload';
 import Geopackage from '@ngageoint/geopackage'
+import * as mapActions from '@boundlessgeo/sdk/actions/map';
+import * as drawingActions from '@boundlessgeo/sdk/actions/drawing';
+import XYZ from 'ol/source/xyz';
+import Tile from 'ol/layer/tile';
 
 import SearchLayers from './SearchLayers';
 import DataPackCard from "./DataPackCard";
@@ -20,8 +24,7 @@ import DropZone from './DropZone';
 import fetch from 'isomorphic-fetch';
 import CustomScrollbar from '../CustomScrollbar';
 
-import * as mapActions from '@boundlessgeo/sdk/actions/map';
-import * as drawingActions from '@boundlessgeo/sdk/actions/drawing';
+
 import { Config } from '../../../app/config.js'
 
 import {INTERACTIONS} from '@boundlessgeo/sdk/constants';
@@ -52,6 +55,28 @@ export class DrawerComponent extends Component {
         this.handleSheetOpen = this.handleSheetOpen.bind(this);
         this.toggleImportModal = this.toggleImportModal.bind(this);
 
+
+        // Preload gpkgs
+        var sources = {};
+        sourceConfig.sources.map(source => {
+            sources[source.name] = fetch(source.url).then(response => {
+                return response.blob();
+            }).then(blob => new Promise((resolve, reject) => {
+                let reader = new FileReader();
+                reader.onload = resolve;
+                reader.readAsArrayBuffer(blob);
+            })).then(e => {
+                var arrayBuffer = e.currentTarget.result;
+                var array = new Uint8Array(arrayBuffer);
+                return new Promise((resolve, reject) => {
+                    Geopackage.openGeoPackageByteArray(array, function(err, gpkg) {
+                        if (err) return reject(err);
+                        resolve(gpkg);
+                    });
+                });
+            });
+        });
+
         this.state = {
             dialogOpen: false,
             isOpen: false,
@@ -59,14 +84,12 @@ export class DrawerComponent extends Component {
             selectedSource: '',
             editRow: -1,
             editRecord: {},
-            layers: [],
+            sources: sources,
             selectValue: 1,
             expanded: false,
             layerSort: 1,
             showImportModal: false,
-            datapackName: sourceConfig.datapackName,
-            datapackUrl: sourceConfig.datapackUrl,
-        }
+        };
     }
 
     checkRules(rules, props) {
@@ -95,101 +118,109 @@ export class DrawerComponent extends Component {
         return ret;
     }
 
-    loadLayer(layer, url) {
+    loadLayer(layer, source) {
         var self = this;
 
-        if (layer.features !== null) {
+        if (layer.features || layer.retriever) {
             // Layer was already loaded; use existing data
-            return new Promise((resolve, reject) => resolve(layer.features));
+            return new Promise(resolve => resolve(layer));
         }
 
-        var gpkgPromise = fetch(url).then(response => {
-            return response.blob();
-        }).then((blob) => new Promise((resolve, reject) => {
-            var reader = new FileReader();
-            reader.onload = resolve;
-            reader.readAsArrayBuffer(blob);
-        })).then((e) => {
-            var arrayBuffer = e.currentTarget.result;
-            var array = new Uint8Array(arrayBuffer);
-            return new Promise((resolve, reject) => {
-                Geopackage.openGeoPackageByteArray(array, function(err, gpkg) {
-                    if (err) return reject(err);
-                    resolve(gpkg);
-                });
-            });
-        });
-        var namesPromise = gpkgPromise.then((gpkg) => {
-            return new Promise((resolve, reject) => {
-                gpkg.getFeatureTables(function(err, featureTableNames) {
-                    if (err) return reject(err);
-                    resolve(featureTableNames);
-                });
-            });
-        });
-        return Promise.all([gpkgPromise, namesPromise]).then(([gpkg, featureTableNames]) => {
+        // var namesPromise = gpkgPromise.then((gpkg) => {
+        //     return new Promise((resolve, reject) => {
+        //         gpkg.getFeatureTables(function(err, featureTableNames) {
+        //             if (err) return reject(err);
+        //             resolve(featureTableNames);
+        //         });
+        //     });
+        // });
 
-            const name = layer.table;
+        const gpkgPromise = this.state.sources[source.name];
+        const name = layer.table;
 
-            if (!featureTableNames.includes(name))
-                throw "Table not found in gpkg: '"+name+"'";
+        var daoPromise = gpkgPromise.then(gpkg => new Promise((resolve, reject) => {
+            var getDao = layer.type === 'RASTER'
+                ? gpkg.getTileDaoWithTableName.bind(gpkg)
+                : gpkg.getFeatureDaoWithTableName.bind(gpkg);
 
-            var featureDaoPromise = new Promise((resolve, reject) => {
-                gpkg.getFeatureDaoWithTableName(name, function(err, featureDao) {
-                    if (err) return reject(err);
-                    resolve(featureDao);
-                });
+            getDao(name, function(err, dao) {
+                if (err) return reject(err);
+                resolve(dao);
             });
-            var tableInfoPromise = featureDaoPromise.then((featureDao) => new Promise((resolve, reject) => {
-                gpkg.getInfoForTable(featureDao, (err, info) => {
+        }));
+        var tableInfoPromise = Promise.all([gpkgPromise, daoPromise]).then(
+            ([gpkg, dao]) => new Promise((resolve, reject) => {
+                gpkg.getInfoForTable(dao, (err, info) => {
                     if (err) return reject(err);
                     resolve(info);
                 });
-            }));
-            return Promise.all([featureDaoPromise, tableInfoPromise]);
-
-        }).then(([featureDao, tableInfo]) => {
+            })
+        );
+        return Promise.all([daoPromise, tableInfoPromise]).then(([dao, tableInfo]) => {
             return new Promise((resolve, reject) => {
-                var features = [];
-                featureDao.queryForEach(function(err, row, rowDone) {
-                    var feature = featureDao.getFeatureRow(row);
-                    var geometry = feature.getGeometry();
-                    if (geometry == null) return;
+                switch(layer.type) {
+                    case 'RASTER': {
+                        const tms = dao.tileMatrixSet;
+                        const tm = dao.getTileMatrixWithZoomLevel(Config.DEFAULT_ZOOM);
+                        // const tileGrid = ol.tilegrid.createXYZ({
+                        //     minZoom: dao.minZoom,
+                        //     maxZoom: dao.maxZoom,
+                        //     extent: [tms.min_x, tms.min_y, tms.max_x, tms.max_y],
+                        //     tileSize: [tm.tile_width, tm.tile_height],
+                        // });
+                        const retriever = new Geopackage.GeoPackageTileRetriever(dao, tm.tile_width, tm.tile_height);
+                        resolve({ id: layer.id, retriever: retriever });
+                        break;
+                    }
+                    default: {
+                        var features = [];
+                        dao.queryForEach(function(err, row, rowDone) {
+                            var feature = dao.getFeatureRow(row);
+                            var geometry = feature.getGeometry();
+                            if (geometry == null) return;
 
-                    var geojson = geometry.geometry.toGeoJSON();
-                    geojson.properties = {};
-                    for (var key in feature.values) {
-                        if (feature.values.hasOwnProperty(key) && key != feature.getGeometryColumn().name) {
-                            var column = tableInfo.columnMap[key];
-                            geojson.properties[column.displayName] = feature.values[key];
-                        }
+                            var geojson = geometry.geometry.toGeoJSON();
+                            geojson.properties = {};
+                            for (var key in feature.values) {
+                                if (feature.values.hasOwnProperty(key) && key != feature.getGeometryColumn().name) {
+                                    var column = tableInfo.columnMap[key];
+                                    geojson.properties[column.displayName] = feature.values[key];
+                                }
+                            }
+                            if (self.checkRules(layer.rules, geojson.properties)) {
+                                features.push(geojson);
+                            }
+                            rowDone();
+                        }, function() { // table finished
+                            // var geomType = tableInfo.geometryColumns ?
+                            //     tableInfo.geometryColumns.geometryTypeName :
+                            //     "POINT";
+                            var newLayer = { id: layer.id, features: features };
+                            resolve(newLayer);
+                        });
                     }
-                    if (self.checkRules(layer.rules, geojson.properties)) {
-                        features.push(geojson);
-                    }
-                    rowDone();
-                }, function() { // table finished
-                    var geomType = tableInfo.geometryColumns ?
-                        tableInfo.geometryColumns.geometryTypeName :
-                        "POINT";
-                    var newLayer = { id: layer.id, features: features };
-                    resolve(newLayer);
-                });
+                }
             });
         });
         return promise;
     }
 
-    createAddLayer(layer, url) {
-        let {id, style, geomType, features} = layer;
+    createAddLayer(layer, source) {
+        let {id, style, type, features} = layer;
         style = style || {};
-        this.props.addSource(id, {
-            type: 'geojson',
 
-        });
-        switch(geomType) {
+        const addFeatures = () => {
+            this.loadLayer(layer, source).then((loadedLayer) => {
+                this.props.addFeatures(loadedLayer.id, loadedLayer.features);
+            }, (err) => {
+                console.log("Error loading layer "+layer.id+": "+err);
+            });
+        };
+
+        switch(type) {
             case 'LINESTRING':
             case 'MULTILINESTRING':
+                this.props.addSource(id, { type: 'geojson' });
                 this.props.addLayer({
                     id: id,
                     type: 'line',
@@ -203,9 +234,11 @@ export class DrawerComponent extends Component {
                         'line-width': style.width || 2,
                     },
                 });
+                addFeatures();
                 break;
             case 'POLYGON':
             case 'MULTIPOLYGON':
+                this.props.addSource(id, { type: 'geojson' });
                 this.props.addLayer({
                     id: id,
                     type: 'fill',
@@ -216,10 +249,12 @@ export class DrawerComponent extends Component {
                         'fill-opacity': style.opacity || 0.8,
                     },
                 });
+                addFeatures();
                 break;
             case 'POINT':
             case 'MULTIPOINT':
             default:
+                this.props.addSource(id, { type: 'geojson' });
                 this.props.addLayer({
                     id: id,
                     type: 'symbol',
@@ -234,12 +269,43 @@ export class DrawerComponent extends Component {
                         }
                     },
                 });
+                addFeatures();
+                break;
+            case 'RASTER':
+                this.loadLayer(layer, source).then(loadedLayer => {
+                    // this.props.addSource(id, new XYZ({
+                    //     tileUrlFunction: tileCoord => tileCoord.toString(),
+                    //     tileLoadFunction: (tile, url) => {
+                    //         var tileCoord = url.split(',');
+                    //         var tileX = parseInt(tileCoord[1]);
+                    //         var tileY = -tileCoord[2] - 1;
+                    //         loadedLayer.retriever.getTile(tileX, tileY, zoom, (err, dataUrl) => {
+                    //             tile.getImage().src = dataUrl;
+                    //         });
+                    //     },
+                    // }));
+                    // var tileLayer = new Tile({
+                    //     id: id,
+                    //     type: 'raster',
+                    //     source:
+                    // });
+                    let canvas = document.getElementById(layer.name);
+                    if (canvas === null) {
+                        canvas = document.createElement('canvas');
+                        canvas.setAttribute('id', layer.name);
+                    }
+                    this.props.addSource({
+                        id: id,
+                        canvas: layer.name,
+                        coordinates: [],
+                    });
+                    this.props.addLayer({
+                        id: id,
+                        type: 'raster',
+                        source: id,
+                    });
+                });
         }
-        this.loadLayer(layer, url).then((loadedLayer) => {
-            this.props.addFeatures(loadedLayer.id, loadedLayer.features);
-        }, (err) => {
-            console.log("Error loading layer "+layer.id+": "+err);
-        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -255,7 +321,7 @@ export class DrawerComponent extends Component {
     };
 
     componentDidMount() {
-        this.props.setView([44.20196328365, 15.3458230565], 14);
+        this.props.setView(Config.DEFAULT_CENTER, Config.DEFAULT_ZOOM);
     };
 
     componentWillUnmount() {

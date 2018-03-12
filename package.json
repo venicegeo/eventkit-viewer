@@ -3,6 +3,20 @@
   "version": "0.0.1",
   "description": "Eventkit-viewer is a geospatial data viewer intended to support viewer datasets exported from Eventkit-Cloud.",
   "main": "webpack.config.js",
+  "dependencies": {
+    "@boundlessgeo/sdk": "2.2.0",
+    "@mapbox/mapbox-gl-style-spec": "^9.0.0",
+    "@ngageoint/geopackage": "^1.0.24",
+    "isomorphic-fetch": "^2.2.1",
+    "jest-cli": "^21.2.1",
+    "ol": "^4.4.2",
+    "ol-mapbox-style": "^2.6.1",
+    "prop-types": "^15.5.10",
+    "react-dnd": "^2.5.4",
+    "react-dnd-html5-backend": "^2.5.4",
+    "react-docgen": "^2.19.0",
+    "uuid": "^3.1.0"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.24.1",
@@ -40,7 +54,6 @@
     "mixin": "^0.2.0",
     "nock": "^9.0.13",
     "node-sass": "^4.5.3",
-    "ol": "^4.4.2",
     "react": "^16.0.0",
     "react-custom-scrollbars": "~4.1.1",
     "react-dom": "^16.0.0",
@@ -63,19 +76,6 @@
     "webworkify": "^1.4.0",
     "write-file-webpack-plugin": "~4.0.2",
     "xmldom": "^0.1.27"
-  },
-  "dependencies": {
-    "@boundlessgeo/sdk": "2.2.0",
-    "@mapbox/mapbox-gl-style-spec": "^9.0.0",
-    "@ngageoint/geopackage": "^1.0.24",
-    "isomorphic-fetch": "^2.2.1",
-    "jest-cli": "^21.2.1",
-    "ol-mapbox-style": "^2.6.1",
-    "prop-types": "^15.5.10",
-    "react-dnd": "^2.5.4",
-    "react-dnd-html5-backend": "^2.5.4",
-    "react-docgen": "^2.19.0",
-    "uuid": "^3.1.0"
   },
   "peerDependencies": {
     "ol": "^4.3.1",
